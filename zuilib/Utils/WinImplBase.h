@@ -3,7 +3,6 @@
 
 namespace DuiLib
 {
-
 	enum UILIB_RESOURCETYPE
 	{
 		UILIB_FILE=1,				// 来自磁盘文件

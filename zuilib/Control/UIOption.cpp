@@ -206,24 +206,25 @@ namespace DuiLib
 
 	void COptionUI::PaintStatusImage(HDC hDC)
 	{
-		if( (m_uButtonState & UISTATE_SELECTED) != 0 ) {
-			if ((m_uButtonState & UISTATE_HOT) != 0)
-			{
-				if (DrawImage(hDC, m_diSelectedHot)) goto Label_ForeImage;
+		{
+			if ((m_uButtonState & UISTATE_SELECTED) != 0) {
+				if ((m_uButtonState & UISTATE_HOT) != 0)
+				{
+					if (DrawImage(hDC, m_diSelectedHot)) goto Label_ForeImage;
+				}
+
+				if (DrawImage(hDC, m_diSelected)) goto Label_ForeImage;
+				else if (m_dwSelectedBkColor != 0) {
+					CRenderEngine::DrawColor(hDC, m_rcPaint, GetAdjustColor(m_dwSelectedBkColor));
+					goto Label_ForeImage;
+				}
 			}
 
-			if( DrawImage(hDC, m_diSelected) ) goto Label_ForeImage;
-			else if(m_dwSelectedBkColor != 0) {
-				CRenderEngine::DrawColor(hDC, m_rcPaint, GetAdjustColor(m_dwSelectedBkColor));
-				goto Label_ForeImage;
-			}	
+			UINT uSavedState = m_uButtonState;
+			m_uButtonState &= ~UISTATE_PUSHED;
+			CButtonUI::PaintStatusImage(hDC);
+			m_uButtonState = uSavedState;
 		}
-
-		UINT uSavedState = m_uButtonState;
-		m_uButtonState &= ~UISTATE_PUSHED;
-		CButtonUI::PaintStatusImage(hDC);
-		m_uButtonState = uSavedState;
-
 Label_ForeImage:
 		DrawImage(hDC, m_diFore);
 	}

@@ -5,7 +5,7 @@ namespace DuiLib {
 class CComboBodyUI : public CVerticalLayoutUI
 {
 public:
-    CComboBodyUI::CComboBodyUI(CComboUI* pOwner);
+    CComboBodyUI(CComboUI* pOwner);
     bool DoPaint(HDC hDC, const RECT& rcPaint, CControlUI* pStopControl);
 
 protected:
@@ -13,12 +13,14 @@ protected:
 };
 
 
-CComboBodyUI::CComboBodyUI(CComboUI* pOwner) : m_pOwner(pOwner)
+CComboBodyUI::CComboBodyUI(CComboUI* pOwner) 
+	: m_pOwner(pOwner)
 {
     ASSERT(m_pOwner);
 }
 
-bool CComboBodyUI::DoPaint(HDC hDC, const RECT& rcPaint, CControlUI* pStopControl) {
+bool CComboBodyUI::DoPaint(HDC hDC, const RECT& rcPaint, CControlUI* pStopControl) 
+{
     RECT rcTemp = { 0 };
     if( !::IntersectRect(&rcTemp, &rcPaint, &m_rcItem) ) 
 		return true;
