@@ -3,9 +3,8 @@
 
 #pragma once
 
-namespace DuiLib
-{
-	class DUILIB_API STRINGorID
+namespace Zuilib {
+	class ZUILIB_API STRINGorID
 	{
 	public:
 		STRINGorID(LPCTSTR lpString);
@@ -15,7 +14,7 @@ namespace DuiLib
 	};
 
     class CDuiString;
-	class DUILIB_API CDuiPoint : public tagPOINT
+	class ZUILIB_API CDuiPoint : public tagPOINT
 	{
 	public:
 		CDuiPoint();
@@ -26,7 +25,7 @@ namespace DuiLib
         CDuiString ToString();
 	};
 
-	class DUILIB_API CDuiSize : public tagSIZE
+	class ZUILIB_API CDuiSize : public tagSIZE
 	{
 	public:
 		CDuiSize();
@@ -37,7 +36,7 @@ namespace DuiLib
         CDuiString ToString();
 	};
 
-	class DUILIB_API CDuiRect : public tagRECT
+	class ZUILIB_API CDuiRect : public tagRECT
 	{
 	public:
 		CDuiRect();
@@ -59,7 +58,7 @@ namespace DuiLib
 		void Union(CDuiRect& rc);
 	};
 
-    class DUILIB_API CDuiString
+    class ZUILIB_API CDuiString
     {
     public:
         enum { MAX_LOCAL_STRING_LEN = 63 };
@@ -86,6 +85,7 @@ namespace DuiLib
         const CDuiString& operator=(const CDuiString& src);
         const CDuiString& operator=(const TCHAR ch);
         const CDuiString& operator=(LPCTSTR pstr);
+
 #ifdef _UNICODE
         const CDuiString& operator=(LPCSTR lpStr);
         const CDuiString& operator+=(LPCSTR lpStr);
@@ -129,7 +129,7 @@ namespace DuiLib
         TCHAR m_szBuffer[MAX_LOCAL_STRING_LEN + 1];
     };
 
-	class DUILIB_API CDuiPtrArray
+	class ZUILIB_API CDuiPtrArray
 	{
 	public:
 		CDuiPtrArray(int iPreallocSize = 0);
@@ -156,7 +156,7 @@ namespace DuiLib
 		int m_nAllocated;
 	};
 
-	class DUILIB_API CDuiValArray
+	class ZUILIB_API CDuiValArray
 	{
 	public:
 		CDuiValArray(int iElementSize, int iPreallocSize = 0);
@@ -180,7 +180,7 @@ namespace DuiLib
 	};
 
     struct TITEM;
-	class DUILIB_API CDuiStringPtrMap
+	class ZUILIB_API CDuiStringPtrMap
 	{
 	public:
 		CDuiStringPtrMap(int nSize = 83);
@@ -202,7 +202,7 @@ namespace DuiLib
 		int m_nCount;
 	};
 
-	class DUILIB_API CWaitCursor
+	class ZUILIB_API CWaitCursor
 	{
 	public:
 		CWaitCursor();
@@ -250,6 +250,6 @@ namespace DuiLib
 		}
 	};
 
-}// namespace DuiLib
+}// namespace Zuilib
 
 #endif // __UTILS_H__

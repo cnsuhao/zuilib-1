@@ -28,7 +28,7 @@
 
 #pragma once
 
-class DUILIB_API CWndShadow
+class ZUILIB_API CWndShadow
 {
 public:
 	CWndShadow(void);
@@ -41,7 +41,7 @@ protected:
 	static HINSTANCE s_hInstance;
 
 	// Parent HWND and CWndShadow object pares, in order to find CWndShadow in ParentProc()
-	static DuiLib::CDuiValArray s_ShadowArray;
+	static Zuilib::CDuiValArray s_ShadowArray;
 
 	// 
 	typedef BOOL (WINAPI *pfnUpdateLayeredWindow)(HWND hWnd, HDC hdcDst, POINT *pptDst,
@@ -78,7 +78,7 @@ protected:
 
 	COLORREF m_Color;	// Color of shadow
 
-	DuiLib::TImageInfo* m_pImageInfo;
+	Zuilib::TImageInfo* m_pImageInfo;
 	RECT m_rcCorner;
 	RECT m_rcHoleOffset;
 

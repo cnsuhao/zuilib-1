@@ -3,9 +3,9 @@
 
 #pragma once
 
-namespace DuiLib
+namespace Zuilib
 {
-	class DUILIB_API CScrollBarUI : public CControlUI
+	class ZUILIB_API CScrollBarUI : public CControlUI
 	{
 	public:
 		CScrollBarUI();

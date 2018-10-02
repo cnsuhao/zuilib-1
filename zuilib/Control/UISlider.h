@@ -3,9 +3,9 @@
 
 #pragma once
 
-namespace DuiLib
+namespace Zuilib
 {
-	class DUILIB_API CSliderUI : public CProgressUI
+	class ZUILIB_API CSliderUI : public CProgressUI
 	{
 	public:
 		CSliderUI();

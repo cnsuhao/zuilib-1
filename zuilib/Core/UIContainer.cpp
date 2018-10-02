@@ -1,6 +1,6 @@
 #include "StdAfx.h"
 
-namespace DuiLib
+namespace Zuilib
 {
 	CContainerUI::CContainerUI()
 		: m_iChildPadding(0),
@@ -1148,4 +1148,4 @@ namespace DuiLib
 		return pSubControl;
 	}
 
-} // namespace DuiLib
+} // namespace Zuilib

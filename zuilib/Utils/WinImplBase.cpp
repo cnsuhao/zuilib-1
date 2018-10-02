@@ -1,6 +1,6 @@
 #include "stdafx.h"
 
-namespace DuiLib
+namespace Zuilib
 {
 
 LPBYTE WindowImplBase::m_lpResourceZIPBuffer=NULL;

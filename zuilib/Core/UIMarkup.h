@@ -3,7 +3,7 @@
 
 #pragma once
 
-namespace DuiLib {
+namespace Zuilib {
 
 enum
 {
@@ -16,7 +16,7 @@ class CMarkup;
 class CMarkupNode;
 
 
-class DUILIB_API CMarkup
+class ZUILIB_API CMarkup
 {
     friend class CMarkupNode;
 public:
@@ -69,7 +69,7 @@ private:
 };
 
 
-class DUILIB_API CMarkupNode
+class ZUILIB_API CMarkupNode
 {
     friend class CMarkup;
 private:
@@ -116,6 +116,6 @@ private:
     CMarkup* m_pOwner; //该节点所属拥有者(指CMarkup对象)
 };
 
-} // namespace DuiLib
+} // namespace ZuiLib
 
 #endif // __UIMARKUP_H__

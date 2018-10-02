@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "UIButton.h"
 
-namespace DuiLib
+namespace Zuilib
 {
 	CButtonUI::CButtonUI()
 		: m_uButtonState(0)

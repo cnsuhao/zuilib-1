@@ -1,6 +1,6 @@
 ﻿#include "StdAfx.h"
 
-namespace DuiLib {
+namespace Zuilib {
 
 CControlUI::CControlUI() : 
 	m_pManager(nullptr), 
@@ -1206,4 +1206,4 @@ void CControlUI::SetBorderStyle( int nStyle )
 	Invalidate();
 }
 
-} // namespace DuiLib
+} // namespace Zuilib

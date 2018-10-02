@@ -1,6 +1,6 @@
 #include "StdAfx.h"
 
-namespace DuiLib {
+namespace Zuilib {
 
 CDialogBuilder::CDialogBuilder() : m_pCallback(NULL), m_pstrtype(NULL)
 {
@@ -433,4 +433,4 @@ CControlUI* CDialogBuilder::_Parse(CMarkupNode* pRoot, CControlUI* pParent, CPai
     return pReturn;
 }
 
-} // namespace DuiLib
+} // namespace ZuiLib

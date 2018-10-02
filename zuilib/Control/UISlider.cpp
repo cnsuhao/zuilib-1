@@ -1,7 +1,7 @@
 #include "StdAfx.h"
 #include "UISlider.h"
 
-namespace DuiLib
+namespace Zuilib
 {
 	CSliderUI::CSliderUI() : m_uButtonState(0), m_nStep(1), m_bImmMode(false)
 	{

@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "Utils.h"
 
-namespace DuiLib
+namespace Zuilib
 {
     STRINGorID::STRINGorID(LPCTSTR lpString) : m_lpstr(lpString)
     {
@@ -972,4 +972,4 @@ namespace DuiLib
 		::SetCursor(m_hOrigCursor);
 	}
 
-} // namespace DuiLib
+} // namespace Zuilib

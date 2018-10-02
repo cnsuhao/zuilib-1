@@ -3,9 +3,9 @@
 
 #pragma once
 
-namespace DuiLib {
+namespace Zuilib {
 
-class DUILIB_API CDelegateBase	 
+class ZUILIB_API CDelegateBase	 
 {
 public:
     CDelegateBase(void* pObject, void* pFn);
@@ -77,7 +77,7 @@ inline CDelegateStatic MakeDelegate(bool (*pFn)(void*))
     return CDelegateStatic(pFn); 
 }
 
-class DUILIB_API CEventSource
+class ZUILIB_API CEventSource
 {
     typedef bool (*FnType)(void*);
 public:
@@ -93,6 +93,6 @@ protected:
     CDuiPtrArray m_aDelegates;
 };
 
-} // namespace DuiLib
+} // namespace Zuilib
 
 #endif // __UIDELEGATE_H__

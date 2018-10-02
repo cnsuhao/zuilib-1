@@ -3,9 +3,9 @@
 
 #pragma once
 
-namespace DuiLib
+namespace Zuilib
 {
-	class DUILIB_API CHorizontalLayoutUI : public CContainerUI
+	class ZUILIB_API CHorizontalLayoutUI : public CContainerUI
 	{
 	public:
 		CHorizontalLayoutUI();

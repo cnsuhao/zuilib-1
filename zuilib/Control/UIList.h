@@ -5,7 +5,7 @@
 #include "Layout/UIVerticalLayout.h"
 #include "Layout/UIHorizontalLayout.h"
 
-namespace DuiLib {
+namespace Zuilib {
 
 typedef int (CALLBACK *PULVCompareFunc)(UINT_PTR, UINT_PTR, UINT_PTR);
 
@@ -87,7 +87,7 @@ public:
 class CListBodyUI;
 class CListHeaderUI;
 
-class DUILIB_API CListUI : public CVerticalLayoutUI, public IListUI
+class ZUILIB_API CListUI : public CVerticalLayoutUI, public IListUI
 {
 public:
     CListUI();
@@ -209,7 +209,7 @@ protected:
     TListInfoUI m_ListInfo;
 };
 
-class DUILIB_API CListHeaderUI : public CHorizontalLayoutUI
+class ZUILIB_API CListHeaderUI : public CHorizontalLayoutUI
 {
 public:
     CListHeaderUI();
@@ -221,7 +221,7 @@ public:
 };
 
 
-class DUILIB_API CListHeaderItemUI : public CControlUI
+class ZUILIB_API CListHeaderItemUI : public CControlUI
 {
 public:
     CListHeaderItemUI();
@@ -284,7 +284,7 @@ protected:
     TDrawInfo m_diSep;
 };
 
-class DUILIB_API CListElementUI : public CControlUI, public IListItemUI
+class ZUILIB_API CListElementUI : public CControlUI, public IListItemUI
 {
 public:
     CListElementUI();
@@ -325,7 +325,7 @@ protected:
     IListOwnerUI* m_pOwner;
 };
 
-class DUILIB_API CListLabelElementUI : public CListElementUI
+class ZUILIB_API CListLabelElementUI : public CListElementUI
 {
 public:
     CListLabelElementUI();
@@ -356,7 +356,7 @@ protected:
     RECT    m_rcTextPaddingLast;
 };
 
-class DUILIB_API CListTextElementUI : public CListLabelElementUI
+class ZUILIB_API CListTextElementUI : public CListLabelElementUI
 {
 public:
     CListTextElementUI();
@@ -390,7 +390,7 @@ protected:
 };
 
 
-class DUILIB_API CListContainerElementUI : public CContainerUI, public IListItemUI
+class ZUILIB_API CListContainerElementUI : public CContainerUI, public IListItemUI
 {
 public:
     CListContainerElementUI();
@@ -438,7 +438,7 @@ protected:
     IListOwnerUI* m_pOwner;
 };
 
-class DUILIB_API CListHBoxElementUI : public CListContainerElementUI
+class ZUILIB_API CListHBoxElementUI : public CListContainerElementUI
 {
 public:
     CListHBoxElementUI();
@@ -450,6 +450,6 @@ public:
     bool DoPaint(HDC hDC, const RECT& rcPaint, CControlUI* pStopControl);
 };
 
-} // namespace DuiLib
+} // namespace Zuilib
 
 #endif // __UILIST_H__

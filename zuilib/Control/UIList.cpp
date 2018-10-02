@@ -1,6 +1,6 @@
 #include "StdAfx.h"
 
-namespace DuiLib {
+namespace Zuilib {
 
 class CListBodyUI : public CVerticalLayoutUI
 {
@@ -3019,4 +3019,4 @@ bool CListHBoxElementUI::DoPaint(HDC hDC, const RECT& rcPaint, CControlUI* pStop
     return CContainerUI::DoPaint(hDC, rcPaint, pStopControl);
 }
 
-} // namespace DuiLib
+} // namespace Zuilib

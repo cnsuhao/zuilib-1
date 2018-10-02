@@ -3,11 +3,11 @@
 
 #pragma once
 
-namespace DuiLib {
+namespace Zuilib {
 
 typedef CControlUI* (CALLBACK* FINDCONTROLPROC)(CControlUI*, LPVOID);
 
-class DUILIB_API CControlUI
+class ZUILIB_API CControlUI
 {
 public:
     CControlUI();
@@ -223,6 +223,6 @@ protected:
 	CDuiStringPtrMap m_mCustomAttrHash;
 };
 
-} // namespace DuiLib
+} // namespace Zuilib
 
 #endif // __UICONTROL_H__

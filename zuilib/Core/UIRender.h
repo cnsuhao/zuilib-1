@@ -3,9 +3,9 @@
 
 #pragma once
 
-namespace DuiLib {
+namespace Zuilib {
 
-class DUILIB_API CRenderClip
+class ZUILIB_API CRenderClip
 {
 public:
     ~CRenderClip();
@@ -20,7 +20,7 @@ public:
     static void UseOldClipEnd(HDC hDC, CRenderClip& clip);
 };
 
-class DUILIB_API CRenderEngine
+class ZUILIB_API CRenderEngine
 {
 public:
     static DWORD AdjustColor(DWORD dwColor, short H, short S, short L);
@@ -47,6 +47,6 @@ public:
 	static SIZE GetTextSize(HDC hDC, CPaintManagerUI* pManager , LPCTSTR pstrText, int iFont, UINT uStyle);
 };
 
-} // namespace DuiLib
+} // namespace Zuilib
 
 #endif // __UIRENDER_H__

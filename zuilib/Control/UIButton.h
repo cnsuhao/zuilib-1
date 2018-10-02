@@ -3,9 +3,9 @@
 
 #pragma once
 
-namespace DuiLib
+namespace Zuilib
 {
-	class DUILIB_API CButtonUI : public CLabelUI
+	class ZUILIB_API CButtonUI : public CLabelUI
 	{
 	public:
 		CButtonUI();
@@ -77,6 +77,6 @@ namespace DuiLib
 		TDrawInfo m_diDisabled;
 	};
 
-}	// namespace DuiLib
+}	// namespace Zuilib
 
 #endif // __UIBUTTON_H__

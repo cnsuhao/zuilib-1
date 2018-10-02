@@ -3,10 +3,10 @@
 
 #pragma once
 using namespace std;
-namespace DuiLib
+namespace Zuilib
 {
 
-	class DUILIB_API CAnimationTabLayoutUI : public CTabLayoutUI, public CUIAnimation
+	class ZUILIB_API CAnimationTabLayoutUI : public CTabLayoutUI, public CUIAnimation
 	{
 	public:
 		CAnimationTabLayoutUI(); 

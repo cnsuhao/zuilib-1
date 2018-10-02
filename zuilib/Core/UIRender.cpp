@@ -53,7 +53,7 @@ extern "C"
 
 };
 
-namespace DuiLib {
+namespace Zuilib {
 
 static int g_iFontID = MAX_FONT_ID;
 
@@ -2181,4 +2181,4 @@ SIZE CRenderEngine::GetTextSize( HDC hDC, CPaintManagerUI* pManager , LPCTSTR ps
 	return size;
 }
 
-} // namespace DuiLib
+} // namespace Zuilib

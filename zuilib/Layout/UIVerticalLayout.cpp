@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "UIVerticalLayout.h"
 
-namespace DuiLib
+namespace Zuilib
 {
 	CVerticalLayoutUI::CVerticalLayoutUI() : m_iSepHeight(0), m_uButtonState(0), m_bImmMode(false)
 	{

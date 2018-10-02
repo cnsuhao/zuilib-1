@@ -3,10 +3,10 @@
 
 #pragma once
 
-namespace DuiLib {
+namespace Zuilib {
 
 class CComboWnd;
-class DUILIB_API CComboUI : public CContainerUI, public IListOwnerUI
+class ZUILIB_API CComboUI : public CContainerUI, public IListOwnerUI
 {
     friend class CComboWnd;
 public:
@@ -134,6 +134,6 @@ protected:
     TListInfoUI m_ListInfo;
 };
 
-} // namespace DuiLib
+} // namespace Zuilib
 
 #endif // __UICOMBO_H__

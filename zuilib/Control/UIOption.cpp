@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "UIOption.h"
 
-namespace DuiLib
+namespace Zuilib
 {
 	COptionUI::COptionUI() : m_bSelected(false), m_dwSelectedBkColor(0), m_dwSelectedTextColor(0)
 	{

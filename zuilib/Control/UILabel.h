@@ -10,16 +10,16 @@
 #pragma comment( lib, "GdiPlus.lib" )
 // UMU: DO NOT use "using namespace" in .h file
 //using namespace Gdiplus;
-class DUILIB_API Gdiplus::RectF;
-struct DUILIB_API Gdiplus::GdiplusStartupInput;
+class ZUILIB_API Gdiplus::RectF;
+struct ZUILIB_API Gdiplus::GdiplusStartupInput;
 
 using Gdiplus::RectF;
 using Gdiplus::GdiplusStartupInput;
 #endif
 
-namespace DuiLib
+namespace Zuilib
 {
-	class DUILIB_API CLabelUI : public CControlUI
+	class ZUILIB_API CLabelUI : public CControlUI
 	{
 	public:
 		CLabelUI();

@@ -3,11 +3,11 @@
 
 #pragma once
 
-namespace DuiLib {
+namespace Zuilib {
 
 class CTxtWinHost;
 
-class DUILIB_API CRichEditUI : public CContainerUI, public IMessageFilterUI
+class ZUILIB_API CRichEditUI : public CContainerUI, public IMessageFilterUI
 {
 public:
     CRichEditUI();
@@ -153,6 +153,6 @@ protected:
 	RECT	m_rcTextPadding;
 };
 
-} // namespace DuiLib
+} // namespace Zuilib
 
 #endif // __UIRICHEDIT_H__

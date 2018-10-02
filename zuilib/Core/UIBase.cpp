@@ -5,9 +5,9 @@
 #pragma comment(lib, "shlwapi.lib")
 #endif
 
-namespace DuiLib {
+namespace Zuilib {
 
-void DUILIB_API DUI__Trace(LPCTSTR pstrFormat, ...)
+void ZUILIB_API DUI__Trace(LPCTSTR pstrFormat, ...)
 {
 #ifdef _DEBUG
     TCHAR szBuffer[300] = { 0 };
@@ -199,7 +199,10 @@ void CNotifyPump::NotifyPump(TNotifyUI& msg)
 }
 
 
-CWindowWnd::CWindowWnd() : m_hWnd(NULL), m_OldWndProc(::DefWindowProc), m_bSubclassed(false)
+CWindowWnd::CWindowWnd() 
+	: m_hWnd(NULL)
+	, m_OldWndProc(::DefWindowProc)
+	, m_bSubclassed(false)
 {
 }
 
@@ -485,4 +488,4 @@ void CWindowWnd::OnFinalMessage(HWND /*hWnd*/)
 {
 }
 
-} // namespace DuiLib
+} // namespace Zuilib

@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "UIEdit.h"
 
-namespace DuiLib
+namespace Zuilib
 {
 	class CEditWnd : public CWindowWnd
 	{

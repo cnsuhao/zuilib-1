@@ -1,6 +1,6 @@
 #include "StdAfx.h"
 
-namespace DuiLib {
+namespace Zuilib {
 
 class CComboBodyUI : public CVerticalLayoutUI
 {
@@ -1275,4 +1275,4 @@ void CComboUI::PaintText(HDC hDC)
     }
 }
 
-} // namespace DuiLib
+} // namespace Zuilib

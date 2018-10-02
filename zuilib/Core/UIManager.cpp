@@ -9,7 +9,7 @@ typedef DWORD ZRESULT;
 extern HZIP OpenZipU(void *z,unsigned int len,DWORD flags);
 extern ZRESULT CloseZipU(HZIP hz);
 
-namespace DuiLib {
+namespace Zuilib {
 
 static UINT MapKeyState()
 {
@@ -1634,6 +1634,7 @@ bool CPaintManagerUI::AttachDialog(CControlUI* pControl)
 
 bool CPaintManagerUI::InitControls(CControlUI* pControl, CControlUI* pParent /*= NULL*/)
 {
+	int n = 1;
     ASSERT(pControl);
     if( pControl == NULL ) return false;
     pControl->SetManager(this, pParent != NULL ? pParent : pControl->GetParent(), true);
@@ -3577,4 +3578,4 @@ void CPaintManagerUI::UsedVirtualWnd(bool bUsed)
 	m_bUsedVirtualWnd = bUsed;
 }
 
-} // namespace DuiLib
+} // namespace Zuilib

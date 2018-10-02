@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "UIDateTime.h"
 
-namespace DuiLib
+namespace Zuilib
 {
 	//CDateTimeUI::m_nDTUpdateFlag
 #define DT_NONE   0

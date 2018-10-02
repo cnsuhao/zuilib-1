@@ -9,9 +9,9 @@
 #include "Utils/FlashEventHandler.h"
 #include "Utils/flash11.tlh"
 
-namespace DuiLib
+namespace Zuilib
 {
-	class DUILIB_API CFlashUI
+	class ZUILIB_API CFlashUI
 		: public CActiveXUI
 		, public _IShockwaveFlashEvents
 		, public ITranslateAccelerator

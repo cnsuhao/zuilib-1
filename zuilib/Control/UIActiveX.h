@@ -6,7 +6,7 @@
 struct IOleObject;
 
 
-namespace DuiLib {
+namespace Zuilib {
 
 class CActiveXCtrl;
 
@@ -20,7 +20,7 @@ public:
     T* m_p;
 };
 
-class DUILIB_API CActiveXUI : public CControlUI, public IMessageFilterUI
+class ZUILIB_API CActiveXUI : public CControlUI, public IMessageFilterUI
 {
     friend class CActiveXCtrl;
 public:
@@ -66,6 +66,6 @@ protected:
     HWND m_hwndHost;
 };
 
-} // namespace DuiLib
+} // namespace Zuilib
 
 #endif // __UIACTIVEX_H__

@@ -3,7 +3,7 @@
 
 #pragma once
 
-namespace DuiLib {
+namespace Zuilib {
 
 class IContainerUI
 {
@@ -22,7 +22,7 @@ public:
 
 class CScrollBarUI;
 
-class DUILIB_API CContainerUI : public CControlUI, public IContainerUI
+class ZUILIB_API CContainerUI : public CControlUI, public IContainerUI
 {
 public:
     CContainerUI();
@@ -124,6 +124,6 @@ protected:
     CScrollBarUI* m_pHorizontalScrollBar;
 };
 
-} // namespace DuiLib
+} // namespace Zuilib
 
 #endif // __UICONTAINER_H__

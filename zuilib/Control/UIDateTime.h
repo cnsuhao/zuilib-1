@@ -3,12 +3,12 @@
 
 #pragma once
 
-namespace DuiLib
+namespace Zuilib
 {
 	class CDateTimeWnd;
 
 	/// 时间选择控件
-	class DUILIB_API CDateTimeUI : public CLabelUI
+	class ZUILIB_API CDateTimeUI : public CLabelUI
 	{
 		friend class CDateTimeWnd;
 	public:

@@ -1,7 +1,7 @@
 #ifndef WIN_IMPL_BASE_HPP
 #define WIN_IMPL_BASE_HPP
 
-namespace DuiLib
+namespace Zuilib
 {
 	enum UILIB_RESOURCETYPE
 	{
@@ -11,7 +11,7 @@ namespace DuiLib
 		UILIB_ZIPRESOURCE,	// 来自资源的zip压缩包
 	};
 
-	class DUILIB_API WindowImplBase
+	class ZUILIB_API WindowImplBase
 		: public CWindowWnd
 		, public CNotifyPump
 		, public INotifyUI

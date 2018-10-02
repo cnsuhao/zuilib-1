@@ -3,11 +3,11 @@
 
 #pragma once
 
-namespace DuiLib
+namespace Zuilib
 {
 	class CEditWnd;
 
-	class DUILIB_API CEditUI : public CLabelUI
+	class ZUILIB_API CEditUI : public CLabelUI
 	{
 		friend class CEditWnd;
 	public:

@@ -3,9 +3,9 @@
 
 #pragma once
 
-namespace DuiLib
+namespace Zuilib
 {
-	class DUILIB_API COptionUI : public CButtonUI
+	class ZUILIB_API COptionUI : public CButtonUI
 	{
 	public:
 		COptionUI();
@@ -58,6 +58,6 @@ namespace DuiLib
 		TDrawInfo		m_diFore;
 	};
 
-} // namespace DuiLib
+} // namespace Zuilib
 
 #endif // __UIOPTION_H__

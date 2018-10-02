@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "UIChildLayout.h"
 
-namespace DuiLib
+namespace Zuilib
 {
 	CChildLayoutUI::CChildLayoutUI()
 	{
@@ -53,4 +53,4 @@ namespace DuiLib
 	{
 		return DUI_CTR_CHILDLAYOUT;
 	}
-} // namespace DuiLib
+} // namespace Zuilib

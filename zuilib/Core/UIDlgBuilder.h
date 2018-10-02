@@ -3,7 +3,7 @@
 
 #pragma once
 
-namespace DuiLib {
+namespace Zuilib {
 
 class IDialogBuilderCallback
 {
@@ -12,7 +12,7 @@ public:
 };
 
 
-class DUILIB_API CDialogBuilder
+class ZUILIB_API CDialogBuilder
 {
 public:
     CDialogBuilder();
@@ -33,6 +33,6 @@ private:
     LPCTSTR m_pstrtype;
 };
 
-} // namespace DuiLib
+} // namespace ZuiLib
 
 #endif // __UIDLGBUILDER_H__

@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "UIScrollBar.h"
 
-namespace DuiLib {
+namespace Zuilib {
 
 CScrollBarUI::CScrollBarUI() :
 	m_bHorizontal(false),
@@ -1098,4 +1098,4 @@ void CScrollBarUI::PaintRail(HDC hDC)
 	if( DrawImage(hDC, m_diRailNormal) ) return;
 }
 
-} // namespace DuiLib
+} // namespace Zuilib

@@ -2,7 +2,7 @@
 //////////////BEGIN消息映射宏定义////////////////////////////////////////////////////
 ///
 
-namespace DuiLib
+namespace Zuilib
 {
 
 #define _USEIMM					1
@@ -295,5 +295,5 @@ protected:                                                                \
 //////////////END控件名称宏定义//////////////////////////////////////////////////
 
 
-}// namespace DuiLib
+}// namespace Zuilib
 

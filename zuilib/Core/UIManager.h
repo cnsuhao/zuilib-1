@@ -3,7 +3,7 @@
 
 #pragma once
 
-namespace DuiLib {
+namespace Zuilib {
 
 class CControlUI;
 
@@ -70,7 +70,7 @@ enum EVENTTYPE_UI
 #define UISTATE_CAPTURED     0x00000040
 
 
-typedef struct DUILIB_API tagTFontInfo
+typedef struct ZUILIB_API tagTFontInfo
 {
     HFONT hFont;
     CDuiString sFontName;
@@ -81,7 +81,7 @@ typedef struct DUILIB_API tagTFontInfo
     TEXTMETRIC tm;
 } TFontInfo;
 
-typedef struct DUILIB_API tagTImageInfo
+typedef struct ZUILIB_API tagTImageInfo
 {
     HBITMAP hBitmap;
     LPBYTE pBits;
@@ -94,7 +94,7 @@ typedef struct DUILIB_API tagTImageInfo
     DWORD dwMask;
 } TImageInfo;
 
-typedef struct DUILIB_API tagTDrawInfo
+typedef struct ZUILIB_API tagTDrawInfo
 {
 	tagTDrawInfo();
 	tagTDrawInfo(LPCTSTR lpsz);
@@ -112,7 +112,7 @@ typedef struct DUILIB_API tagTDrawInfo
 	bool bTiledY;
 } TDrawInfo;
 
-typedef struct DUILIB_API tagTPercentInfo
+typedef struct ZUILIB_API tagTPercentInfo
 {
 	double left;
 	double top;
@@ -120,7 +120,7 @@ typedef struct DUILIB_API tagTPercentInfo
 	double bottom;
 } TPercentInfo;
 
-typedef struct DUILIB_API tagTResInfo
+typedef struct ZUILIB_API tagTResInfo
 {
 	DWORD m_dwDefaultDisabledColor;
 	DWORD m_dwDefaultFontColor;
@@ -136,7 +136,7 @@ typedef struct DUILIB_API tagTResInfo
 
 // Structure for notifications from the system
 // to the control implementation.
-typedef struct DUILIB_API tagTEventUI
+typedef struct ZUILIB_API tagTEventUI
 {
     int Type;
     CControlUI* pSender;
@@ -149,20 +149,20 @@ typedef struct DUILIB_API tagTEventUI
 } TEventUI;
 
 // Listener interface
-class DUILIB_API INotifyUI
+class ZUILIB_API INotifyUI
 {
 public:
     virtual void Notify(TNotifyUI& msg) = 0;
 };
 
 // MessageFilter interface
-class DUILIB_API IMessageFilterUI
+class ZUILIB_API IMessageFilterUI
 {
 public:
     virtual LRESULT MessageHandler(UINT uMsg, WPARAM wParam, LPARAM lParam, bool& bHandled) = 0;
 };
 
-class DUILIB_API ITranslateAccelerator
+class ZUILIB_API ITranslateAccelerator
 {
 public:
 	virtual LRESULT TranslateAccelerator(MSG *pMsg) = 0;
@@ -174,7 +174,7 @@ public:
 typedef CControlUI* (*LPCREATECONTROL)(LPCTSTR pstrType);
 
 
-class DUILIB_API CPaintManagerUI
+class ZUILIB_API CPaintManagerUI
 {
 public:
     CPaintManagerUI();
@@ -491,6 +491,6 @@ public:
 	CDuiPtrArray m_aTranslateAccelerator;
 };
 
-} // namespace DuiLib
+} // namespace Zuilib
 
 #endif // __UIMANAGER_H__

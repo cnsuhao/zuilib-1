@@ -4,7 +4,7 @@
 
 #pragma once
 
-namespace DuiLib {
+namespace Zuilib {
 
 #define UI_WNDSTYLE_CONTAINER  (0)
 #define UI_WNDSTYLE_FRAME      (WS_VISIBLE | WS_OVERLAPPEDWINDOW)
@@ -35,10 +35,10 @@ namespace DuiLib {
 #define DUITRACEMSG _T("")
 #endif
 
-void DUILIB_API DUI__Trace(LPCTSTR pstrFormat, ...);
-LPCTSTR DUILIB_API DUI__TraceMsg(UINT uMsg);
+void ZUILIB_API DUI__Trace(LPCTSTR pstrFormat, ...);
+LPCTSTR ZUILIB_API DUI__TraceMsg(UINT uMsg);
 
-class DUILIB_API CNotifyPump
+class ZUILIB_API CNotifyPump
 {
 public:
 	bool AddVirtualWnd(CDuiString strName,CNotifyPump* pObject);
@@ -50,7 +50,7 @@ private:
 	CDuiStringPtrMap m_VirtualWndMap;
 };
 
-class DUILIB_API CWindowWnd
+class ZUILIB_API CWindowWnd
 {
 public:
     CWindowWnd();
@@ -93,6 +93,6 @@ protected:
     bool m_bSubclassed;
 };
 
-} // namespace DuiLib
+} // namespace Zuilib
 
 #endif // __UIBASE_H__

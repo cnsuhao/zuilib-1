@@ -1,19 +1,19 @@
 #pragma once
 
 #ifdef UILIB_STATIC
-#	define DUILIB_API 
+#	define ZUILIB_API 
 #else
 #	if defined(UILIB_EXPORTS)
 #		if	defined(_MSC_VER)
-#			define DUILIB_API __declspec(dllexport)
+#			define ZUILIB_API __declspec(dllexport)
 #		else
-#			define DUILIB_API 
+#			define ZUILIB_API 
 #		endif
 #	else
 #		if defined(_MSC_VER)
-#			define DUILIB_API __declspec(dllimport)
+#			define ZUILIB_API __declspec(dllimport)
 #		else
-#			define DUILIB_API 
+#			define ZUILIB_API 
 #		endif
 #	endif
 #endif

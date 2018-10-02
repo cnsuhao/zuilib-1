@@ -3,13 +3,13 @@
 
 #pragma once
 
-namespace DuiLib
+namespace Zuilib
 {
 	class CControl;
 
 #define EVENT_TIEM_ID	100
 
-	class DUILIB_API CGifAnimUI : public CControlUI
+	class ZUILIB_API CGifAnimUI : public CControlUI
 	{
 	public:
 		CGifAnimUI(void);

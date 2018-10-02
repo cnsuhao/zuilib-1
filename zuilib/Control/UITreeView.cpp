@@ -2,7 +2,7 @@
 #include "UITreeView.h"
 
 #pragma warning( disable: 4251 )
-namespace DuiLib
+namespace Zuilib
 {
 	CTreeNodeUI::CTreeNodeUI( CTreeNodeUI* _ParentNode /*= NULL*/ )
 	{

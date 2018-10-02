@@ -42,7 +42,7 @@ extern ZRESULT FindZipItemA(HZIP hz, const TCHAR *name, bool ic, int *index, ZIP
 extern ZRESULT FindZipItemW(HZIP hz, const TCHAR *name, bool ic, int *index, ZIPENTRYW *ze);
 extern ZRESULT UnzipItem(HZIP hz, int index, void *dst, unsigned int len, DWORD flags);
 
-namespace DuiLib {
+namespace Zuilib {
 
 CMarkupNode::CMarkupNode() : m_pOwner(NULL)
 {
@@ -667,4 +667,4 @@ bool CMarkup::_Failed(LPCTSTR pstrError, LPCTSTR pstrLocation)
     return false; // Always return 'false'
 }
 
-} // namespace DuiLib
+} // namespace ZuiLib

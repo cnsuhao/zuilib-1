@@ -1,6 +1,6 @@
 #include "StdAfx.h"
 
-namespace DuiLib {
+namespace Zuilib {
 
 class CActiveXCtrl;
 class CActiveXWnd : public CWindowWnd
@@ -1233,4 +1233,4 @@ void CActiveXUI::SetModuleName(LPCTSTR pstrText)
     m_sModuleName = pstrText;
 }
 
-} // namespace DuiLib
+} // namespace Zuilib
