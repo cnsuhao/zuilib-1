@@ -3,6 +3,9 @@
 
 #pragma once
 
+#include "Utils/pugiconfig.hpp"
+#include "Utils/pugixml.hpp"
+
 namespace Zuilib {
 
 enum
@@ -11,6 +14,13 @@ enum
     XMLFILE_ENCODING_UNICODE = 1,
     XMLFILE_ENCODING_ASNI = 2,
 };
+
+typedef pugi::xml_document		XmlDoc;
+typedef pugi::xml_node			XmlNode;
+typedef pugi::xml_attribute		XmlAttr;
+typedef pugi::xml_parse_result	XmlResult;
+
+
 
 class CMarkup;
 class CMarkupNode;
@@ -33,8 +43,7 @@ public:
     void GetLastErrorMessage(LPTSTR pstrMessage, SIZE_T cchMax) const;
     void GetLastErrorLocation(LPTSTR pstrSource, SIZE_T cchMax) const;
 
-    CMarkupNode GetRoot();
-
+	XmlNode GetRoot();
 private:
 	//XML节点元素类型定义 
     typedef struct tagXMLELEMENT
@@ -47,6 +56,8 @@ private:
     } XMLELEMENT;
 
     LPTSTR m_pstrXML;			//为CMarkup存储的以加载xml文件数据内容的指针缓冲区
+	XmlDoc m_parser;
+
     XMLELEMENT* m_pElements;	//保存XMLELEMENT类型的节点元素信息的缓冲区，事实上可能有部分未预料的存储空间；
     ULONG m_nElements;			//实际的保存m_pElements中有效的节点元素数
     ULONG m_nReservedElements;	//预留的m_pElements缓冲区空间大小
@@ -69,6 +80,7 @@ private:
 };
 
 
+#if 0
 class ZUILIB_API CMarkupNode
 {
     friend class CMarkup;
@@ -115,6 +127,7 @@ private:
     XMLATTRIBUTE m_aAttributes[MAX_XML_ATTRIBUTES]; //节点支持最多64个属性个数
     CMarkup* m_pOwner; //该节点所属拥有者(指CMarkup对象)
 };
+#endif // 
 
 } // namespace ZuiLib
 

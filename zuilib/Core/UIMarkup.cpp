@@ -44,11 +44,14 @@ extern ZRESULT UnzipItem(HZIP hz, int index, void *dst, unsigned int len, DWORD 
 
 namespace Zuilib {
 
-CMarkupNode::CMarkupNode() : m_pOwner(NULL)
+#if 0
+CMarkupNode::CMarkupNode()
+	: m_pOwner(NULL)
 {
 }
 
-CMarkupNode::CMarkupNode(CMarkup* pOwner, int iPos) : m_pOwner(pOwner), m_iPos(iPos), m_nAttributes(0)
+CMarkupNode::CMarkupNode(CMarkup* pOwner, int iPos) 
+	: m_pOwner(pOwner), m_iPos(iPos), m_nAttributes(0)
 {
 }
 
@@ -209,20 +212,17 @@ void CMarkupNode::_MapAttributes()
         pstr += _tcslen(pstr) + 1;
     }
 }
-
-
-///////////////////////////////////////////////////////////////////////////////////////
-//
-//
-//
+#endif
 
 CMarkup::CMarkup(LPCTSTR pstrXML)
+	: m_pstrXML(nullptr)
 {
-    m_pstrXML = NULL;
     m_pElements = NULL;
     m_nElements = 0;
     m_bPreserveWhitespace = true;
-    if( pstrXML != NULL ) Load(pstrXML);
+
+    if( pstrXML != NULL ) 
+		Load(pstrXML);
 }
 
 CMarkup::~CMarkup()
@@ -232,7 +232,8 @@ CMarkup::~CMarkup()
 
 bool CMarkup::IsValid() const
 {
-    return m_pElements != NULL;
+    //return m_pElements != NULL;
+	return m_parser.root();
 }
 
 void CMarkup::SetPreserveWhitespace(bool bPreserve)
@@ -439,11 +440,16 @@ void CMarkup::GetLastErrorLocation(LPTSTR pstrSource, SIZE_T cchMax) const
 {
     _tcsncpy(pstrSource, m_szErrorXML, cchMax);
 }
+//
+//CMarkupNode CMarkup::GetRoot()
+//{
+//    if( m_nElements == 0 ) return CMarkupNode();
+//    return CMarkupNode(this, 1);
+//}
 
-CMarkupNode CMarkup::GetRoot()
+XmlNode CMarkup::GetRoot()
 {
-    if( m_nElements == 0 ) return CMarkupNode();
-    return CMarkupNode(this, 1);
+	return m_parser.root();
 }
 
 bool CMarkup::_Parse()
@@ -452,7 +458,13 @@ bool CMarkup::_Parse()
     ::ZeroMemory(m_szErrorMsg, sizeof(m_szErrorMsg));
     ::ZeroMemory(m_szErrorXML, sizeof(m_szErrorXML));
     LPTSTR pstrXML = m_pstrXML;
-    return _Parse(pstrXML, 0);
+
+
+	XmlResult result = m_parser.load_string(pstrXML);
+
+	return result.status == pugi::status_ok;
+
+    //return _Parse(pstrXML, 0);
 }
 
 bool CMarkup::_Parse(LPTSTR& pstrText, ULONG iParent)

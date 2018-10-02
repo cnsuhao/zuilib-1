@@ -2,7 +2,9 @@
 
 namespace Zuilib {
 
-CDialogBuilder::CDialogBuilder() : m_pCallback(NULL), m_pstrtype(NULL)
+CDialogBuilder::CDialogBuilder() 
+	: m_pCallback(NULL)
+	, m_pstrtype(NULL)
 {
 
 }
@@ -42,26 +44,26 @@ CControlUI* CDialogBuilder::Create(STRINGorID xml, LPCTSTR type, IDialogBuilderC
 CControlUI* CDialogBuilder::Create(IDialogBuilderCallback* pCallback, CPaintManagerUI* pManager, CControlUI* pParent)
 {
     m_pCallback = pCallback;
-    CMarkupNode root = m_xml.GetRoot();
-    if( !root.IsValid() ) return NULL;
+	XmlNode root = m_xml.GetRoot().first_child();
+	if (!root) {
+		return NULL;
+	}
 
     if( pManager ) {
         LPCTSTR pstrClass = NULL;
-        int nAttributes = 0;
         LPCTSTR pstrName = NULL;
         LPCTSTR pstrValue = NULL;
         LPTSTR pstr = NULL;
-        for( CMarkupNode node = root.GetChild() ; node.IsValid(); node = node.GetSibling() ) {
-            pstrClass = node.GetName();
+        for(XmlNode node = root.first_child() ; node; node = node.next_sibling() ) {
+            pstrClass = node.name();
             if( _tcsicmp(pstrClass, _T("Image")) == 0 ) {
-                nAttributes = node.GetAttributeCount();
                 LPCTSTR pImageName = NULL;
                 LPCTSTR pImageResType = NULL;
                 DWORD mask = 0;
 				bool shared = false;
-                for( int i = 0; i < nAttributes; i++ ) {
-                    pstrName = node.GetAttributeName(i);
-                    pstrValue = node.GetAttributeValue(i);
+				for (XmlAttr attr = node.first_attribute(); attr; attr=attr.next_attribute()) {
+					pstrName = attr.name();
+					pstrValue = attr.value();
                     if( _tcsicmp(pstrName, _T("name")) == 0 ) {
                         pImageName = pstrValue;
                     }
@@ -79,7 +81,6 @@ CControlUI* CDialogBuilder::Create(IDialogBuilderCallback* pCallback, CPaintMana
                 if( pImageName ) pManager->AddImage(pImageName, pImageResType, mask, shared);
             }
             else if( _tcsicmp(pstrClass, _T("Font")) == 0 ) {
-                nAttributes = node.GetAttributeCount();
 				int id = -1;
                 LPCTSTR pFontName = NULL;
                 int size = 12;
@@ -88,9 +89,9 @@ CControlUI* CDialogBuilder::Create(IDialogBuilderCallback* pCallback, CPaintMana
                 bool italic = false;
                 bool defaultfont = false;
 				bool shared = false;
-                for( int i = 0; i < nAttributes; i++ ) {
-                    pstrName = node.GetAttributeName(i);
-                    pstrValue = node.GetAttributeValue(i);
+				for (XmlAttr attr = node.first_attribute(); attr; attr = attr.next_attribute()) {
+					pstrName = attr.name();
+					pstrValue = attr.value();
 					if( _tcsicmp(pstrName, _T("id")) == 0 ) {
 						id = _tcstol(pstrValue, &pstr, 10);
 					}
@@ -122,13 +123,12 @@ CControlUI* CDialogBuilder::Create(IDialogBuilderCallback* pCallback, CPaintMana
                 }
             }
             else if( _tcsicmp(pstrClass, _T("Default")) == 0 ) {
-                nAttributes = node.GetAttributeCount();
                 LPCTSTR pControlName = NULL;
                 LPCTSTR pControlValue = NULL;
 				bool shared = false;
-                for( int i = 0; i < nAttributes; i++ ) {
-                    pstrName = node.GetAttributeName(i);
-                    pstrValue = node.GetAttributeValue(i);
+				for (XmlAttr attr = node.first_attribute(); attr; attr = attr.next_attribute()) {
+					pstrName = attr.name();
+					pstrValue = attr.value();
                     if( _tcsicmp(pstrName, _T("name")) == 0 ) {
                         pControlName = pstrValue;
                     }
@@ -144,12 +144,11 @@ CControlUI* CDialogBuilder::Create(IDialogBuilderCallback* pCallback, CPaintMana
                 }
             }
 			else if( _tcsicmp(pstrClass, _T("MultiLanguage")) == 0 ) {
-				nAttributes = node.GetAttributeCount();
 				int id = -1;
 				LPCTSTR pMultiLanguage = NULL;
-				for( int i = 0; i < nAttributes; i++ ) {
-					pstrName = node.GetAttributeName(i);
-					pstrValue = node.GetAttributeValue(i);
+				for (XmlAttr attr = node.first_attribute(); attr; attr = attr.next_attribute()) {
+					pstrName = attr.name();
+					pstrValue = attr.value();
 					if( _tcsicmp(pstrName, _T("id")) == 0 ) {
 						id = _tcstol(pstrValue, &pstr, 10);
 					}
@@ -163,13 +162,12 @@ CControlUI* CDialogBuilder::Create(IDialogBuilderCallback* pCallback, CPaintMana
 			}
         }
 
-        pstrClass = root.GetName();
+        pstrClass = root.name();
         if( _tcsicmp(pstrClass, _T("Window")) == 0 ) {
             if( pManager->GetPaintWindow() ) {
-                int nAttributes = root.GetAttributeCount();
-                for( int i = 0; i < nAttributes; i++ ) {
-                    pstrName = root.GetAttributeName(i);
-                    pstrValue = root.GetAttributeValue(i);
+				for (XmlAttr attr = root.first_attribute(); attr; attr = attr.next_attribute()) {
+					pstrName = attr.name();
+					pstrValue = attr.value();
                     pManager->SetWindowAttribute(pstrName, pstrValue);
                 }
             }
@@ -193,37 +191,51 @@ void CDialogBuilder::GetLastErrorLocation(LPTSTR pstrSource, SIZE_T cchMax) cons
     return m_xml.GetLastErrorLocation(pstrSource, cchMax);
 }
 
-CControlUI* CDialogBuilder::_Parse(CMarkupNode* pRoot, CControlUI* pParent, CPaintManagerUI* pManager)
+CControlUI* CDialogBuilder::_Parse(XmlNode* pRoot, CControlUI* pParent, CPaintManagerUI* pManager)
 {
     IContainerUI* pContainer = NULL;
     CControlUI* pReturn = NULL;
-    for( CMarkupNode node = pRoot->GetChild() ; node.IsValid(); node = node.GetSibling() ) {
-        LPCTSTR pstrClass = node.GetName();
-        if( _tcsicmp(pstrClass, _T("Image")) == 0 || _tcsicmp(pstrClass, _T("Font")) == 0 \
-            || _tcsicmp(pstrClass, _T("Default")) == 0 
-			|| _tcsicmp(pstrClass, _T("MultiLanguage")) == 0 ) continue;
+    for(XmlNode node = pRoot->first_child() ; node; node = node.next_sibling() ) {
+        LPCTSTR pstrClass = node.name();
+		if (_tcsicmp(pstrClass, _T("Image")) == 0
+			|| _tcsicmp(pstrClass, _T("Font")) == 0
+			|| _tcsicmp(pstrClass, _T("Default")) == 0
+			|| _tcsicmp(pstrClass, _T("MultiLanguage")) == 0) {
+			continue;
+		}
 
         CControlUI* pControl = NULL;
         if( _tcsicmp(pstrClass, _T("Include")) == 0 ) {
-            if( !node.HasAttributes() ) continue;
+			if (!node.first_attribute()) {
+				continue;
+			}
             int count = 1;
             LPTSTR pstr = NULL;
-            TCHAR szValue[500] = { 0 };
-            SIZE_T cchLen = lengthof(szValue) - 1;
-            if ( node.GetAttributeValue(_T("count"), szValue, cchLen) )
-                count = _tcstol(szValue, &pstr, 10);
-            cchLen = lengthof(szValue) - 1;
-            if ( !node.GetAttributeValue(_T("source"), szValue, cchLen) ) continue;
+//             TCHAR szValue[500] = { 0 };
+//             SIZE_T cchLen = lengthof(szValue) - 1;
+//             if ( node.GetAttributeValue(_T("count"), szValue, cchLen) )
+//                 count = _tcstol(szValue, &pstr, 10);
+//             cchLen = lengthof(szValue) - 1;
+//             if ( !node.GetAttributeValue(_T("source"), szValue, cchLen) ) continue;
+
+			XmlAttr attr = node.attribute(_T("count"));
+			if (attr) {
+				count = _tcstol(attr.value(), &pstr, 10);
+			}
+			attr = node.attribute(_T("source"));
+			if (!attr) {
+				continue;
+			}
 			CDialogBuilder builder;
 			for ( int i = 0; i < count; i++ ) {
 				if (!builder.GetMarkup()->IsValid())
 				{
 					if( m_pstrtype != NULL ) { // 使用资源dll，从资源中读取
-						WORD id = (WORD)_tcstol(szValue, &pstr, 10); 
+						WORD id = (WORD)_tcstol(attr.value(), &pstr, 10);
 						pControl = builder.Create((UINT)id, m_pstrtype, m_pCallback, pManager, pParent);
 					}
 					else 
-						pControl = builder.Create((LPCTSTR)szValue, (UINT)0, m_pCallback, pManager, pParent);
+						pControl = builder.Create((LPCTSTR)attr.value(), (UINT)0, m_pCallback, pManager, pParent);
 				}
 				else
 					pControl = builder.Create(m_pCallback, pManager, pParent);
@@ -251,18 +263,17 @@ CControlUI* CDialogBuilder::_Parse(CMarkupNode* pRoot, CControlUI* pParent, CPai
 			}
 
 			// 解析所有属性并覆盖默认属性
-			if( node.HasAttributes() ) {
+			if( node.first_attribute() ) {
 				TCHAR szValue[500] = { 0 };
 				SIZE_T cchLen = lengthof(szValue) - 1;
 				// Set ordinary attributes
-				int nAttributes = node.GetAttributeCount();
-				for( int i = 0; i < nAttributes; i++ ) {
-					pNode->SetAttribute(node.GetAttributeName(i), node.GetAttributeValue(i));
+				for (XmlAttr attr = node.first_attribute(); attr; attr = attr.next_attribute()){
+					pNode->SetAttribute(attr.name(), attr.value());
 				}
 			}
 
 			//检索子节点及附加控件
-			if(node.HasChildren()){
+			if(node.first_child()){
 				CControlUI* pSubControl = _Parse(&node,pNode,pManager);
 				if(pSubControl && _tcsicmp(pSubControl->GetClass(),_T("TreeNodeUI")) != 0)
 				{
@@ -380,16 +391,16 @@ CControlUI* CDialogBuilder::_Parse(CMarkupNode* pRoot, CControlUI* pParent, CPai
 			}
 
         // Add children
-        if( node.HasChildren() ) {
+        if( node.first_child() ) {
             _Parse(&node, pControl, pManager);
         }
-        TCHAR szValue[256] = { 0 };
-        int cchLen = lengthof(szValue) - 1;
+
         // Attach to parent
         // 因为某些属性和父窗口相关，比如selected，必须先Add到父窗口
 		if( pParent != NULL ) {
-            LPCTSTR lpValue = szValue;
-            if( node.GetAttributeValue(_T("cover"), szValue, cchLen) && _tcscmp(lpValue, _T("true")) == 0 ) {
+			XmlAttr attr = node.attribute(_T("cover"));
+			LPCTSTR lpValue = attr.value();
+            if( _tcscmp(lpValue, _T("true")) == 0 ) {
                 pParent->SetCover(pControl);
             }
             else {
@@ -417,12 +428,11 @@ CControlUI* CDialogBuilder::_Parse(CMarkupNode* pRoot, CControlUI* pParent, CPai
             }
         }
         // Process attributes
-        if( node.HasAttributes() ) {
+        if( node.first_attribute() ) {
             // Set ordinary attributes
-            int nAttributes = node.GetAttributeCount();
-            for( int i = 0; i < nAttributes; i++ ) {
-                pControl->SetAttribute(node.GetAttributeName(i), node.GetAttributeValue(i));
-            }
+			for (XmlAttr attr = node.first_attribute(); attr; attr = attr.next_attribute()) {
+				pControl->SetAttribute(attr.name(), attr.value());
+			}
         }
         if( pManager ) {
             pControl->SetManager(NULL, NULL, false);

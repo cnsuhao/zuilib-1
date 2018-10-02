@@ -76,3 +76,7 @@
 #include "Control/UIActiveX.h"
 #include "Control/UIWebBrowser.h"
 #include "Control/UIGifAnim.h"
+
+#include "Utils/pugiconfig.hpp"
+#include "Utils/pugixml.hpp"
+
