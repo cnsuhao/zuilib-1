@@ -233,7 +233,8 @@ CMarkup::~CMarkup()
 bool CMarkup::IsValid() const
 {
     //return m_pElements != NULL;
-	return m_parser.root();
+	XmlNode node = m_parser.root();
+	return node.first_child() != NULL;
 }
 
 void CMarkup::SetPreserveWhitespace(bool bPreserve)
