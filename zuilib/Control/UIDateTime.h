@@ -13,8 +13,8 @@ namespace Zuilib
 		friend class CDateTimeWnd;
 	public:
 		CDateTimeUI();
-		LPCTSTR GetClass() const;
-		LPVOID GetInterface(LPCTSTR pstrName);
+		LPCWSTR GetClass() const;
+		LPVOID GetInterface(LPCWSTR pstrName);
 		UINT GetControlFlags() const;
 		HWND GetNativeWindow() const;
 

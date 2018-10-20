@@ -17,8 +17,8 @@ namespace Zuilib
 		void Init(CDateTimeUI* pOwner);
 		RECT CalPos();
 
-		LPCTSTR GetWindowClassName() const;
-		LPCTSTR GetSuperClassName() const;
+		LPCWSTR GetWindowClassName() const;
+		LPCWSTR GetSuperClassName() const;
 		void OnFinalMessage(HWND hWnd);
 
 		LRESULT HandleMessage(UINT uMsg, WPARAM wParam, LPARAM lParam);
@@ -78,11 +78,11 @@ namespace Zuilib
 		return rcPos;
 	}
 
-	LPCTSTR CDateTimeWnd::GetWindowClassName() const {
+	LPCWSTR CDateTimeWnd::GetWindowClassName() const {
 		return _T("DateTimeWnd");
 	}
 
-	LPCTSTR CDateTimeWnd::GetSuperClassName() const {
+	LPCWSTR CDateTimeWnd::GetSuperClassName() const {
 		return DATETIMEPICK_CLASS;
 	}
 
@@ -126,7 +126,7 @@ namespace Zuilib
 		// 			::InvalidateRect(m_hWnd, &rcClient, FALSE);
 		// 		}
 		//	}
-		//	else if( uMsg == WM_KEYDOWN && TCHAR(wParam) == VK_RETURN ) {
+		//	else if( uMsg == WM_KEYDOWN && WCHAR(wParam) == VK_RETURN ) {
 		// 		m_pOwner->GetManager()->SendNotify(m_pOwner, DUI_MSGTYPE_RETURN);
 		//	}
 		// 		else if( uMsg == OCM__BASE + WM_CTLCOLOREDIT  || uMsg == OCM__BASE + WM_CTLCOLORSTATIC ) {
@@ -173,7 +173,7 @@ namespace Zuilib
 	// 	if( m_pOwner == NULL ) return 0;
 	// 	// Copy text back
 	// 	int cchLen = ::GetWindowTextLength(m_hWnd) + 1;
-	// 	LPTSTR pstr = static_cast<LPTSTR>(_alloca(cchLen * sizeof(TCHAR)));
+	// 	LPTSTR pstr = static_cast<LPTSTR>(_alloca(cchLen * sizeof(WCHAR)));
 	// 	ASSERT(pstr);
 	// 	if( pstr == NULL ) return 0;
 	// 	::GetWindowText(m_hWnd, pstr, cchLen);
@@ -192,11 +192,11 @@ namespace Zuilib
 		m_nDTUpdateFlag = DT_NONE;
 	}
 
-	LPCTSTR CDateTimeUI::GetClass() const{
+	LPCWSTR CDateTimeUI::GetClass() const{
 		return DUI_CTR_DATETIME;
 	}
 
-	LPVOID CDateTimeUI::GetInterface(LPCTSTR pstrName){
+	LPVOID CDateTimeUI::GetInterface(LPCWSTR pstrName){
 		if( _tcscmp(pstrName, DUI_CTR_DATETIME) == 0 ) return static_cast<CDateTimeUI*>(this);
 		return CLabelUI::GetInterface(pstrName);
 	}

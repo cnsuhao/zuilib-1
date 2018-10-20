@@ -11,8 +11,8 @@ namespace Zuilib
 	public:
 		CAnimationTabLayoutUI(); 
 
-		LPCTSTR GetClass() const;
-		LPVOID GetInterface(LPCTSTR pstrName);
+		LPCWSTR GetClass() const;
+		LPVOID GetInterface(LPCWSTR pstrName);
 
 		bool SelectItem( int iIndex );
 		void AnimationSwitch();
@@ -23,7 +23,7 @@ namespace Zuilib
 		virtual void OnAnimationStep(INT nTotalFrame, INT nCurFrame, INT nAnimationID);
 		virtual void OnAnimationStop(INT nAnimationID);
 
-		void SetAttribute(LPCTSTR pstrName, LPCTSTR pstrValue);
+		void SetAttribute(LPCWSTR pstrName, LPCWSTR pstrValue);
 
 	protected:
 		bool m_bIsVerticalDirection;

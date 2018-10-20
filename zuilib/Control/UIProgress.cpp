@@ -9,12 +9,12 @@ namespace Zuilib
 		SetFixedHeight(12);
 	}
 
-	LPCTSTR CProgressUI::GetClass() const
+	LPCWSTR CProgressUI::GetClass() const
 	{
 		return DUI_CTR_PROGRESS;
 	}
 
-	LPVOID CProgressUI::GetInterface(LPCTSTR pstrName)
+	LPVOID CProgressUI::GetInterface(LPCWSTR pstrName)
 	{
 		if( _tcscmp(pstrName, DUI_CTR_PROGRESS) == 0 ) return static_cast<CProgressUI*>(this);
 		return CLabelUI::GetInterface(pstrName);
@@ -68,12 +68,12 @@ namespace Zuilib
 		Invalidate();
 	}
 
-	LPCTSTR CProgressUI::GetForeImage() const
+	LPCWSTR CProgressUI::GetForeImage() const
 	{
 		return m_diFore.sDrawString;
 	}
 
-	void CProgressUI::SetForeImage(LPCTSTR pStrImage)
+	void CProgressUI::SetForeImage(LPCWSTR pStrImage)
 	{
 		if( m_diFore.sDrawString == pStrImage && m_diFore.pImageInfo != NULL ) return;
 		m_diFore.Clear();
@@ -81,7 +81,7 @@ namespace Zuilib
 		Invalidate();
 	}
 
-	void CProgressUI::SetAttribute(LPCTSTR pstrName, LPCTSTR pstrValue)
+	void CProgressUI::SetAttribute(LPCWSTR pstrName, LPCWSTR pstrValue)
 	{
 		if( _tcscmp(pstrName, _T("foreimage")) == 0 ) SetForeImage(pstrValue);
 		else if( _tcscmp(pstrName, _T("hor")) == 0 ) SetHorizontal(_tcscmp(pstrValue, _T("true")) == 0);

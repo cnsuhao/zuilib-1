@@ -29,8 +29,8 @@ public:
     virtual ~CContainerUI();
 
 public:
-    LPCTSTR GetClass() const;
-    LPVOID GetInterface(LPCTSTR pstrName);
+    LPCWSTR GetClass() const;
+    LPVOID GetInterface(LPCWSTR pstrName);
 
     CControlUI* GetItemAt(int iIndex) const;
     int GetItemIndex(CControlUI* pControl) const;
@@ -70,21 +70,21 @@ public:
 	void Move(SIZE szOffset, bool bNeedInvalidate = true);
     bool DoPaint(HDC hDC, const RECT& rcPaint, CControlUI* pStopControl);
 
-    void SetAttribute(LPCTSTR pstrName, LPCTSTR pstrValue);
+    void SetAttribute(LPCWSTR pstrName, LPCWSTR pstrValue);
 
     void SetManager(CPaintManagerUI* pManager, CControlUI* pParent, bool bInit = true);
     CControlUI* FindControl(FINDCONTROLPROC Proc, LPVOID pData, UINT uFlags);
 
-	bool SetSubControlText(LPCTSTR pstrSubControlName,LPCTSTR pstrText);
-	bool SetSubControlFixedHeight(LPCTSTR pstrSubControlName,int cy);
-	bool SetSubControlFixedWdith(LPCTSTR pstrSubControlName,int cx);
-	bool SetSubControlUserData(LPCTSTR pstrSubControlName,LPCTSTR pstrText);
+	bool SetSubControlText(LPCWSTR pstrSubControlName,LPCWSTR pstrText);
+	bool SetSubControlFixedHeight(LPCWSTR pstrSubControlName,int cy);
+	bool SetSubControlFixedWdith(LPCWSTR pstrSubControlName,int cx);
+	bool SetSubControlUserData(LPCWSTR pstrSubControlName,LPCWSTR pstrText);
 
-	CDuiString GetSubControlText(LPCTSTR pstrSubControlName);
-	int GetSubControlFixedHeight(LPCTSTR pstrSubControlName);
-	int GetSubControlFixedWdith(LPCTSTR pstrSubControlName);
-	const CDuiString GetSubControlUserData(LPCTSTR pstrSubControlName);
-	CControlUI* FindSubControl(LPCTSTR pstrSubControlName);
+	CDuiString GetSubControlText(LPCWSTR pstrSubControlName);
+	int GetSubControlFixedHeight(LPCWSTR pstrSubControlName);
+	int GetSubControlFixedWdith(LPCWSTR pstrSubControlName);
+	const CDuiString GetSubControlUserData(LPCWSTR pstrSubControlName);
+	CControlUI* FindSubControl(LPCWSTR pstrSubControlName);
 
     virtual SIZE GetScrollPos() const;
     virtual SIZE GetScrollRange() const;

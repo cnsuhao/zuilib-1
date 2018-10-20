@@ -11,19 +11,19 @@ namespace Zuilib
 		COptionUI();
 		~COptionUI();
 
-		LPCTSTR GetClass() const;
-		LPVOID GetInterface(LPCTSTR pstrName);
+		LPCWSTR GetClass() const;
+		LPVOID GetInterface(LPCWSTR pstrName);
 
 		void SetManager(CPaintManagerUI* pManager, CControlUI* pParent, bool bInit = true);
 
 		bool Activate();
 		void SetEnabled(bool bEnable = true);
 
-		LPCTSTR GetSelectedImage();
-		void SetSelectedImage(LPCTSTR pStrImage);
+		LPCWSTR GetSelectedImage();
+		void SetSelectedImage(LPCWSTR pStrImage);
 
-		LPCTSTR GetSelectedHotImage();
-		void SetSelectedHotImage(LPCTSTR pStrImage);
+		LPCWSTR GetSelectedHotImage();
+		void SetSelectedHotImage(LPCWSTR pStrImage);
 
 		void SetSelectedTextColor(DWORD dwTextColor);
 		DWORD GetSelectedTextColor();
@@ -32,16 +32,16 @@ namespace Zuilib
 		DWORD GetSelectedBkColor();
 		DUI_DEPRECATED DWORD GetSelectBkColor(); // deprecated, use GetSelectedBkColor instead
 
-		LPCTSTR GetForeImage();
-		void SetForeImage(LPCTSTR pStrImage);
+		LPCWSTR GetForeImage();
+		void SetForeImage(LPCWSTR pStrImage);
 
-		LPCTSTR GetGroup() const;
-		void SetGroup(LPCTSTR pStrGroupName = NULL);
+		LPCWSTR GetGroup() const;
+		void SetGroup(LPCWSTR pStrGroupName = NULL);
 		bool IsSelected() const;
 		virtual void Selected(bool bSelected, bool bTriggerEvent=true);
 
 		SIZE EstimateSize(SIZE szAvailable);
-		void SetAttribute(LPCTSTR pstrName, LPCTSTR pstrValue);
+		void SetAttribute(LPCWSTR pstrName, LPCWSTR pstrValue);
 
 		void PaintStatusImage(HDC hDC);
 		void PaintText(HDC hDC);

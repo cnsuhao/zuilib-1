@@ -25,7 +25,7 @@ namespace Zuilib
 		}
 	}
 
-	void CChildLayoutUI::SetAttribute( LPCTSTR pstrName, LPCTSTR pstrValue )
+	void CChildLayoutUI::SetAttribute( LPCWSTR pstrName, LPCWSTR pstrValue )
 	{
 		if( _tcscmp(pstrName, _T("xmlfile")) == 0 )
 			SetChildLayoutXML(pstrValue);
@@ -43,13 +43,13 @@ namespace Zuilib
 		return m_pstrXMLFile;
 	}
 
-	LPVOID CChildLayoutUI::GetInterface( LPCTSTR pstrName )
+	LPVOID CChildLayoutUI::GetInterface( LPCWSTR pstrName )
 	{
 		if( _tcscmp(pstrName, DUI_CTR_CHILDLAYOUT) == 0 ) return static_cast<CChildLayoutUI*>(this);
 		return CControlUI::GetInterface(pstrName);
 	}
 
-	LPCTSTR CChildLayoutUI::GetClass() const
+	LPCWSTR CChildLayoutUI::GetClass() const
 	{
 		return DUI_CTR_CHILDLAYOUT;
 	}

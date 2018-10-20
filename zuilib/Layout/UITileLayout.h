@@ -10,8 +10,8 @@ namespace Zuilib
 	public:
 		CTileLayoutUI();
 
-		LPCTSTR GetClass() const;
-		LPVOID GetInterface(LPCTSTR pstrName);
+		LPCWSTR GetClass() const;
+		LPVOID GetInterface(LPCWSTR pstrName);
 
 		void SetPos(RECT rc, bool bNeedInvalidate = true);
 
@@ -24,7 +24,7 @@ namespace Zuilib
 		void SetItemSize(SIZE szSize);
 		int GetColumns() const;
 		int GetRows() const;
-		void SetAttribute(LPCTSTR pstrName, LPCTSTR pstrValue);
+		void SetAttribute(LPCWSTR pstrName, LPCWSTR pstrValue);
 
 	protected:
 		SIZE m_szItem;

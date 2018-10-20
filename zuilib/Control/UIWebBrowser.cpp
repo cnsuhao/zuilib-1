@@ -153,7 +153,7 @@ STDMETHODIMP_(ULONG) CWebBrowserUI::Release()
 	return ulRefCount; 
 }
 
-void CWebBrowserUI::Navigate2( LPCTSTR lpszUrl )
+void CWebBrowserUI::Navigate2( LPCWSTR lpszUrl )
 {
 	if (lpszUrl == NULL)
 		return;
@@ -469,7 +469,7 @@ void CWebBrowserUI::Refresh2( int Level )
 	m_pWebBrowser2->Refresh2(&vLevel);
 }
 
-void CWebBrowserUI::SetAttribute( LPCTSTR pstrName, LPCTSTR pstrValue )
+void CWebBrowserUI::SetAttribute( LPCWSTR pstrName, LPCWSTR pstrValue )
 {
 	if (_tcscmp(pstrName, _T("homepage")) == 0)
 	{
@@ -489,7 +489,7 @@ void CWebBrowserUI::NavigateHomePage()
 		this->NavigateUrl(m_sHomePage);
 }
 
-void CWebBrowserUI::NavigateUrl( LPCTSTR lpszUrl )
+void CWebBrowserUI::NavigateUrl( LPCWSTR lpszUrl )
 {
 	if (m_pWebBrowser2 && lpszUrl)
 	{
@@ -497,23 +497,23 @@ void CWebBrowserUI::NavigateUrl( LPCTSTR lpszUrl )
 	}
 }
 
-LPCTSTR CWebBrowserUI::GetClass() const
+LPCWSTR CWebBrowserUI::GetClass() const
 {
 	return DUI_CTR_WEBBROWSER;
 }
 
-LPVOID CWebBrowserUI::GetInterface( LPCTSTR pstrName )
+LPVOID CWebBrowserUI::GetInterface( LPCWSTR pstrName )
 {
 	if( _tcscmp(pstrName, DUI_CTR_WEBBROWSER) == 0 ) return static_cast<CWebBrowserUI*>(this);
 	return CActiveXUI::GetInterface(pstrName);
 }
 
-void CWebBrowserUI::SetHomePage( LPCTSTR lpszUrl )
+void CWebBrowserUI::SetHomePage( LPCWSTR lpszUrl )
 {
 	m_sHomePage.Format(_T("%s"),lpszUrl);
 }
 
-LPCTSTR CWebBrowserUI::GetHomePage()
+LPCWSTR CWebBrowserUI::GetHomePage()
 {
 	return m_sHomePage;
 }

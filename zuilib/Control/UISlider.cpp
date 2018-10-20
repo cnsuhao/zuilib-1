@@ -9,7 +9,7 @@ namespace Zuilib
 		m_szThumb.cx = m_szThumb.cy = 10;
 	}
 
-	LPCTSTR CSliderUI::GetClass() const
+	LPCWSTR CSliderUI::GetClass() const
 	{
 		return DUI_CTR_SLIDER;
 	}
@@ -20,7 +20,7 @@ namespace Zuilib
 		else return 0;
 	}
 
-	LPVOID CSliderUI::GetInterface(LPCTSTR pstrName)
+	LPVOID CSliderUI::GetInterface(LPCWSTR pstrName)
 	{
 		if( _tcscmp(pstrName, DUI_CTR_SLIDER) == 0 ) return static_cast<CSliderUI*>(this);
 		return CProgressUI::GetInterface(pstrName);
@@ -73,12 +73,12 @@ namespace Zuilib
 		m_bImmMode = bImmMode;
 	}
 
-	LPCTSTR CSliderUI::GetThumbImage() const
+	LPCWSTR CSliderUI::GetThumbImage() const
 	{
 		return m_diThumb.sDrawString;
 	}
 
-	void CSliderUI::SetThumbImage(LPCTSTR pStrImage)
+	void CSliderUI::SetThumbImage(LPCWSTR pStrImage)
 	{
 		if( m_diThumb.sDrawString == pStrImage && m_diThumb.pImageInfo != NULL ) return;
 		m_diThumb.Clear();
@@ -86,12 +86,12 @@ namespace Zuilib
 		Invalidate();
 	}
 
-	LPCTSTR CSliderUI::GetThumbHotImage() const
+	LPCWSTR CSliderUI::GetThumbHotImage() const
 	{
 		return m_diThumbHot.sDrawString;
 	}
 
-	void CSliderUI::SetThumbHotImage(LPCTSTR pStrImage)
+	void CSliderUI::SetThumbHotImage(LPCWSTR pStrImage)
 	{
 		if( m_diThumbHot.sDrawString == pStrImage && m_diThumbHot.pImageInfo != NULL ) return;
 		m_diThumbHot.Clear();
@@ -99,12 +99,12 @@ namespace Zuilib
 		Invalidate();
 	}
 
-	LPCTSTR CSliderUI::GetThumbPushedImage() const
+	LPCWSTR CSliderUI::GetThumbPushedImage() const
 	{
 		return m_diThumbPushed.sDrawString;
 	}
 
-	void CSliderUI::SetThumbPushedImage(LPCTSTR pStrImage)
+	void CSliderUI::SetThumbPushedImage(LPCWSTR pStrImage)
 	{
 		if( m_diThumbPushed.sDrawString == pStrImage && m_diThumbPushed.pImageInfo != NULL ) return;
 		m_diThumbPushed.Clear();
@@ -244,7 +244,7 @@ namespace Zuilib
 	}
 
 
-	void CSliderUI::SetAttribute(LPCTSTR pstrName, LPCTSTR pstrValue)
+	void CSliderUI::SetAttribute(LPCWSTR pstrName, LPCWSTR pstrValue)
 	{
 		if( _tcscmp(pstrName, _T("thumbimage")) == 0 ) SetThumbImage(pstrValue);
 		else if( _tcscmp(pstrName, _T("thumbhotimage")) == 0 ) SetThumbHotImage(pstrValue);

@@ -54,7 +54,7 @@ CListUI::CListUI() : m_pCallback(NULL), m_bScrollSelect(false), m_iCurSel(-1), m
     ::ZeroMemory(&m_ListInfo.rcColumn, sizeof(m_ListInfo.rcColumn));
 }
 
-LPCTSTR CListUI::GetClass() const
+LPCWSTR CListUI::GetClass() const
 {
     return DUI_CTR_LIST;
 }
@@ -64,7 +64,7 @@ UINT CListUI::GetControlFlags() const
     return UIFLAG_TABSTOP;
 }
 
-LPVOID CListUI::GetInterface(LPCTSTR pstrName)
+LPVOID CListUI::GetInterface(LPCWSTR pstrName)
 {
 	if( _tcscmp(pstrName, DUI_CTR_LIST) == 0 ) return static_cast<CListUI*>(this);
     if( _tcscmp(pstrName, DUI_CTR_ILIST) == 0 ) return static_cast<IListUI*>(this);
@@ -558,7 +558,7 @@ void CListUI::SetItemBkColor(DWORD dwBkColor)
     Invalidate();
 }
 
-void CListUI::SetItemBkImage(LPCTSTR pStrImage)
+void CListUI::SetItemBkImage(LPCWSTR pStrImage)
 {
 	if( m_ListInfo.diBk.sDrawString == pStrImage && m_ListInfo.diBk.pImageInfo != NULL ) return;
 	m_ListInfo.diBk.Clear();
@@ -587,7 +587,7 @@ DWORD CListUI::GetItemBkColor() const
 	return m_ListInfo.dwBkColor;
 }
 
-LPCTSTR CListUI::GetItemBkImage() const
+LPCWSTR CListUI::GetItemBkImage() const
 {
     return m_ListInfo.diBk.sDrawString;
 }
@@ -604,7 +604,7 @@ void CListUI::SetSelectedItemBkColor(DWORD dwBkColor)
     Invalidate();
 }
 
-void CListUI::SetSelectedItemImage(LPCTSTR pStrImage)
+void CListUI::SetSelectedItemImage(LPCWSTR pStrImage)
 {
 	if( m_ListInfo.diSelected.sDrawString == pStrImage && m_ListInfo.diSelected.pImageInfo != NULL ) return;
 	m_ListInfo.diSelected.Clear();
@@ -622,7 +622,7 @@ DWORD CListUI::GetSelectedItemBkColor() const
 	return m_ListInfo.dwSelectedBkColor;
 }
 
-LPCTSTR CListUI::GetSelectedItemImage() const
+LPCWSTR CListUI::GetSelectedItemImage() const
 {
 	return m_ListInfo.diSelected.sDrawString;
 }
@@ -639,7 +639,7 @@ void CListUI::SetHotItemBkColor(DWORD dwBkColor)
     Invalidate();
 }
 
-void CListUI::SetHotItemImage(LPCTSTR pStrImage)
+void CListUI::SetHotItemImage(LPCWSTR pStrImage)
 {
 	if( m_ListInfo.diHot.sDrawString == pStrImage && m_ListInfo.diHot.pImageInfo != NULL ) return;
 	m_ListInfo.diHot.Clear();
@@ -656,7 +656,7 @@ DWORD CListUI::GetHotItemBkColor() const
 	return m_ListInfo.dwHotBkColor;
 }
 
-LPCTSTR CListUI::GetHotItemImage() const
+LPCWSTR CListUI::GetHotItemImage() const
 {
 	return m_ListInfo.diHot.sDrawString;
 }
@@ -673,7 +673,7 @@ void CListUI::SetDisabledItemBkColor(DWORD dwBkColor)
     Invalidate();
 }
 
-void CListUI::SetDisabledItemImage(LPCTSTR pStrImage)
+void CListUI::SetDisabledItemImage(LPCWSTR pStrImage)
 {
 	if( m_ListInfo.diDisabled.sDrawString == pStrImage && m_ListInfo.diDisabled.pImageInfo != NULL ) return;
 	m_ListInfo.diDisabled.Clear();
@@ -691,7 +691,7 @@ DWORD CListUI::GetDisabledItemBkColor() const
 	return m_ListInfo.dwDisabledBkColor;
 }
 
-LPCTSTR CListUI::GetDisabledItemImage() const
+LPCWSTR CListUI::GetDisabledItemImage() const
 {
 	return m_ListInfo.diDisabled.sDrawString;
 }
@@ -819,7 +819,7 @@ void CListUI::Scroll(int dx, int dy)
     m_pList->SetScrollPos(CDuiSize(sz.cx + dx, sz.cy + dy));
 }
 
-void CListUI::SetAttribute(LPCTSTR pstrName, LPCTSTR pstrValue)
+void CListUI::SetAttribute(LPCWSTR pstrName, LPCWSTR pstrValue)
 {
     if( _tcscmp(pstrName, _T("header")) == 0 ) GetHeader()->SetVisible(_tcscmp(pstrValue, _T("hidden")) != 0);
     else if( _tcscmp(pstrName, _T("headerbkimage")) == 0 ) GetHeader()->SetBkImage(pstrValue);
@@ -1408,12 +1408,12 @@ CListHeaderUI::CListHeaderUI()
 {
 }
 
-LPCTSTR CListHeaderUI::GetClass() const
+LPCWSTR CListHeaderUI::GetClass() const
 {
     return DUI_CTR_LISTHEADER;
 }
 
-LPVOID CListHeaderUI::GetInterface(LPCTSTR pstrName)
+LPVOID CListHeaderUI::GetInterface(LPCWSTR pstrName)
 {
     if( _tcscmp(pstrName, DUI_CTR_LISTHEADER) == 0 ) return this;
     return CHorizontalLayoutUI::GetInterface(pstrName);
@@ -1446,12 +1446,12 @@ m_iFont(-1), m_bShowHtml(false)
     SetMinWidth(16);
 }
 
-LPCTSTR CListHeaderItemUI::GetClass() const
+LPCWSTR CListHeaderItemUI::GetClass() const
 {
     return DUI_CTR_LISTHEADERITEM;
 }
 
-LPVOID CListHeaderItemUI::GetInterface(LPCTSTR pstrName)
+LPVOID CListHeaderItemUI::GetInterface(LPCWSTR pstrName)
 {
     if( _tcscmp(pstrName, DUI_CTR_LISTHEADERITEM) == 0 ) return this;
     return CControlUI::GetInterface(pstrName);
@@ -1555,12 +1555,12 @@ void CListHeaderItemUI::SetShowHtml(bool bShowHtml)
     Invalidate();
 }
 
-LPCTSTR CListHeaderItemUI::GetNormalImage() const
+LPCWSTR CListHeaderItemUI::GetNormalImage() const
 {
 	return m_diNormal.sDrawString;
 }
 
-void CListHeaderItemUI::SetNormalImage(LPCTSTR pStrImage)
+void CListHeaderItemUI::SetNormalImage(LPCWSTR pStrImage)
 {
 	if( m_diNormal.sDrawString == pStrImage && m_diNormal.pImageInfo != NULL ) return;
 	m_diNormal.Clear();
@@ -1568,12 +1568,12 @@ void CListHeaderItemUI::SetNormalImage(LPCTSTR pStrImage)
 	Invalidate();
 }
 
-LPCTSTR CListHeaderItemUI::GetHotImage() const
+LPCWSTR CListHeaderItemUI::GetHotImage() const
 {
 	return m_diHot.sDrawString;
 }
 
-void CListHeaderItemUI::SetHotImage(LPCTSTR pStrImage)
+void CListHeaderItemUI::SetHotImage(LPCWSTR pStrImage)
 {
 	if( m_diHot.sDrawString == pStrImage && m_diHot.pImageInfo != NULL ) return;
 	m_diHot.Clear();
@@ -1581,12 +1581,12 @@ void CListHeaderItemUI::SetHotImage(LPCTSTR pStrImage)
 	Invalidate();
 }
 
-LPCTSTR CListHeaderItemUI::GetPushedImage() const
+LPCWSTR CListHeaderItemUI::GetPushedImage() const
 {
 	return m_diPushed.sDrawString;
 }
 
-void CListHeaderItemUI::SetPushedImage(LPCTSTR pStrImage)
+void CListHeaderItemUI::SetPushedImage(LPCWSTR pStrImage)
 {
 	if( m_diPushed.sDrawString == pStrImage && m_diPushed.pImageInfo != NULL ) return;
 	m_diPushed.Clear();
@@ -1594,12 +1594,12 @@ void CListHeaderItemUI::SetPushedImage(LPCTSTR pStrImage)
 	Invalidate();
 }
 
-LPCTSTR CListHeaderItemUI::GetFocusedImage() const
+LPCWSTR CListHeaderItemUI::GetFocusedImage() const
 {
 	return m_diFocused.sDrawString;
 }
 
-void CListHeaderItemUI::SetFocusedImage(LPCTSTR pStrImage)
+void CListHeaderItemUI::SetFocusedImage(LPCWSTR pStrImage)
 {
 	if( m_diFocused.sDrawString == pStrImage && m_diFocused.pImageInfo != NULL ) return;
 	m_diFocused.Clear();
@@ -1607,12 +1607,12 @@ void CListHeaderItemUI::SetFocusedImage(LPCTSTR pStrImage)
 	Invalidate();
 }
 
-LPCTSTR CListHeaderItemUI::GetSepImage() const
+LPCWSTR CListHeaderItemUI::GetSepImage() const
 {
 	return m_diSep.sDrawString;
 }
 
-void CListHeaderItemUI::SetSepImage(LPCTSTR pStrImage)
+void CListHeaderItemUI::SetSepImage(LPCWSTR pStrImage)
 {
 	if( m_diSep.sDrawString == pStrImage && m_diSep.pImageInfo != NULL ) return;
 	m_diSep.Clear();
@@ -1620,7 +1620,7 @@ void CListHeaderItemUI::SetSepImage(LPCTSTR pStrImage)
 	Invalidate();
 }
 
-void CListHeaderItemUI::SetAttribute(LPCTSTR pstrName, LPCTSTR pstrValue)
+void CListHeaderItemUI::SetAttribute(LPCWSTR pstrName, LPCWSTR pstrValue)
 {
     if( _tcscmp(pstrName, _T("dragable")) == 0 ) SetDragable(_tcscmp(pstrValue, _T("true")) == 0);
     else if( _tcscmp(pstrName, _T("align")) == 0 ) {
@@ -1877,7 +1877,7 @@ m_uButtonState(0)
 {
 }
 
-LPCTSTR CListElementUI::GetClass() const
+LPCWSTR CListElementUI::GetClass() const
 {
     return DUI_CTR_LISTELEMENT;
 }
@@ -1887,7 +1887,7 @@ UINT CListElementUI::GetControlFlags() const
     return UIFLAG_WANTRETURN;
 }
 
-LPVOID CListElementUI::GetInterface(LPCTSTR pstrName)
+LPVOID CListElementUI::GetInterface(LPCWSTR pstrName)
 {
     if( _tcscmp(pstrName, DUI_CTR_ILISTITEM) == 0 ) return static_cast<IListItemUI*>(this);
 	if( _tcscmp(pstrName, DUI_CTR_LISTELEMENT) == 0 ) return static_cast<CListElementUI*>(this);
@@ -2055,7 +2055,7 @@ void CListElementUI::DoEvent(TEventUI& event)
     if( m_pOwner != NULL ) m_pOwner->DoEvent(event); else CControlUI::DoEvent(event);
 }
 
-void CListElementUI::SetAttribute(LPCTSTR pstrName, LPCTSTR pstrValue)
+void CListElementUI::SetAttribute(LPCWSTR pstrName, LPCWSTR pstrValue)
 {
     if( _tcscmp(pstrName, _T("selected")) == 0 ) Select();
     else CControlUI::SetAttribute(pstrName, pstrValue);
@@ -2112,12 +2112,12 @@ CListLabelElementUI::CListLabelElementUI() : m_bNeedEstimateSize(true), m_uFixed
     ::ZeroMemory(&m_rcTextPaddingLast, sizeof(m_rcTextPaddingLast));
 }
 
-LPCTSTR CListLabelElementUI::GetClass() const
+LPCWSTR CListLabelElementUI::GetClass() const
 {
     return DUI_CTR_LISTLABELELEMENT;
 }
 
-LPVOID CListLabelElementUI::GetInterface(LPCTSTR pstrName)
+LPVOID CListLabelElementUI::GetInterface(LPCWSTR pstrName)
 {
     if( _tcscmp(pstrName, DUI_CTR_LISTLABELELEMENT) == 0 ) return static_cast<CListLabelElementUI*>(this);
     return CListElementUI::GetInterface(pstrName);
@@ -2141,7 +2141,7 @@ void CListLabelElementUI::SetFixedHeight(int cy)
     CControlUI::SetFixedHeight(cy);
 }
 
-void CListLabelElementUI::SetText(LPCTSTR pstrText)
+void CListLabelElementUI::SetText(LPCWSTR pstrText)
 {
     m_bNeedEstimateSize = true;
     CControlUI::SetText(pstrText);
@@ -2332,12 +2332,12 @@ CListTextElementUI::~CListTextElementUI()
     m_aTexts.Empty();
 }
 
-LPCTSTR CListTextElementUI::GetClass() const
+LPCWSTR CListTextElementUI::GetClass() const
 {
     return DUI_CTR_LISTTEXTELEMENT;
 }
 
-LPVOID CListTextElementUI::GetInterface(LPCTSTR pstrName)
+LPVOID CListTextElementUI::GetInterface(LPCWSTR pstrName)
 {
     if( _tcscmp(pstrName, DUI_CTR_LISTTEXTELEMENT) == 0 ) return static_cast<CListTextElementUI*>(this);
     return CListLabelElementUI::GetInterface(pstrName);
@@ -2348,14 +2348,14 @@ UINT CListTextElementUI::GetControlFlags() const
     return UIFLAG_WANTRETURN | ( (IsEnabled() && m_nLinks > 0) ? UIFLAG_SETCURSOR : 0);
 }
 
-LPCTSTR CListTextElementUI::GetText(int iIndex) const
+LPCWSTR CListTextElementUI::GetText(int iIndex) const
 {
     CDuiString* pText = static_cast<CDuiString*>(m_aTexts.GetAt(iIndex));
     if( pText ) return pText->GetData();
     return NULL;
 }
 
-void CListTextElementUI::SetText(int iIndex, LPCTSTR pstrText)
+void CListTextElementUI::SetText(int iIndex, LPCWSTR pstrText)
 {
     if( m_pOwner == NULL ) return;
     TListInfoUI* pInfo = m_pOwner->GetListInfo();
@@ -2566,7 +2566,7 @@ void CListTextElementUI::DrawItemText(HDC hDC, const RECT& rcItem)
             rcItem.top += pInfo->rcTextPadding.top;
             rcItem.bottom -= pInfo->rcTextPadding.bottom;
 
-            CDuiString strText;//不使用LPCTSTR，否则限制太多 by cddjr 2011/10/20
+            CDuiString strText;//不使用LPCWSTR，否则限制太多 by cddjr 2011/10/20
             if( pCallback ) strText = pCallback->GetItemText(this, m_iIndex, i);
             else strText.Assign(GetText(i));
             if( pInfo->bShowHtml )
@@ -2623,7 +2623,7 @@ m_uButtonState(0)
 {
 }
 
-LPCTSTR CListContainerElementUI::GetClass() const
+LPCWSTR CListContainerElementUI::GetClass() const
 {
     return DUI_CTR_LISTCONTAINERELEMENT;
 }
@@ -2633,7 +2633,7 @@ UINT CListContainerElementUI::GetControlFlags() const
     return UIFLAG_WANTRETURN;
 }
 
-LPVOID CListContainerElementUI::GetInterface(LPCTSTR pstrName)
+LPVOID CListContainerElementUI::GetInterface(LPCWSTR pstrName)
 {
     if( _tcscmp(pstrName, DUI_CTR_ILISTITEM) == 0 ) return static_cast<IListItemUI*>(this);
 	if( _tcscmp(pstrName, DUI_CTR_LISTCONTAINERELEMENT) == 0 ) return static_cast<CListContainerElementUI*>(this);
@@ -2868,7 +2868,7 @@ void CListContainerElementUI::DoEvent(TEventUI& event)
     if( m_pOwner != NULL ) m_pOwner->DoEvent(event); else CControlUI::DoEvent(event);
 }
 
-void CListContainerElementUI::SetAttribute(LPCTSTR pstrName, LPCTSTR pstrValue)
+void CListContainerElementUI::SetAttribute(LPCWSTR pstrName, LPCWSTR pstrValue)
 {
     if( _tcscmp(pstrName, _T("selected")) == 0 ) Select();
     else if( _tcscmp(pstrName, _T("expandable")) == 0 ) SetExpandable(_tcscmp(pstrValue, _T("true")) == 0);
@@ -2943,12 +2943,12 @@ CListHBoxElementUI::CListHBoxElementUI()
     
 }
 
-LPCTSTR CListHBoxElementUI::GetClass() const
+LPCWSTR CListHBoxElementUI::GetClass() const
 {
     return DUI_CTR_LISTHBOXELEMENT;
 }
 
-LPVOID CListHBoxElementUI::GetInterface(LPCTSTR pstrName)
+LPVOID CListHBoxElementUI::GetInterface(LPCWSTR pstrName)
 {
     if( _tcscmp(pstrName, DUI_CTR_LISTHBOXELEMENT) == 0 ) return static_cast<CListHBoxElementUI*>(this);
     return CListContainerElementUI::GetInterface(pstrName);

@@ -25,9 +25,9 @@ namespace Zuilib
 		IShockwaveFlash* m_pFlash;
 
 	private:
-		virtual LPCTSTR GetClass() const;
-		virtual LPVOID GetInterface( LPCTSTR pstrName );
-		virtual void SetAttribute(LPCTSTR pstrName, LPCTSTR pstrValue);
+		virtual LPCWSTR GetClass() const;
+		virtual LPVOID GetInterface( LPCWSTR pstrName );
+		virtual void SetAttribute(LPCWSTR pstrName, LPCWSTR pstrValue);
 
 		virtual HRESULT STDMETHODCALLTYPE GetTypeInfoCount( __RPC__out UINT *pctinfo );
 		virtual HRESULT STDMETHODCALLTYPE GetTypeInfo( UINT iTInfo, LCID lcid, __RPC__deref_out_opt ITypeInfo **ppTInfo );

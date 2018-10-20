@@ -46,12 +46,12 @@ CDuiString WindowImplBase::GetZIPFileName() const
 	return _T("");
 }
 
-LPCTSTR WindowImplBase::GetResourceID() const
+LPCWSTR WindowImplBase::GetResourceID() const
 {
 	return _T("");
 }
 
-CControlUI* WindowImplBase::CreateControl(LPCTSTR pstrClass)
+CControlUI* WindowImplBase::CreateControl(LPCWSTR pstrClass)
 {
 	return NULL;
 }

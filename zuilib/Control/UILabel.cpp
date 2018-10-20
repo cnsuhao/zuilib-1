@@ -50,23 +50,20 @@ namespace Zuilib
 
 	CLabelUI::~CLabelUI()
 	{
-#ifdef _UNICODE
-		if( m_pWideText && m_pWideText != m_sText.GetData()) delete[] m_pWideText;
-#else
-		if( m_pWideText ) delete[] m_pWideText;
-#endif
+		if( m_pWideText && m_pWideText != m_sText.GetData()) 
+			delete[] m_pWideText;
 
 #ifdef _USE_GDIPLUS
 		GdiplusShutdown( m_gdiplusToken );
 #endif
 	}
 
-	LPCTSTR CLabelUI::GetClass() const
+	LPCWSTR CLabelUI::GetClass() const
 	{
 		return DUI_CTR_LABEL;
 	}
 
-	LPVOID CLabelUI::GetInterface(LPCTSTR pstrName)
+	LPVOID CLabelUI::GetInterface(LPCWSTR pstrName)
 	{
 		if( _tcscmp(pstrName, DUI_CTR_LABEL) == 0 ) return static_cast<CLabelUI*>(this);
 		return CControlUI::GetInterface(pstrName);
@@ -84,20 +81,12 @@ namespace Zuilib
         CControlUI::SetFixedHeight(cy);
     }
 
-	void CLabelUI::SetText(LPCTSTR pstrText)
+	void CLabelUI::SetText(LPCWSTR pstrText)
 	{
 		CControlUI::SetText(pstrText);
         m_bNeedEstimateSize = true;
 		if( m_EnableEffect) {
-#ifdef _UNICODE
 			m_pWideText = (LPWSTR)m_sText.GetData();
-#else 
-			int iLen = _tcslen(pstrText);
-			if (m_pWideText) delete[] m_pWideText;
-			m_pWideText = new WCHAR[iLen + 1];
-			::ZeroMemory(m_pWideText, (iLen + 1) * sizeof(WCHAR));
-			::MultiByteToWideChar(CP_ACP, 0, pstrText, -1, (LPWSTR)m_pWideText, iLen);
-#endif
 		}
 	}
 
@@ -253,7 +242,7 @@ namespace Zuilib
 		CControlUI::DoEvent(event);
 	}
 
-	void CLabelUI::SetAttribute(LPCTSTR pstrName, LPCTSTR pstrValue)
+	void CLabelUI::SetAttribute(LPCWSTR pstrName, LPCWSTR pstrValue)
 	{
 		if( _tcscmp(pstrName, _T("align")) == 0 ) {
 			if( _tcsstr(pstrValue, _T("left")) != NULL ) {
@@ -448,8 +437,11 @@ namespace Zuilib
 			
 			if(GetEnabledStroke() && GetStrokeColor() > 0)
 			{
-				LinearGradientBrush nLineGrBrushStroke(Point(GetGradientAngle(),0),Point(0,rc.bottom-rc.top+2),ARGB2Color(GetStrokeColor()),ARGB2Color(GetStrokeColor()));
-#ifdef _UNICODE
+				LinearGradientBrush nLineGrBrushStroke(Point(GetGradientAngle(),0)
+					,Point(0,rc.bottom-rc.top+2)
+					,ARGB2Color(GetStrokeColor())
+					,ARGB2Color(GetStrokeColor()));
+
 				nRc.Offset(-1,0);
 				nGraphics.DrawString(m_sText,m_sText.GetLength(),&nFont,nRc,&format,&nLineGrBrushStroke);
 				nRc.Offset(2,0);
@@ -459,31 +451,12 @@ namespace Zuilib
 				nRc.Offset(0,2);
 				nGraphics.DrawString(m_sText,m_sText.GetLength(),&nFont,nRc,&format,&nLineGrBrushStroke);
 				nRc.Offset(0,-1);
-#else
-				int iLen = wcslen(m_pWideText);
-				nRc.Offset(-1,0);
-				nGraphics.DrawString(m_pWideText,iLen,&nFont,nRc,&format,&nLineGrBrushStroke);
-				nRc.Offset(2,0);
-				nGraphics.DrawString(m_pWideText,iLen,&nFont,nRc,&format,&nLineGrBrushStroke);
-				nRc.Offset(-1,-1);
-				nGraphics.DrawString(m_pWideText,iLen,&nFont,nRc,&format,&nLineGrBrushStroke);
-				nRc.Offset(0,2);
-				nGraphics.DrawString(m_pWideText,iLen,&nFont,nRc,&format,&nLineGrBrushStroke);
-				nRc.Offset(0,-1);
-#endif	
 			}
-#ifdef _UNICODE
-			if(GetEnabledShadow() && (GetTextShadowColorA() > 0 || GetTextShadowColorB() > 0))
-				nGraphics.DrawString(m_sText,m_sText.GetLength(),&nFont,nShadowRc,&format,&nLineGrBrushA);
-
+			if (GetEnabledShadow()
+				&& (GetTextShadowColorA() > 0 || GetTextShadowColorB() > 0)) {
+				nGraphics.DrawString(m_sText, m_sText.GetLength(), &nFont, nShadowRc, &format, &nLineGrBrushA);
+			}
 			nGraphics.DrawString(m_sText,m_sText.GetLength(),&nFont,nRc,&format,&nLineGrBrushB);
-#else
-			int iLen = wcslen(m_pWideText);
-			if(GetEnabledShadow() && (GetTextShadowColorA() > 0 || GetTextShadowColorB() > 0))
-				nGraphics.DrawString(m_pWideText,iLen,&nFont,nShadowRc,&format,&nLineGrBrushA);
-
-			nGraphics.DrawString(m_pWideText,iLen,&nFont,nRc,&format,&nLineGrBrushB);
-#endif
 #endif
 		}
 	}
@@ -513,15 +486,7 @@ namespace Zuilib
 	{
 		m_EnableEffect = _EnabledEffect;
 		if (m_EnableEffect) {
-#ifdef _UNICODE
 			m_pWideText = (LPWSTR)m_sText.GetData();
-#else 
-			int iLen = m_sText.GetLength();
-			if (m_pWideText) delete[] m_pWideText;
-			m_pWideText = new WCHAR[iLen + 1];
-			::ZeroMemory(m_pWideText, (iLen + 1) * sizeof(WCHAR));
-			::MultiByteToWideChar(CP_ACP, 0, m_sText.GetData(), -1, (LPWSTR)m_pWideText, iLen);
-#endif
 		}
 		Invalidate();
 	}

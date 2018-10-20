@@ -55,7 +55,7 @@
 using namespace Zuilib;
 CWndShadow::pfnUpdateLayeredWindow CWndShadow::s_UpdateLayeredWindow = NULL;
 
-const TCHAR *strWndClassName = _T("DuiShadowWnd");
+const WCHAR *strWndClassName = _T("DuiShadowWnd");
 
 HINSTANCE CWndShadow::s_hInstance = (HINSTANCE)INVALID_HANDLE_VALUE;
 
@@ -605,7 +605,7 @@ void CWndShadow::MakeShadow(UINT32 *pShadBits, HWND hParent, RECT *rcParent)
 	DeleteObject(hParentRgn);
 }
 
-bool CWndShadow::SetImage(LPCTSTR image, RECT rcCorner, RECT rcHoleOffset)
+bool CWndShadow::SetImage(LPCWSTR image, RECT rcCorner, RECT rcHoleOffset)
 {
 	TImageInfo* pImageInfo = CRenderEngine::LoadImage(image); 
 	if (pImageInfo == NULL) return false;

@@ -7,10 +7,10 @@
 
 namespace Zuilib {
 
-void ZUILIB_API DUI__Trace(LPCTSTR pstrFormat, ...)
+void ZUILIB_API DUI__Trace(LPCWSTR pstrFormat, ...)
 {
 #ifdef _DEBUG
-    TCHAR szBuffer[300] = { 0 };
+    WCHAR szBuffer[300] = { 0 };
     va_list args;
     va_start(args, pstrFormat);
     ::wvnsprintf(szBuffer, lengthof(szBuffer) - 2, pstrFormat, args);
@@ -20,7 +20,7 @@ void ZUILIB_API DUI__Trace(LPCTSTR pstrFormat, ...)
 #endif
 }
 
-LPCTSTR DUI__TraceMsg(UINT uMsg)
+LPCWSTR DUI__TraceMsg(UINT uMsg)
 {
 #define MSGDEF(x) if(uMsg==x) return _T(#x)
     MSGDEF(WM_SETCURSOR);
@@ -77,7 +77,7 @@ LPCTSTR DUI__TraceMsg(UINT uMsg)
     MSGDEF(WM_GETICON);   
     MSGDEF(WM_GETTEXT);
     MSGDEF(WM_GETTEXTLENGTH);   
-    static TCHAR szMsg[10];
+    static WCHAR szMsg[10];
     ::wsprintf(szMsg, _T("0x%04X"), uMsg);
     return szMsg;
 }
@@ -183,7 +183,7 @@ void CNotifyPump::NotifyPump(TNotifyUI& msg)
 	///±éÀúÐéÄâ´°¿Ú
 	if( !msg.sVirtualWnd.IsEmpty() ){
 		for( int i = 0; i< m_VirtualWndMap.GetSize(); i++ ) {
-			if( LPCTSTR key = m_VirtualWndMap.GetAt(i) ) {
+			if( LPCWSTR key = m_VirtualWndMap.GetAt(i) ) {
 				if( _tcsicmp(key, msg.sVirtualWnd.GetData()) == 0 ){
 					CNotifyPump* pObject = static_cast<CNotifyPump*>(m_VirtualWndMap.Find(key, false));
 					if( pObject && pObject->LoopDispatch(msg) )
@@ -216,7 +216,7 @@ UINT CWindowWnd::GetClassStyle() const
     return 0;
 }
 
-LPCTSTR CWindowWnd::GetSuperClassName() const
+LPCWSTR CWindowWnd::GetSuperClassName() const
 {
     return NULL;
 }
@@ -226,17 +226,17 @@ CWindowWnd::operator HWND() const
     return m_hWnd;
 }
 
-HWND CWindowWnd::CreateDuiWindow( HWND hwndParent, LPCTSTR pstrWindowName,DWORD dwStyle /*=0*/, DWORD dwExStyle /*=0*/ )
+HWND CWindowWnd::CreateDuiWindow( HWND hwndParent, LPCWSTR pstrWindowName,DWORD dwStyle /*=0*/, DWORD dwExStyle /*=0*/ )
 {
 	return Create(hwndParent,pstrWindowName,dwStyle,dwExStyle,0,0,0,0,NULL);
 }
 
-HWND CWindowWnd::Create(HWND hwndParent, LPCTSTR pstrName, DWORD dwStyle, DWORD dwExStyle, const RECT rc, HMENU hMenu)
+HWND CWindowWnd::Create(HWND hwndParent, LPCWSTR pstrName, DWORD dwStyle, DWORD dwExStyle, const RECT rc, HMENU hMenu)
 {
     return Create(hwndParent, pstrName, dwStyle, dwExStyle, rc.left, rc.top, rc.right - rc.left, rc.bottom - rc.top, hMenu);
 }
 
-HWND CWindowWnd::Create(HWND hwndParent, LPCTSTR pstrName, DWORD dwStyle, DWORD dwExStyle, int x, int y, int cx, int cy, HMENU hMenu)
+HWND CWindowWnd::Create(HWND hwndParent, LPCWSTR pstrName, DWORD dwStyle, DWORD dwExStyle, int x, int y, int cx, int cy, HMENU hMenu)
 {
     if( GetSuperClassName() != NULL && !RegisterSuperclass() ) return NULL;
     if( GetSuperClassName() == NULL && !RegisterWindowClass() ) return NULL;

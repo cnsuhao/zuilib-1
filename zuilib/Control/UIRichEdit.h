@@ -13,8 +13,8 @@ public:
     CRichEditUI();
     ~CRichEditUI();
 
-    LPCTSTR GetClass() const;
-    LPVOID GetInterface(LPCTSTR pstrName);
+    LPCWSTR GetClass() const;
+    LPVOID GetInterface(LPCWSTR pstrName);
     UINT GetControlFlags() const;
 
     bool IsWantTab();
@@ -33,7 +33,7 @@ public:
     void SetWordWrap(bool bWordWrap = true);
     int GetFont();
     void SetFont(int index);
-    void SetFont(LPCTSTR pStrFontName, int nSize, bool bBold, bool bUnderline, bool bItalic);
+    void SetFont(LPCWSTR pStrFontName, int nSize, bool bBold, bool bUnderline, bool bItalic);
     LONG GetWinStyle();
     void SetWinStyle(LONG lStyle);
     DWORD GetTextColor();
@@ -42,14 +42,14 @@ public:
     void SetLimitText(int iChars);
     long GetTextLength(DWORD dwFlags = GTL_DEFAULT) const;
     CDuiString GetText() const;
-    void SetText(LPCTSTR pstrText);
+    void SetText(LPCWSTR pstrText);
     bool IsModify() const;
     void SetModify(bool bModified = true) const;
     void GetSel(CHARRANGE &cr) const;
     void GetSel(long& nStartChar, long& nEndChar) const;
     int SetSel(CHARRANGE &cr);
     int SetSel(long nStartChar, long nEndChar);
-    void ReplaceSel(LPCTSTR lpszNewText, bool bCanUndo);
+    void ReplaceSel(LPCWSTR lpszNewText, bool bCanUndo);
     void ReplaceSelW(LPCWSTR lpszNewText, bool bCanUndo = false);
     CDuiString GetSelText() const;
     int SetSelAll();
@@ -65,8 +65,8 @@ public:
     CDuiString GetTextRange(long nStartChar, long nEndChar) const;
     void HideSelection(bool bHide = true, bool bChangeStyle = false);
     void ScrollCaret();
-    int InsertText(long nInsertAfterChar, LPCTSTR lpstrText, bool bCanUndo = false);
-    int AppendText(LPCTSTR lpstrText, bool bCanUndo = false);
+    int InsertText(long nInsertAfterChar, LPCWSTR lpstrText, bool bCanUndo = false);
+    int AppendText(LPCWSTR lpstrText, bool bCanUndo = false);
     DWORD GetDefaultCharFormat(CHARFORMAT2 &cf) const;
     bool SetDefaultCharFormat(CHARFORMAT2 &cf);
     DWORD GetSelectionCharFormat(CHARFORMAT2 &cf) const;
@@ -126,7 +126,7 @@ public:
     void DoEvent(TEventUI& event);
     bool DoPaint(HDC hDC, const RECT& rcPaint, CControlUI* pStopControl);
 
-    void SetAttribute(LPCTSTR pstrName, LPCTSTR pstrValue);
+    void SetAttribute(LPCWSTR pstrName, LPCWSTR pstrValue);
 
     LRESULT MessageHandler(UINT uMsg, WPARAM wParam, LPARAM lParam, bool& bHandled);
 

@@ -17,8 +17,8 @@ namespace Zuilib
 	class ZUILIB_API CCheckBoxUI : public COptionUI
 	{
 	public:
-		LPCTSTR GetClass() const;
-		LPVOID GetInterface(LPCTSTR pstrName);
+		LPCWSTR GetClass() const;
+		LPVOID GetInterface(LPCWSTR pstrName);
 
 		void SetCheck(bool bCheck, bool bTriggerEvent=true);
 		bool GetCheck() const;

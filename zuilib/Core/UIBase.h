@@ -35,8 +35,8 @@ namespace Zuilib {
 #define DUITRACEMSG _T("")
 #endif
 
-void ZUILIB_API DUI__Trace(LPCTSTR pstrFormat, ...);
-LPCTSTR ZUILIB_API DUI__TraceMsg(UINT uMsg);
+void ZUILIB_API DUI__Trace(LPCWSTR pstrFormat, ...);
+LPCWSTR ZUILIB_API DUI__TraceMsg(UINT uMsg);
 
 class ZUILIB_API CNotifyPump
 {
@@ -61,9 +61,9 @@ public:
     bool RegisterWindowClass();
     bool RegisterSuperclass();
 
-    HWND Create(HWND hwndParent, LPCTSTR pstrName, DWORD dwStyle, DWORD dwExStyle, const RECT rc, HMENU hMenu = NULL);
-    HWND Create(HWND hwndParent, LPCTSTR pstrName, DWORD dwStyle, DWORD dwExStyle, int x = CW_USEDEFAULT, int y = CW_USEDEFAULT, int cx = CW_USEDEFAULT, int cy = CW_USEDEFAULT, HMENU hMenu = NULL);
-    HWND CreateDuiWindow(HWND hwndParent, LPCTSTR pstrWindowName,DWORD dwStyle =0, DWORD dwExStyle =0);
+    HWND Create(HWND hwndParent, LPCWSTR pstrName, DWORD dwStyle, DWORD dwExStyle, const RECT rc, HMENU hMenu = NULL);
+    HWND Create(HWND hwndParent, LPCWSTR pstrName, DWORD dwStyle, DWORD dwExStyle, int x = CW_USEDEFAULT, int y = CW_USEDEFAULT, int cx = CW_USEDEFAULT, int cy = CW_USEDEFAULT, HMENU hMenu = NULL);
+    HWND CreateDuiWindow(HWND hwndParent, LPCWSTR pstrWindowName,DWORD dwStyle =0, DWORD dwExStyle =0);
     HWND Subclass(HWND hWnd);
     void Unsubclass();
     void ShowWindow(bool bShow = true, bool bTakeFocus = true);
@@ -77,8 +77,8 @@ public:
     void ResizeClient(int cx = -1, int cy = -1);
 
 protected:
-    virtual LPCTSTR GetWindowClassName() const = 0;
-    virtual LPCTSTR GetSuperClassName() const;
+    virtual LPCWSTR GetWindowClassName() const = 0;
+    virtual LPCWSTR GetSuperClassName() const;
     virtual UINT GetClassStyle() const;
 
     virtual LRESULT HandleMessage(UINT uMsg, WPARAM wParam, LPARAM lParam);

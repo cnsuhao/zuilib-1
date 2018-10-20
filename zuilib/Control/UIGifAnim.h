@@ -15,15 +15,15 @@ namespace Zuilib
 		CGifAnimUI(void);
 		~CGifAnimUI(void);
 
-		LPCTSTR	GetClass() const;
-		LPVOID	GetInterface(LPCTSTR pstrName);
+		LPCWSTR	GetClass() const;
+		LPVOID	GetInterface(LPCWSTR pstrName);
 		void	DoInit() override;
 		bool	DoPaint(HDC hDC, const RECT& rcPaint, CControlUI* pStopControl);
 		void	DoEvent(TEventUI& event);
 		void	SetVisible(bool bVisible = true );
-		void	SetAttribute(LPCTSTR pstrName, LPCTSTR pstrValue);
-		void	SetBkImage(LPCTSTR pStrImage);
-		LPCTSTR GetBkImage();
+		void	SetAttribute(LPCWSTR pstrName, LPCWSTR pstrValue);
+		void	SetBkImage(LPCWSTR pStrImage);
+		LPCWSTR GetBkImage();
 
 		void	SetAutoPlay(bool bIsAuto = true );
 		bool	IsAutoPlay() const;
@@ -38,7 +38,7 @@ namespace Zuilib
 		void	DeleteGif();
 		void    OnTimer( UINT_PTR idEvent );
 		void	DrawFrame( HDC hDC );		// ªÊ÷∆GIF√ø÷°
-		Gdiplus::Image*	LoadGifFromFile(LPCTSTR pstrGifPath);
+		Gdiplus::Image*	LoadGifFromFile(LPCWSTR pstrGifPath);
 		Gdiplus::Image* LoadGifFromMemory( LPVOID pBuf,size_t dwSize );
 	private:
 		Gdiplus::Image	*m_pGifImage;

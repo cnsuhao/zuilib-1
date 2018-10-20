@@ -9,12 +9,12 @@ namespace Zuilib
 		::ZeroMemory(&m_rcNewPos, sizeof(m_rcNewPos));
 	}
 
-	LPCTSTR CHorizontalLayoutUI::GetClass() const
+	LPCWSTR CHorizontalLayoutUI::GetClass() const
 	{
 		return DUI_CTR_HORIZONTALLAYOUT;
 	}
 
-	LPVOID CHorizontalLayoutUI::GetInterface(LPCTSTR pstrName)
+	LPVOID CHorizontalLayoutUI::GetInterface(LPCWSTR pstrName)
 	{
 		if( _tcscmp(pstrName, DUI_CTR_HORIZONTALLAYOUT) == 0 ) return static_cast<CHorizontalLayoutUI*>(this);
 		return CContainerUI::GetInterface(pstrName);
@@ -226,7 +226,7 @@ namespace Zuilib
 		return m_bImmMode;
 	}
 
-	void CHorizontalLayoutUI::SetAttribute(LPCTSTR pstrName, LPCTSTR pstrValue)
+	void CHorizontalLayoutUI::SetAttribute(LPCWSTR pstrName, LPCWSTR pstrValue)
 	{
 		if( _tcscmp(pstrName, _T("sepwidth")) == 0 ) SetSepWidth(_ttoi(pstrValue));
 		else if( _tcscmp(pstrName, _T("sepimm")) == 0 ) SetSepImmMode(_tcscmp(pstrValue, _T("true")) == 0);

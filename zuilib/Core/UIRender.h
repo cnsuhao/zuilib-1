@@ -26,7 +26,7 @@ public:
     static DWORD AdjustColor(DWORD dwColor, short H, short S, short L);
 	static HBITMAP CreateARGB32Bitmap(HDC hDC, int cx, int cy, COLORREF** pBits);
 	static void AdjustImage(bool bUseHSL, TImageInfo* imageInfo, short H, short S, short L);
-    static TImageInfo* LoadImage(STRINGorID bitmap, LPCTSTR type = NULL, DWORD mask = 0);
+    static TImageInfo* LoadImage(STRINGorID bitmap, LPCWSTR type = NULL, DWORD mask = 0);
     static void FreeImage(TImageInfo* bitmap, bool bDelete = true);
     static void DrawImage(HDC hDC, HBITMAP hBitmap, const RECT& rc, const RECT& rcPaint, \
         const RECT& rcBmpPart, const RECT& rcScale9, bool alphaChannel, BYTE uFade = 255, 
@@ -39,12 +39,12 @@ public:
     static void DrawLine(HDC hDC, const RECT& rc, int nSize, DWORD dwPenColor, int nStyle = PS_SOLID);
     static void DrawRect(HDC hDC, const RECT& rc, int nSize, DWORD dwPenColor, int nStyle = PS_SOLID);
     static void DrawRoundRect(HDC hDC, const RECT& rc, int width, int height, int nSize, DWORD dwPenColor, int nStyle = PS_SOLID);
-    static void DrawText(HDC hDC, CPaintManagerUI* pManager, RECT& rc, LPCTSTR pstrText, DWORD dwTextColor, int iFont, UINT uStyle);
-    static void DrawHtmlText(HDC hDC, CPaintManagerUI* pManager, RECT& rc, LPCTSTR pstrText, 
+    static void DrawText(HDC hDC, CPaintManagerUI* pManager, RECT& rc, LPCWSTR pstrText, DWORD dwTextColor, int iFont, UINT uStyle);
+    static void DrawHtmlText(HDC hDC, CPaintManagerUI* pManager, RECT& rc, LPCWSTR pstrText, 
         DWORD dwTextColor, RECT* pLinks, CDuiString* sLinks, int& nLinkRects, int iDefaultFont, UINT uStyle);
 	static HBITMAP GenerateBitmap(CPaintManagerUI* pManager, RECT rc, CControlUI* pStopControl = NULL, DWORD dwFilterColor = 0);
     static HBITMAP GenerateBitmap(CPaintManagerUI* pManager, CControlUI* pControl, RECT rc, DWORD dwFilterColor = 0);
-	static SIZE GetTextSize(HDC hDC, CPaintManagerUI* pManager , LPCTSTR pstrText, int iFont, UINT uStyle);
+	static SIZE GetTextSize(HDC hDC, CPaintManagerUI* pManager , LPCWSTR pstrText, int iFont, UINT uStyle);
 };
 
 } // namespace Zuilib

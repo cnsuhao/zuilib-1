@@ -11,8 +11,8 @@ namespace Zuilib
 		void Init(CEditUI* pOwner);
 		RECT CalPos();
 
-		LPCTSTR GetWindowClassName() const;
-		LPCTSTR GetSuperClassName() const;
+		LPCWSTR GetWindowClassName() const;
+		LPCWSTR GetSuperClassName() const;
 		void OnFinalMessage(HWND hWnd);
 
 		LRESULT HandleMessage(UINT uMsg, WPARAM wParam, LPARAM lParam);
@@ -110,12 +110,12 @@ namespace Zuilib
 		return rcPos;
 	}
 
-	LPCTSTR CEditWnd::GetWindowClassName() const
+	LPCWSTR CEditWnd::GetWindowClassName() const
 	{
 		return _T("EditWnd");
 	}
 
-	LPCTSTR CEditWnd::GetSuperClassName() const
+	LPCWSTR CEditWnd::GetSuperClassName() const
 	{
 		return WC_EDIT;
 	}
@@ -150,7 +150,7 @@ namespace Zuilib
 				::InvalidateRect(m_hWnd, &rcClient, FALSE);
 			}
 		}
-		else if( uMsg == WM_KEYDOWN && TCHAR(wParam) == VK_RETURN ) {
+		else if( uMsg == WM_KEYDOWN && WCHAR(wParam) == VK_RETURN ) {
 			m_pOwner->GetManager()->SendNotify(m_pOwner, DUI_MSGTYPE_RETURN);
 		}
 		else if( uMsg == OCM__BASE + WM_CTLCOLOREDIT  || uMsg == OCM__BASE + WM_CTLCOLORSTATIC ) {
@@ -228,7 +228,7 @@ namespace Zuilib
 		if( m_pOwner == NULL ) return 0;
 		// Copy text back
 		int cchLen = ::GetWindowTextLength(m_hWnd) + 1;
-		LPTSTR pstr = static_cast<LPTSTR>(_alloca(cchLen * sizeof(TCHAR)));
+		LPTSTR pstr = static_cast<LPTSTR>(_alloca(cchLen * sizeof(WCHAR)));
 		ASSERT(pstr);
 		if( pstr == NULL ) return 0;
 		::GetWindowText(m_hWnd, pstr, cchLen);
@@ -246,12 +246,12 @@ namespace Zuilib
 		SetBkColor(0xFFFFFFFF);
 	}
 
-	LPCTSTR CEditUI::GetClass() const
+	LPCWSTR CEditUI::GetClass() const
 	{
 		return DUI_CTR_EDIT;
 	}
 
-	LPVOID CEditUI::GetInterface(LPCTSTR pstrName)
+	LPVOID CEditUI::GetInterface(LPCWSTR pstrName)
 	{
 		if( _tcscmp(pstrName, DUI_CTR_EDIT) == 0 ) return static_cast<CEditUI*>(this);
 		return CLabelUI::GetInterface(pstrName);
@@ -376,7 +376,7 @@ namespace Zuilib
 		}
 	}
 
-	void CEditUI::SetText(LPCTSTR pstrText)
+	void CEditUI::SetText(LPCWSTR pstrText)
 	{
 		m_sText = pstrText;
 		if( m_pWindow != NULL ) Edit_SetText(*m_pWindow, m_sText);
@@ -448,7 +448,7 @@ namespace Zuilib
 		return m_bPasswordMode;
 	}
 
-	void CEditUI::SetPasswordChar(TCHAR cPasswordChar)
+	void CEditUI::SetPasswordChar(WCHAR cPasswordChar)
 	{
 		if( m_cPasswordChar == cPasswordChar ) return;
 		m_cPasswordChar = cPasswordChar;
@@ -456,7 +456,7 @@ namespace Zuilib
 		Invalidate();
 	}
 
-	TCHAR CEditUI::GetPasswordChar() const
+	WCHAR CEditUI::GetPasswordChar() const
 	{
 		return m_cPasswordChar;
 	}
@@ -471,12 +471,12 @@ namespace Zuilib
 		m_bAutoSelAll = bAutoSelAll;
 	}
 
-	LPCTSTR CEditUI::GetNormalImage()
+	LPCWSTR CEditUI::GetNormalImage()
 	{
 		return m_diNormal.sDrawString;
 	}
 
-	void CEditUI::SetNormalImage(LPCTSTR pStrImage)
+	void CEditUI::SetNormalImage(LPCWSTR pStrImage)
 	{
 		if( m_diNormal.sDrawString == pStrImage && m_diNormal.pImageInfo != NULL ) return;
 		m_diNormal.Clear();
@@ -484,12 +484,12 @@ namespace Zuilib
 		Invalidate();
 	}
 
-	LPCTSTR CEditUI::GetHotImage()
+	LPCWSTR CEditUI::GetHotImage()
 	{
 		return m_diHot.sDrawString;	
 	}
 
-	void CEditUI::SetHotImage(LPCTSTR pStrImage)
+	void CEditUI::SetHotImage(LPCWSTR pStrImage)
 	{
 		if( m_diHot.sDrawString == pStrImage && m_diHot.pImageInfo != NULL ) return;
 		m_diHot.Clear();
@@ -497,12 +497,12 @@ namespace Zuilib
 		Invalidate();
 	}
 
-	LPCTSTR CEditUI::GetFocusedImage()
+	LPCWSTR CEditUI::GetFocusedImage()
 	{
 		return m_diFocused.sDrawString;	
 	}
 
-	void CEditUI::SetFocusedImage(LPCTSTR pStrImage)
+	void CEditUI::SetFocusedImage(LPCWSTR pStrImage)
 	{
 		if( m_diFocused.sDrawString == pStrImage && m_diFocused.pImageInfo != NULL ) return;
 		m_diFocused.Clear();
@@ -510,12 +510,12 @@ namespace Zuilib
 		Invalidate();
 	}
 
-	LPCTSTR CEditUI::GetDisabledImage()
+	LPCWSTR CEditUI::GetDisabledImage()
 	{
 		return m_diDisabled.sDrawString;	
 	}
 
-	void CEditUI::SetDisabledImage(LPCTSTR pStrImage)
+	void CEditUI::SetDisabledImage(LPCWSTR pStrImage)
 	{
 		if( m_diDisabled.sDrawString == pStrImage && m_diDisabled.pImageInfo != NULL ) return;
 		m_diDisabled.Clear();
@@ -543,7 +543,7 @@ namespace Zuilib
 		SetSel(0,-1);
 	}
 
-	void CEditUI::SetReplaceSel(LPCTSTR lpszReplace)
+	void CEditUI::SetReplaceSel(LPCWSTR lpszReplace)
 	{
 		if( m_pWindow != NULL ) Edit_ReplaceSel(*m_pWindow, lpszReplace);
 	}
@@ -591,7 +591,7 @@ namespace Zuilib
 		return CControlUI::EstimateSize(szAvailable);
 	}
 
-	void CEditUI::SetAttribute(LPCTSTR pstrName, LPCTSTR pstrValue)
+	void CEditUI::SetAttribute(LPCWSTR pstrName, LPCWSTR pstrValue)
 	{
 		if( _tcscmp(pstrName, _T("readonly")) == 0 ) SetReadOnly(_tcscmp(pstrValue, _T("true")) == 0);
 		else if( _tcscmp(pstrName, _T("numberonly")) == 0 ) SetNumberOnly(_tcscmp(pstrValue, _T("true")) == 0);
@@ -641,7 +641,7 @@ namespace Zuilib
 		CDuiString sText = m_sText;
 		if( m_bPasswordMode ) {
 			sText.Empty();
-			LPCTSTR p = m_sText.GetData();
+			LPCWSTR p = m_sText.GetData();
 			while( *p != _T('\0') ) {
 				sText += m_cPasswordChar;
 				p = ::CharNext(p);

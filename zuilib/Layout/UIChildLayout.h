@@ -11,11 +11,11 @@ namespace Zuilib
 		CChildLayoutUI();
 
 		void Init();
-		void SetAttribute(LPCTSTR pstrName, LPCTSTR pstrValue);
+		void SetAttribute(LPCWSTR pstrName, LPCWSTR pstrValue);
 		void SetChildLayoutXML(CDuiString pXML);
 		CDuiString GetChildLayoutXML();
-		virtual LPVOID GetInterface(LPCTSTR pstrName);
-		virtual LPCTSTR GetClass() const;
+		virtual LPVOID GetInterface(LPCWSTR pstrName);
+		virtual LPCWSTR GetClass() const;
 
 	private:
 		CDuiString m_pstrXMLFile;

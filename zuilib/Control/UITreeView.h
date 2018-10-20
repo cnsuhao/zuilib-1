@@ -20,8 +20,8 @@ namespace Zuilib
 		~CTreeNodeUI(void);
 
 	public:
-		LPCTSTR GetClass() const;
-		LPVOID	GetInterface(LPCTSTR pstrName);
+		LPCWSTR GetClass() const;
+		LPVOID	GetInterface(LPCWSTR pstrName);
 		void	DoEvent(TEventUI& event);
 		void	Invalidate();
 		bool	Select(bool bSelect = true, bool bTriggerEvent=true);
@@ -31,7 +31,7 @@ namespace Zuilib
 
 		void	SetVisibleTag(bool _IsVisible);
 		bool	GetVisibleTag();
-		void	SetItemText(LPCTSTR pstrValue);
+		void	SetItemText(LPCWSTR pstrValue);
 		CDuiString	GetItemText();
 		void	CheckBoxSelected(bool _Selected);
 		bool	IsCheckBoxSelected() const;
@@ -58,7 +58,7 @@ namespace Zuilib
 		void	SetSelItemHotTextColor(DWORD _dwSelHotItemTextColor);
 		DWORD	GetSelItemHotTextColor() const;
 
-		void	SetAttribute(LPCTSTR pstrName, LPCTSTR pstrValue);
+		void	SetAttribute(LPCWSTR pstrName, LPCWSTR pstrValue);
 
 		CDuiPtrArray GetTreeNodes();
 
@@ -103,8 +103,8 @@ namespace Zuilib
 		~CTreeViewUI(void);
 
 	public:
-		virtual LPCTSTR GetClass() const;
-		virtual LPVOID	GetInterface(LPCTSTR pstrName);
+		virtual LPCWSTR GetClass() const;
+		virtual LPVOID	GetInterface(LPCWSTR pstrName);
         virtual bool Add(CControlUI* pControl);
         virtual bool AddAt(CControlUI* pControl, int iIndex);
         virtual bool Remove(CControlUI* pControl, bool bDoNotDestroy=false);
@@ -131,7 +131,7 @@ namespace Zuilib
 		virtual void SetSelItemTextColor(DWORD _dwSelItemTextColor);
 		virtual void SetSelItemHotTextColor(DWORD _dwSelHotItemTextColor);
 		
-		virtual void SetAttribute(LPCTSTR pstrName, LPCTSTR pstrValue);
+		virtual void SetAttribute(LPCWSTR pstrName, LPCWSTR pstrValue);
 	private:
 		UINT m_uItemMinWidth;
 		bool m_bVisibleFolderBtn;

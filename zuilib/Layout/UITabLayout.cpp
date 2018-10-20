@@ -7,12 +7,12 @@ namespace Zuilib
 	{
 	}
 
-	LPCTSTR CTabLayoutUI::GetClass() const
+	LPCWSTR CTabLayoutUI::GetClass() const
 	{
 		return DUI_CTR_TABLAYOUT;
 	}
 
-	LPVOID CTabLayoutUI::GetInterface(LPCTSTR pstrName)
+	LPVOID CTabLayoutUI::GetInterface(LPCWSTR pstrName)
 	{
 		if( _tcscmp(pstrName, DUI_CTR_TABLAYOUT) == 0 ) return static_cast<CTabLayoutUI*>(this);
 		return CContainerUI::GetInterface(pstrName);
@@ -128,7 +128,7 @@ namespace Zuilib
 			return SelectItem(iIndex, bTriggerEvent);
 	}
 
-	void CTabLayoutUI::SetAttribute(LPCTSTR pstrName, LPCTSTR pstrValue)
+	void CTabLayoutUI::SetAttribute(LPCWSTR pstrName, LPCWSTR pstrValue)
 	{
 		if( _tcscmp(pstrName, _T("selectedid")) == 0 ) SelectItem(_ttoi(pstrValue));
 		return CContainerUI::SetAttribute(pstrName, pstrValue);

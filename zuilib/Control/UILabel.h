@@ -25,13 +25,13 @@ namespace Zuilib
 		CLabelUI();
 		~CLabelUI();
 
-		LPCTSTR GetClass() const;
-		LPVOID GetInterface(LPCTSTR pstrName);
+		LPCWSTR GetClass() const;
+		LPVOID GetInterface(LPCWSTR pstrName);
 
         void SetFixedWidth(int cx);
         void SetFixedHeight(int cy);
 
-		void SetText(LPCTSTR pstrText);
+		void SetText(LPCWSTR pstrText);
 		void SetTextStyle(UINT uStyle);
 		UINT GetTextStyle() const;
 
@@ -56,7 +56,7 @@ namespace Zuilib
 		SIZE EstimateSize(SIZE szAvailable);
 
 		void DoEvent(TEventUI& event);
-		void SetAttribute(LPCTSTR pstrName, LPCTSTR pstrValue);
+		void SetAttribute(LPCWSTR pstrName, LPCWSTR pstrValue);
 
 		void PaintText(HDC hDC);
 

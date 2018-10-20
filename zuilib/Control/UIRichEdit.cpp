@@ -123,7 +123,7 @@ public:
     virtual HRESULT TxGetBackStyle(TXTBACKSTYLE *pstyle);
     virtual HRESULT TxGetMaxLength(DWORD *plength);
     virtual HRESULT TxGetScrollBars(DWORD *pdwScrollBar);
-    virtual HRESULT TxGetPasswordChar(TCHAR *pch);
+    virtual HRESULT TxGetPasswordChar(WCHAR *pch);
     virtual HRESULT TxGetAcceleratorPos(LONG *pcp);
     virtual HRESULT TxGetExtent(LPSIZEL lpExtent);
     virtual HRESULT OnTxCharFormatChange (const CHARFORMATW * pcf);
@@ -207,12 +207,7 @@ HRESULT InitDefaultCharFormat(CRichEditUI* re, CHARFORMAT2W* pcf, HFONT hfont)
         pcf->dwEffects |= CFE_UNDERLINE;
     pcf->bCharSet = lf.lfCharSet;
     pcf->bPitchAndFamily = lf.lfPitchAndFamily;
-#ifdef _UNICODE
     _tcscpy(pcf->szFaceName, lf.lfFaceName);
-#else
-    //need to thunk pcf->szFaceName to a standard char string.in this case it's easy because our thunk is also our copy
-    MultiByteToWideChar(CP_ACP, 0, lf.lfFaceName, LF_FACESIZE, pcf->szFaceName, LF_FACESIZE) ;
-#endif
 
     return S_OK;
 }
@@ -344,20 +339,8 @@ BOOL CTxtWinHost::Init(CRichEditUI *re, const CREATESTRUCT *pcs)
 		// Set window text
 		if (pcs && pcs->lpszName)
 		{
-#ifdef _UNICODE		
-			if (FAILED(pserv->TxSetText((TCHAR *)pcs->lpszName)))
+			if (FAILED(pserv->TxSetText((WCHAR *)pcs->lpszName)))
 				goto err;
-#else
-			size_t iLen = _tcslen(pcs->lpszName);
-			LPWSTR lpText = new WCHAR[iLen + 1];
-			::ZeroMemory(lpText, (iLen + 1) * sizeof(WCHAR));
-			::MultiByteToWideChar(CP_ACP, 0, pcs->lpszName, -1, (LPWSTR)lpText, iLen);
-			if (FAILED(pserv->TxSetText((LPWSTR)lpText))) {
-				delete[] lpText;
-				goto err;
-			}
-			delete[] lpText;
-#endif
 		}
 
 		return TRUE;
@@ -654,13 +637,9 @@ HRESULT CTxtWinHost::TxGetScrollBars(DWORD *pdwScrollBar)
     return NOERROR;
 }
 
-HRESULT CTxtWinHost::TxGetPasswordChar(TCHAR *pch)
+HRESULT CTxtWinHost::TxGetPasswordChar(WCHAR *pch)
 {
-#ifdef _UNICODE
     *pch = chPasswordChar;
-#else
-    ::WideCharToMultiByte(CP_ACP, 0, &chPasswordChar, 1, pch, 1, NULL, NULL) ;
-#endif
     return NOERROR;
 }
 
@@ -802,12 +781,7 @@ void CTxtWinHost::SetFont(HFONT hFont)
 	else cf.dwEffects &= ~CFE_UNDERLINE;
     cf.bCharSet = lf.lfCharSet;
     cf.bPitchAndFamily = lf.lfPitchAndFamily;
-#ifdef _UNICODE
     _tcscpy(cf.szFaceName, lf.lfFaceName);
-#else
-    //need to thunk pcf->szFaceName to a standard char string.in this case it's easy because our thunk is also our copy
-    MultiByteToWideChar(CP_ACP, 0, lf.lfFaceName, LF_FACESIZE, cf.szFaceName, LF_FACESIZE) ;
-#endif
 
     pserv->OnTxPropertyBitsChange(TXTBIT_CHARFORMATCHANGE, 
         TXTBIT_CHARFORMATCHANGE);
@@ -1091,12 +1065,12 @@ CRichEditUI::~CRichEditUI()
     }
 }
 
-LPCTSTR CRichEditUI::GetClass() const
+LPCWSTR CRichEditUI::GetClass() const
 {
     return DUI_CTR_RICHEDIT;
 }
 
-LPVOID CRichEditUI::GetInterface(LPCTSTR pstrName)
+LPVOID CRichEditUI::GetInterface(LPCWSTR pstrName)
 {
     if( _tcscmp(pstrName, DUI_CTR_RICHEDIT) == 0 ) return static_cast<CRichEditUI*>(this);
     return CContainerUI::GetInterface(pstrName);
@@ -1196,7 +1170,7 @@ void CRichEditUI::SetFont(int index)
     }
 }
 
-void CRichEditUI::SetFont(LPCTSTR pStrFontName, int nSize, bool bBold, bool bUnderline, bool bItalic)
+void CRichEditUI::SetFont(LPCWSTR pStrFontName, int nSize, bool bBold, bool bUnderline, bool bItalic)
 {
     if( m_pTwh ) {
         LOGFONT lf = { 0 };
@@ -1254,11 +1228,8 @@ long CRichEditUI::GetTextLength(DWORD dwFlags) const
 {
     GETTEXTLENGTHEX textLenEx;
     textLenEx.flags = dwFlags;
-#ifdef _UNICODE
     textLenEx.codepage = 1200;
-#else
-    textLenEx.codepage = CP_ACP;
-#endif
+
     LRESULT lResult;
     TxSendMessage(EM_GETTEXTLENGTHEX, (WPARAM)&textLenEx, 0, &lResult);
     return (long)lResult;
@@ -1270,17 +1241,12 @@ CDuiString CRichEditUI::GetText() const
     LPTSTR lpText = NULL;
     GETTEXTEX gt;
     gt.flags = GT_DEFAULT;
-#ifdef _UNICODE
-    gt.cb = sizeof(TCHAR) * (lLen + 1) ;
+
+    gt.cb = sizeof(WCHAR) * (lLen + 1) ;
     gt.codepage = 1200;
-    lpText = new TCHAR[lLen + 1];
-    ::ZeroMemory(lpText, (lLen + 1) * sizeof(TCHAR));
-#else
-    gt.cb = sizeof(TCHAR) * lLen * 2 + 1;
-    gt.codepage = CP_ACP;
-    lpText = new TCHAR[lLen * 2 + 1];
-    ::ZeroMemory(lpText, (lLen * 2 + 1) * sizeof(TCHAR));
-#endif
+    lpText = new WCHAR[lLen + 1];
+    ::ZeroMemory(lpText, (lLen + 1) * sizeof(WCHAR));
+
     gt.lpDefaultChar = NULL;
     gt.lpUsedDefChar = NULL;
     TxSendMessage(EM_GETTEXTEX, (WPARAM)&gt, (LPARAM)lpText, 0);
@@ -1289,7 +1255,7 @@ CDuiString CRichEditUI::GetText() const
     return sText;
 }
 
-void CRichEditUI::SetText(LPCTSTR pstrText)
+void CRichEditUI::SetText(LPCWSTR pstrText)
 {
     m_sText = pstrText;
     if( !m_pTwh ) return;
@@ -1340,18 +1306,9 @@ int CRichEditUI::SetSel(long nStartChar, long nEndChar)
     return (int)lResult;
 }
 
-void CRichEditUI::ReplaceSel(LPCTSTR lpszNewText, bool bCanUndo)
+void CRichEditUI::ReplaceSel(LPCWSTR lpszNewText, bool bCanUndo)
 {
-#ifdef _UNICODE		
     TxSendMessage(EM_REPLACESEL, (WPARAM) bCanUndo, (LPARAM)lpszNewText, 0); 
-#else
-    int iLen = _tcslen(lpszNewText);
-    LPWSTR lpText = new WCHAR[iLen + 1];
-    ::ZeroMemory(lpText, (iLen + 1) * sizeof(WCHAR));
-    ::MultiByteToWideChar(CP_ACP, 0, lpszNewText, -1, (LPWSTR)lpText, iLen) ;
-    TxSendMessage(EM_REPLACESEL, (WPARAM) bCanUndo, (LPARAM)lpText, 0); 
-    delete[] lpText;
-#endif
 }
 
 void CRichEditUI::ReplaceSelW(LPCWSTR lpszNewText, bool bCanUndo)
@@ -1469,14 +1426,14 @@ void CRichEditUI::ScrollCaret()
     TxSendMessage(EM_SCROLLCARET, 0, 0, 0);
 }
 
-int CRichEditUI::InsertText(long nInsertAfterChar, LPCTSTR lpstrText, bool bCanUndo)
+int CRichEditUI::InsertText(long nInsertAfterChar, LPCWSTR lpstrText, bool bCanUndo)
 {
     int nRet = SetSel(nInsertAfterChar, nInsertAfterChar);
     ReplaceSel(lpstrText, bCanUndo);
     return nRet;
 }
 
-int CRichEditUI::AppendText(LPCTSTR lpstrText, bool bCanUndo)
+int CRichEditUI::AppendText(LPCWSTR lpstrText, bool bCanUndo)
 {
     int nRet = SetSel(-1, -1);
     ReplaceSel(lpstrText, bCanUndo);
@@ -1731,7 +1688,7 @@ void CRichEditUI::DoInit()
 HRESULT CRichEditUI::TxSendMessage(UINT msg, WPARAM wparam, LPARAM lparam, LRESULT *plresult) const
 {
     if( m_pTwh ) {
-        if( msg == WM_KEYDOWN && TCHAR(wparam) == VK_RETURN ) {
+        if( msg == WM_KEYDOWN && WCHAR(wparam) == VK_RETURN ) {
             if( !m_bWantReturn || (::GetKeyState(VK_CONTROL) < 0 && !m_bWantCtrlReturn) ) {
                 if( m_pManager != NULL ) m_pManager->SendNotify((CControlUI*)this, DUI_MSGTYPE_RETURN);
                 return S_OK;
@@ -2225,7 +2182,7 @@ bool CRichEditUI::DoPaint(HDC hDC, const RECT& rcPaint, CControlUI* pStopControl
     return true;
 }
 
-void CRichEditUI::SetAttribute(LPCTSTR pstrName, LPCTSTR pstrValue)
+void CRichEditUI::SetAttribute(LPCWSTR pstrName, LPCWSTR pstrValue)
 {
     if( _tcscmp(pstrName, _T("vscrollbar")) == 0 ) {
         if( _tcscmp(pstrValue, _T("true")) == 0 ) m_lTwhStyle |= ES_DISABLENOSCROLL | WS_VSCROLL;
@@ -2343,12 +2300,9 @@ LRESULT CRichEditUI::MessageHandler(UINT uMsg, WPARAM wParam, LPARAM lParam, boo
             SetFocus();
         }
     }
-#ifdef _UNICODE
     else if( uMsg >= WM_KEYFIRST && uMsg <= WM_KEYLAST ) {
-#else
-    else if( (uMsg >= WM_KEYFIRST && uMsg <= WM_KEYLAST) || uMsg == WM_CHAR || uMsg == WM_IME_CHAR ) {
-#endif
-        if( !IsFocused() ) return 0;
+        if( !IsFocused() ) 
+			return 0;
     }
 #ifdef _USEIMM
 	else if( uMsg == WM_IME_STARTCOMPOSITION ) {

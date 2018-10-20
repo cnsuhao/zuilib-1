@@ -9,7 +9,7 @@ CDialogBuilder::CDialogBuilder()
 
 }
 
-CControlUI* CDialogBuilder::Create(STRINGorID xml, LPCTSTR type, IDialogBuilderCallback* pCallback, 
+CControlUI* CDialogBuilder::Create(STRINGorID xml, LPCWSTR type, IDialogBuilderCallback* pCallback, 
                                    CPaintManagerUI* pManager, CControlUI* pParent)
 {
 	//资源ID为0-65535，两个字节；字符串指针为4个字节
@@ -50,15 +50,15 @@ CControlUI* CDialogBuilder::Create(IDialogBuilderCallback* pCallback, CPaintMana
 	}
 
     if( pManager ) {
-        LPCTSTR pstrClass = NULL;
-        LPCTSTR pstrName = NULL;
-        LPCTSTR pstrValue = NULL;
+        LPCWSTR pstrClass = NULL;
+        LPCWSTR pstrName = NULL;
+        LPCWSTR pstrValue = NULL;
         LPTSTR pstr = NULL;
         for(XmlNode node = root.first_child() ; node; node = node.next_sibling() ) {
             pstrClass = node.name();
             if( _tcsicmp(pstrClass, _T("Image")) == 0 ) {
-                LPCTSTR pImageName = NULL;
-                LPCTSTR pImageResType = NULL;
+                LPCWSTR pImageName = NULL;
+                LPCWSTR pImageResType = NULL;
                 DWORD mask = 0;
 				bool shared = false;
 				for (XmlAttr attr = node.first_attribute(); attr; attr=attr.next_attribute()) {
@@ -82,7 +82,7 @@ CControlUI* CDialogBuilder::Create(IDialogBuilderCallback* pCallback, CPaintMana
             }
             else if( _tcsicmp(pstrClass, _T("Font")) == 0 ) {
 				int id = -1;
-                LPCTSTR pFontName = NULL;
+                LPCWSTR pFontName = NULL;
                 int size = 12;
                 bool bold = false;
                 bool underline = false;
@@ -123,8 +123,8 @@ CControlUI* CDialogBuilder::Create(IDialogBuilderCallback* pCallback, CPaintMana
                 }
             }
             else if( _tcsicmp(pstrClass, _T("Default")) == 0 ) {
-                LPCTSTR pControlName = NULL;
-                LPCTSTR pControlValue = NULL;
+                LPCWSTR pControlName = NULL;
+                LPCWSTR pControlValue = NULL;
 				bool shared = false;
 				for (XmlAttr attr = node.first_attribute(); attr; attr = attr.next_attribute()) {
 					pstrName = attr.name();
@@ -145,7 +145,7 @@ CControlUI* CDialogBuilder::Create(IDialogBuilderCallback* pCallback, CPaintMana
             }
 			else if( _tcsicmp(pstrClass, _T("MultiLanguage")) == 0 ) {
 				int id = -1;
-				LPCTSTR pMultiLanguage = NULL;
+				LPCWSTR pMultiLanguage = NULL;
 				for (XmlAttr attr = node.first_attribute(); attr; attr = attr.next_attribute()) {
 					pstrName = attr.name();
 					pstrValue = attr.value();
@@ -196,7 +196,7 @@ CControlUI* CDialogBuilder::_Parse(XmlNode* pRoot, CControlUI* pParent, CPaintMa
     IContainerUI* pContainer = NULL;
     CControlUI* pReturn = NULL;
     for(XmlNode node = pRoot->first_child() ; node; node = node.next_sibling() ) {
-        LPCTSTR pstrClass = node.name();
+        LPCWSTR pstrClass = node.name();
 		if (_tcsicmp(pstrClass, _T("Image")) == 0
 			|| _tcsicmp(pstrClass, _T("Font")) == 0
 			|| _tcsicmp(pstrClass, _T("Default")) == 0
@@ -211,7 +211,7 @@ CControlUI* CDialogBuilder::_Parse(XmlNode* pRoot, CControlUI* pParent, CPaintMa
 			}
             int count = 1;
             LPTSTR pstr = NULL;
-//             TCHAR szValue[500] = { 0 };
+//             WCHAR szValue[500] = { 0 };
 //             SIZE_T cchLen = lengthof(szValue) - 1;
 //             if ( node.GetAttributeValue(_T("count"), szValue, cchLen) )
 //                 count = _tcstol(szValue, &pstr, 10);
@@ -235,7 +235,7 @@ CControlUI* CDialogBuilder::_Parse(XmlNode* pRoot, CControlUI* pParent, CPaintMa
 						pControl = builder.Create((UINT)id, m_pstrtype, m_pCallback, pManager, pParent);
 					}
 					else 
-						pControl = builder.Create((LPCTSTR)attr.value(), (UINT)0, m_pCallback, pManager, pParent);
+						pControl = builder.Create((LPCWSTR)attr.value(), (UINT)0, m_pCallback, pManager, pParent);
 				}
 				else
 					pControl = builder.Create(m_pCallback, pManager, pParent);
@@ -256,7 +256,7 @@ CControlUI* CDialogBuilder::_Parse(XmlNode* pRoot, CControlUI* pParent, CPaintMa
 			// 若有控件默认配置先初始化默认属性
 			if( pManager ) {
 				pNode->SetManager(pManager, NULL, false);
-				LPCTSTR pDefaultAttributes = pManager->GetDefaultAttributeList(pstrClass);
+				LPCWSTR pDefaultAttributes = pManager->GetDefaultAttributeList(pstrClass);
 				if( pDefaultAttributes ) {
 					pNode->SetAttributeList(pDefaultAttributes);
 				}
@@ -264,7 +264,7 @@ CControlUI* CDialogBuilder::_Parse(XmlNode* pRoot, CControlUI* pParent, CPaintMa
 
 			// 解析所有属性并覆盖默认属性
 			if( node.first_attribute() ) {
-				TCHAR szValue[500] = { 0 };
+				WCHAR szValue[500] = { 0 };
 				SIZE_T cchLen = lengthof(szValue) - 1;
 				// Set ordinary attributes
 				for (XmlAttr attr = node.first_attribute(); attr; attr = attr.next_attribute()){
@@ -399,7 +399,7 @@ CControlUI* CDialogBuilder::_Parse(XmlNode* pRoot, CControlUI* pParent, CPaintMa
         // 因为某些属性和父窗口相关，比如selected，必须先Add到父窗口
 		if( pParent != NULL ) {
 			XmlAttr attr = node.attribute(_T("cover"));
-			LPCTSTR lpValue = attr.value();
+			LPCWSTR lpValue = attr.value();
             if( _tcscmp(lpValue, _T("true")) == 0 ) {
                 pParent->SetCover(pControl);
             }
@@ -422,7 +422,7 @@ CControlUI* CDialogBuilder::_Parse(XmlNode* pRoot, CControlUI* pParent, CPaintMa
         // Init default attributes
         if( pManager ) {
             pControl->SetManager(pManager, NULL, false);
-            LPCTSTR pDefaultAttributes = pManager->GetDefaultAttributeList(pstrClass);
+            LPCWSTR pDefaultAttributes = pManager->GetDefaultAttributeList(pstrClass);
             if( pDefaultAttributes ) {
                 pControl->SetAttributeList(pDefaultAttributes);
             }

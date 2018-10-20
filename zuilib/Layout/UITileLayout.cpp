@@ -9,12 +9,12 @@ namespace Zuilib
 		m_szItem.cx = m_szItem.cy = 80;
 	}
 
-	LPCTSTR CTileLayoutUI::GetClass() const
+	LPCWSTR CTileLayoutUI::GetClass() const
 	{
 		return DUI_CTR_TILELAYOUT;
 	}
 
-	LPVOID CTileLayoutUI::GetInterface(LPCTSTR pstrName)
+	LPVOID CTileLayoutUI::GetInterface(LPCWSTR pstrName)
 	{
 		if( _tcscmp(pstrName, DUI_CTR_TILELAYOUT) == 0 ) return static_cast<CTileLayoutUI*>(this);
 		return CContainerUI::GetInterface(pstrName);
@@ -67,7 +67,7 @@ namespace Zuilib
 		return m_nRows;
 	}
 
-	void CTileLayoutUI::SetAttribute(LPCTSTR pstrName, LPCTSTR pstrValue)
+	void CTileLayoutUI::SetAttribute(LPCWSTR pstrName, LPCWSTR pstrValue)
 	{
 		if( _tcscmp(pstrName, _T("itemsize")) == 0 ) {
 			SIZE szItem = { 0 };

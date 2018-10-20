@@ -27,12 +27,12 @@ namespace Zuilib
 			return S_OK;
 		}
 
-		virtual HRESULT FSCommand ( LPCTSTR command, LPCTSTR args )
+		virtual HRESULT FSCommand ( LPCWSTR command, LPCWSTR args )
 		{
 			return S_OK;
 		}
 		
-		virtual HRESULT FlashCall ( LPCTSTR request )
+		virtual HRESULT FlashCall ( LPCWSTR request )
 		{
 			return S_OK;
 		}

@@ -16,7 +16,7 @@ typedef struct
 typedef struct
 { 
 	int index;                 // index of this file within the zip
-	TCHAR name[MAX_PATH];      // filename within the zip
+	WCHAR name[MAX_PATH];      // filename within the zip
 	DWORD attr;                // attributes, as in GetFileAttributes.
 	FILETIME atime,ctime,mtime;// access, create, modify filetimes
 	long comp_size;            // sizes of item, compressed and uncompressed. These
@@ -26,18 +26,13 @@ typedef struct
 #define CloseZip(hz) CloseZipU(hz)
 extern HZIP OpenZipU(void *z,unsigned int len,DWORD flags);
 extern ZRESULT CloseZipU(HZIP hz);
-#ifdef _UNICODE
+
 #define ZIPENTRY ZIPENTRYW
 #define GetZipItem GetZipItemW
 #define FindZipItem FindZipItemW
-#else
-#define GetZipItem GetZipItemA
-#define FindZipItem FindZipItemA
-#endif
-extern ZRESULT GetZipItemA(HZIP hz, int index, ZIPENTRY *ze);
+
 extern ZRESULT GetZipItemW(HZIP hz, int index, ZIPENTRYW *ze);
-extern ZRESULT FindZipItemA(HZIP hz, const TCHAR *name, bool ic, int *index, ZIPENTRY *ze);
-extern ZRESULT FindZipItemW(HZIP hz, const TCHAR *name, bool ic, int *index, ZIPENTRYW *ze);
+extern ZRESULT FindZipItemW(HZIP hz, const WCHAR *name, bool ic, int *index, ZIPENTRYW *ze);
 extern ZRESULT UnzipItem(HZIP hz, int index, void *dst, unsigned int len, DWORD flags);
 ///////////////////////////////////////////////////////////////////////////////////////
 
@@ -64,12 +59,12 @@ namespace Zuilib
 
 	}
 
-	LPCTSTR CGifAnimUI::GetClass() const
+	LPCWSTR CGifAnimUI::GetClass() const
 	{
 		return DUI_CTR_GIFANIM;
 	}
 
-	LPVOID CGifAnimUI::GetInterface( LPCTSTR pstrName )
+	LPVOID CGifAnimUI::GetInterface( LPCWSTR pstrName )
 	{
 		if( _tcscmp(pstrName, DUI_CTR_GIFANIM) == 0 ) return static_cast<CGifAnimUI*>(this);
 		return CControlUI::GetInterface(pstrName);
@@ -105,7 +100,7 @@ namespace Zuilib
 			StopGif();
 	}
 
-	void CGifAnimUI::SetAttribute(LPCTSTR pstrName, LPCTSTR pstrValue)
+	void CGifAnimUI::SetAttribute(LPCWSTR pstrName, LPCWSTR pstrValue)
 	{
 		if( _tcscmp(pstrName, _T("bkimage")) == 0 ) SetBkImage(pstrValue);
 		else if( _tcscmp(pstrName, _T("autoplay")) == 0 ) {
@@ -118,7 +113,7 @@ namespace Zuilib
 			CControlUI::SetAttribute(pstrName, pstrValue);
 	}
 
-	void CGifAnimUI::SetBkImage(LPCTSTR pStrImage)
+	void CGifAnimUI::SetBkImage(LPCWSTR pStrImage)
 	{
 		if( m_sBkImage == pStrImage || NULL == pStrImage) return;
 
@@ -131,7 +126,7 @@ namespace Zuilib
 
 	}
 
-	LPCTSTR CGifAnimUI::GetBkImage()
+	LPCWSTR CGifAnimUI::GetBkImage()
 	{
 		return m_sBkImage.GetData();
 	}
@@ -266,7 +261,7 @@ namespace Zuilib
 		m_pGifImage->SelectActiveFrame( &pageGuid, m_nFramePosition );
 	}
 
-	Gdiplus::Image* CGifAnimUI::LoadGifFromFile(LPCTSTR pstrGifPath)
+	Gdiplus::Image* CGifAnimUI::LoadGifFromFile(LPCWSTR pstrGifPath)
 	{
 		LPBYTE pData = NULL;
 		DWORD dwSize = 0;

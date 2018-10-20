@@ -10,15 +10,15 @@ namespace Zuilib
 	public:
 		CHorizontalLayoutUI();
 
-		LPCTSTR GetClass() const;
-		LPVOID GetInterface(LPCTSTR pstrName);
+		LPCWSTR GetClass() const;
+		LPVOID GetInterface(LPCWSTR pstrName);
 		UINT GetControlFlags() const;
 
 		void SetSepWidth(int iWidth);
 		int GetSepWidth() const;
 		void SetSepImmMode(bool bImmediately);
 		bool IsSepImmMode() const;
-		void SetAttribute(LPCTSTR pstrName, LPCTSTR pstrValue);
+		void SetAttribute(LPCWSTR pstrName, LPCWSTR pstrValue);
 		void DoEvent(TEventUI& event);
 
 		void SetPos(RECT rc, bool bNeedInvalidate = true);

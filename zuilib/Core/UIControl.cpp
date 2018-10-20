@@ -64,7 +64,7 @@ CDuiString CControlUI::GetName() const
     return m_sName;
 }
 
-void CControlUI::SetName(LPCTSTR pstrName)
+void CControlUI::SetName(LPCWSTR pstrName)
 {
 	if (m_sName != pstrName) {
 		m_sName = pstrName;
@@ -72,13 +72,13 @@ void CControlUI::SetName(LPCTSTR pstrName)
 	}
 }
 
-LPVOID CControlUI::GetInterface(LPCTSTR pstrName)
+LPVOID CControlUI::GetInterface(LPCWSTR pstrName)
 {
     if( _tcscmp(pstrName, DUI_CTR_CONTROL) == 0 ) return this;
     return NULL;
 }
 
-LPCTSTR CControlUI::GetClass() const
+LPCWSTR CControlUI::GetClass() const
 {
     return DUI_CTR_CONTROL;
 }
@@ -140,7 +140,7 @@ CDuiString CControlUI::GetText() const
     return m_sText;
 }
 
-void CControlUI::SetText(LPCTSTR pstrText)
+void CControlUI::SetText(LPCWSTR pstrText)
 {
     if( m_sText == pstrText ) return;
 
@@ -188,12 +188,12 @@ void CControlUI::SetBkColor3(DWORD dwBackColor)
     Invalidate();
 }
 
-LPCTSTR CControlUI::GetBkImage()
+LPCWSTR CControlUI::GetBkImage()
 {
     return m_diBk.sDrawString;
 }
 
-void CControlUI::SetBkImage(LPCTSTR pStrImage)
+void CControlUI::SetBkImage(LPCWSTR pStrImage)
 {
 	if( m_diBk.sDrawString == pStrImage && m_diBk.pImageInfo != NULL ) return;
 	m_diBk.Clear();
@@ -547,7 +547,7 @@ CDuiString CControlUI::GetToolTip() const
     return m_sToolTip;
 }
 
-void CControlUI::SetToolTip(LPCTSTR pstrText)
+void CControlUI::SetToolTip(LPCWSTR pstrText)
 {
 	CDuiString strTemp(pstrText);
 	strTemp.Replace(_T("<n>"),_T("\r\n"));
@@ -564,12 +564,12 @@ int CControlUI::GetToolTipWidth( void )
 	return m_nTooltipWidth;
 }
 
-TCHAR CControlUI::GetShortcut() const
+WCHAR CControlUI::GetShortcut() const
 {
     return m_chShortcut;
 }
 
-void CControlUI::SetShortcut(TCHAR ch)
+void CControlUI::SetShortcut(WCHAR ch)
 {
     m_chShortcut = ch;
 }
@@ -589,7 +589,7 @@ const CDuiString& CControlUI::GetUserData()
     return m_sUserData;
 }
 
-void CControlUI::SetUserData(LPCTSTR pstrText)
+void CControlUI::SetUserData(LPCWSTR pstrText)
 {
     m_sUserData = pstrText;
 }
@@ -691,7 +691,7 @@ void CControlUI::SetFloat(bool bFloat)
     NeedParentUpdate();
 }
 
-void CControlUI::AddCustomAttribute(LPCTSTR pstrName, LPCTSTR pstrAttr)
+void CControlUI::AddCustomAttribute(LPCWSTR pstrName, LPCWSTR pstrAttr)
 {
 	if( pstrName == NULL || pstrName[0] == _T('\0') || pstrAttr == NULL || pstrAttr[0] == _T('\0') ) return;
 	CDuiString* pCostomAttr = new CDuiString(pstrAttr);
@@ -703,7 +703,7 @@ void CControlUI::AddCustomAttribute(LPCTSTR pstrName, LPCTSTR pstrAttr)
 	}
 }
 
-LPCTSTR CControlUI::GetCustomAttribute(LPCTSTR pstrName) const
+LPCWSTR CControlUI::GetCustomAttribute(LPCWSTR pstrName) const
 {
 	if( pstrName == NULL || pstrName[0] == _T('\0') ) return NULL;
 	CDuiString* pCostomAttr = static_cast<CDuiString*>(m_mCustomAttrHash.Find(pstrName));
@@ -711,7 +711,7 @@ LPCTSTR CControlUI::GetCustomAttribute(LPCTSTR pstrName) const
 	return NULL;
 }
 
-bool CControlUI::RemoveCustomAttribute(LPCTSTR pstrName)
+bool CControlUI::RemoveCustomAttribute(LPCWSTR pstrName)
 {
 	if( pstrName == NULL || pstrName[0] == _T('\0') ) return NULL;
 	CDuiString* pCostomAttr = static_cast<CDuiString*>(m_mCustomAttrHash.Find(pstrName));
@@ -725,7 +725,7 @@ void CControlUI::RemoveAllCustomAttribute()
 {
 	CDuiString* pCostomAttr;
 	for( int i = 0; i< m_mCustomAttrHash.GetSize(); i++ ) {
-		if(LPCTSTR key = m_mCustomAttrHash.GetAt(i)) {
+		if(LPCWSTR key = m_mCustomAttrHash.GetAt(i)) {
 			pCostomAttr = static_cast<CDuiString*>(m_mCustomAttrHash.Find(key));
 			delete pCostomAttr;
 		}
@@ -861,7 +861,7 @@ void CControlUI::DoEvent(TEventUI& event)
 }
 
 
-void CControlUI::SetVirtualWnd(LPCTSTR pstrValue)
+void CControlUI::SetVirtualWnd(LPCWSTR pstrValue)
 {
 	m_sVirtualWnd = pstrValue;
 	m_pManager->UsedVirtualWnd(true);
@@ -885,12 +885,12 @@ CDuiString CControlUI::GetVirtualWnd() const
 	return str;
 }
 
-CDuiString CControlUI::GetAttribute(LPCTSTR pstrName)
+CDuiString CControlUI::GetAttribute(LPCWSTR pstrName)
 {
     return _T("");
 }
 
-void CControlUI::SetAttribute(LPCTSTR pstrName, LPCTSTR pstrValue)
+void CControlUI::SetAttribute(LPCWSTR pstrName, LPCWSTR pstrValue)
 {
     if( _tcscmp(pstrName, _T("pos")) == 0 ) {
         RECT rcPos = { 0 };
@@ -1019,7 +1019,7 @@ CDuiString CControlUI::GetAttributeList(bool bIgnoreDefault)
 	return _T("");
 }
 
-void CControlUI::SetAttributeList(LPCTSTR pstrList)
+void CControlUI::SetAttributeList(LPCWSTR pstrList)
 {
     CDuiString sItem;
     CDuiString sValue;

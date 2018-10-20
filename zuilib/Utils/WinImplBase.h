@@ -31,7 +31,7 @@ namespace Zuilib
 	protected:
 		virtual CDuiString GetSkinFolder() = 0;
 		virtual CDuiString GetSkinFile() = 0;
-		virtual LPCTSTR GetWindowClassName(void) const = 0 ;
+		virtual LPCWSTR GetWindowClassName(void) const = 0 ;
 		virtual LRESULT ResponseDefaultKeyEvent(WPARAM wParam);
 
 		CPaintManagerUI m_PaintManager;
@@ -41,8 +41,8 @@ namespace Zuilib
 		virtual UINT GetClassStyle() const;
 		virtual UILIB_RESOURCETYPE GetResourceType() const;
 		virtual CDuiString GetZIPFileName() const;
-		virtual LPCTSTR GetResourceID() const;
-		virtual CControlUI* CreateControl(LPCTSTR pstrClass);
+		virtual LPCWSTR GetResourceID() const;
+		virtual CControlUI* CreateControl(LPCWSTR pstrClass);
 		virtual LRESULT MessageHandler(UINT uMsg, WPARAM wParam, LPARAM /*lParam*/, bool& /*bHandled*/);
 		virtual LRESULT OnClose(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM /*lParam*/, BOOL& bHandled);
 		virtual LRESULT OnDestroy(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM /*lParam*/, BOOL& bHandled);

@@ -21,20 +21,20 @@ namespace Zuilib
 		CWebBrowserUI();
 		virtual ~CWebBrowserUI();
 
-		void SetHomePage(LPCTSTR lpszUrl);
-		LPCTSTR GetHomePage();
+		void SetHomePage(LPCWSTR lpszUrl);
+		LPCWSTR GetHomePage();
 
 		void SetAutoNavigation(bool bAuto = TRUE);
 		bool IsAutoNavigation();
 
 		void SetWebBrowserEventHandler(CWebBrowserEventHandler* pEventHandler);
-		void Navigate2(LPCTSTR lpszUrl);
+		void Navigate2(LPCWSTR lpszUrl);
 		void Refresh();
 		void Refresh2(int Level);
 		void GoBack();
 		void GoForward();
 		void NavigateHomePage();
-		void NavigateUrl(LPCTSTR lpszUrl);
+		void NavigateUrl(LPCWSTR lpszUrl);
 		virtual bool DoCreateControl();
 		IWebBrowser2* GetWebBrowser2(void);
 		IDispatch*		   GetHtmlWindow();
@@ -50,7 +50,7 @@ namespace Zuilib
 		DWORD m_dwCookie;
 		virtual void ReleaseControl();
 		HRESULT RegisterEventHandler(BOOL inAdvise);
-		virtual void SetAttribute(LPCTSTR pstrName, LPCTSTR pstrValue);
+		virtual void SetAttribute(LPCWSTR pstrName, LPCWSTR pstrValue);
 		CDuiString m_sHomePage;	// 默认页面
 		bool m_bAutoNavi;	// 是否启动时打开默认页面
 		CWebBrowserEventHandler* m_pWebBrowserEventHandler;	//浏览器事件处理
@@ -65,8 +65,8 @@ namespace Zuilib
 		void CommandStateChange(long Command,VARIANT_BOOL Enable);
 
 	public:
-		virtual LPCTSTR GetClass() const;
-		virtual LPVOID GetInterface( LPCTSTR pstrName );
+		virtual LPCWSTR GetClass() const;
+		virtual LPVOID GetInterface( LPCWSTR pstrName );
 
 		// IUnknown
 		STDMETHOD_(ULONG,AddRef)();

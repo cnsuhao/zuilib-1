@@ -12,8 +12,8 @@ class ZUILIB_API CComboUI : public CContainerUI, public IListOwnerUI
 public:
     CComboUI();
 
-    LPCTSTR GetClass() const;
-    LPVOID GetInterface(LPCTSTR pstrName);
+    LPCWSTR GetClass() const;
+    LPVOID GetInterface(LPCWSTR pstrName);
 
     void DoInit();
     UINT GetControlFlags() const;
@@ -22,7 +22,7 @@ public:
     void SetEnabled(bool bEnable = true);
 
     CDuiString GetDropBoxAttributeList();
-    void SetDropBoxAttributeList(LPCTSTR pstrList);
+    void SetDropBoxAttributeList(LPCWSTR pstrList);
     SIZE GetDropBoxSize() const;
     void SetDropBoxSize(SIZE szDropBox);
 
@@ -47,16 +47,16 @@ public:
 	void SetShowText(bool flag);
     RECT GetTextPadding() const;
     void SetTextPadding(RECT rc);
-    LPCTSTR GetNormalImage() const;
-    void SetNormalImage(LPCTSTR pStrImage);
-    LPCTSTR GetHotImage() const;
-    void SetHotImage(LPCTSTR pStrImage);
-    LPCTSTR GetPushedImage() const;
-    void SetPushedImage(LPCTSTR pStrImage);
-    LPCTSTR GetFocusedImage() const;
-    void SetFocusedImage(LPCTSTR pStrImage);
-    LPCTSTR GetDisabledImage() const;
-    void SetDisabledImage(LPCTSTR pStrImage);
+    LPCWSTR GetNormalImage() const;
+    void SetNormalImage(LPCWSTR pStrImage);
+    LPCWSTR GetHotImage() const;
+    void SetHotImage(LPCWSTR pStrImage);
+    LPCWSTR GetPushedImage() const;
+    void SetPushedImage(LPCWSTR pStrImage);
+    LPCWSTR GetFocusedImage() const;
+    void SetFocusedImage(LPCWSTR pStrImage);
+    LPCWSTR GetDisabledImage() const;
+    void SetDisabledImage(LPCWSTR pStrImage);
 
     TListInfoUI* GetListInfo();
     UINT GetItemFixedHeight();
@@ -71,28 +71,28 @@ public:
     void SetItemTextColor(DWORD dwTextColor);
 	DWORD GetItemBkColor() const;
     void SetItemBkColor(DWORD dwBkColor);
-	LPCTSTR GetItemBkImage() const;
-    void SetItemBkImage(LPCTSTR pStrImage);
+	LPCWSTR GetItemBkImage() const;
+    void SetItemBkImage(LPCWSTR pStrImage);
     bool IsAlternateBk() const;
     void SetAlternateBk(bool bAlternateBk);
 	DWORD GetSelectedItemTextColor() const;
     void SetSelectedItemTextColor(DWORD dwTextColor);
 	DWORD GetSelectedItemBkColor() const;
     void SetSelectedItemBkColor(DWORD dwBkColor);
-	LPCTSTR GetSelectedItemImage() const;
-    void SetSelectedItemImage(LPCTSTR pStrImage);
+	LPCWSTR GetSelectedItemImage() const;
+    void SetSelectedItemImage(LPCWSTR pStrImage);
 	DWORD GetHotItemTextColor() const;
     void SetHotItemTextColor(DWORD dwTextColor);
 	DWORD GetHotItemBkColor() const;
     void SetHotItemBkColor(DWORD dwBkColor);
-	LPCTSTR GetHotItemImage() const;
-    void SetHotItemImage(LPCTSTR pStrImage);
+	LPCWSTR GetHotItemImage() const;
+    void SetHotItemImage(LPCWSTR pStrImage);
 	DWORD GetDisabledItemTextColor() const;
     void SetDisabledItemTextColor(DWORD dwTextColor);
 	DWORD GetDisabledItemBkColor() const;
     void SetDisabledItemBkColor(DWORD dwBkColor);
-	LPCTSTR GetDisabledItemImage() const;
-    void SetDisabledItemImage(LPCTSTR pStrImage);
+	LPCWSTR GetDisabledItemImage() const;
+    void SetDisabledItemImage(LPCWSTR pStrImage);
     int GetItemHLineSize() const;
     void SetItemHLineSize(int iSize);
     DWORD GetItemHLineColor() const;
@@ -108,7 +108,7 @@ public:
 	void SetPos(RECT rc, bool bNeedInvalidate = true);
 	void Move(SIZE szOffset, bool bNeedInvalidate = true);
     void DoEvent(TEventUI& event);
-    void SetAttribute(LPCTSTR pstrName, LPCTSTR pstrValue);
+    void SetAttribute(LPCWSTR pstrName, LPCWSTR pstrValue);
     
     bool DoPaint(HDC hDC, const RECT& rcPaint, CControlUI* pStopControl);
     void PaintText(HDC hDC);

@@ -12,12 +12,12 @@ namespace Zuilib
 		if( !m_sGroupName.IsEmpty() && m_pManager ) m_pManager->RemoveOptionGroup(m_sGroupName, this);
 	}
 
-	LPCTSTR COptionUI::GetClass() const
+	LPCWSTR COptionUI::GetClass() const
 	{
 		return DUI_CTR_OPTION;
 	}
 
-	LPVOID COptionUI::GetInterface(LPCTSTR pstrName)
+	LPVOID COptionUI::GetInterface(LPCWSTR pstrName)
 	{
 		if( _tcscmp(pstrName, DUI_CTR_OPTION) == 0 ) return static_cast<COptionUI*>(this);
 		return CButtonUI::GetInterface(pstrName);
@@ -31,12 +31,12 @@ namespace Zuilib
 		}
 	}
 
-	LPCTSTR COptionUI::GetGroup() const
+	LPCWSTR COptionUI::GetGroup() const
 	{
 		return m_sGroupName;
 	}
 
-	void COptionUI::SetGroup(LPCTSTR pStrGroupName)
+	void COptionUI::SetGroup(LPCWSTR pStrGroupName)
 	{
 		if( pStrGroupName == NULL ) {
 			if( m_sGroupName.IsEmpty() ) return;
@@ -111,12 +111,12 @@ namespace Zuilib
 		}
 	}
 
-	LPCTSTR COptionUI::GetSelectedImage()
+	LPCWSTR COptionUI::GetSelectedImage()
 	{
 		return m_diSelected.sDrawString;
 	}
 
-	void COptionUI::SetSelectedImage(LPCTSTR pStrImage)
+	void COptionUI::SetSelectedImage(LPCWSTR pStrImage)
 	{
 		if( m_diSelected.sDrawString == pStrImage && m_diSelected.pImageInfo != NULL ) return;
 		m_diSelected.Clear();
@@ -124,12 +124,12 @@ namespace Zuilib
 		Invalidate();
 	}
 
-	LPCTSTR COptionUI::GetSelectedHotImage()
+	LPCWSTR COptionUI::GetSelectedHotImage()
 	{
 		return m_diSelectedHot.sDrawString;
 	}
 
-	void COptionUI::SetSelectedHotImage( LPCTSTR pStrImage )
+	void COptionUI::SetSelectedHotImage( LPCWSTR pStrImage )
 	{
 		if( m_diSelectedHot.sDrawString == pStrImage && m_diSelectedHot.pImageInfo != NULL ) return;
 		m_diSelectedHot.Clear();
@@ -163,12 +163,12 @@ namespace Zuilib
 		return this->GetSelectedBkColor();
 	}
 
-	LPCTSTR COptionUI::GetForeImage()
+	LPCWSTR COptionUI::GetForeImage()
 	{
 		return m_diFore.sDrawString;
 	}
 
-	void COptionUI::SetForeImage(LPCTSTR pStrImage)
+	void COptionUI::SetForeImage(LPCWSTR pStrImage)
 	{
 		if( m_diFore.sDrawString == pStrImage && m_diFore.pImageInfo != NULL ) return;
 		m_diFore.Clear();
@@ -182,7 +182,7 @@ namespace Zuilib
 		return CControlUI::EstimateSize(szAvailable);
 	}
 
-	void COptionUI::SetAttribute(LPCTSTR pstrName, LPCTSTR pstrValue)
+	void COptionUI::SetAttribute(LPCWSTR pstrName, LPCWSTR pstrValue)
 	{
 		if( _tcscmp(pstrName, _T("group")) == 0 ) SetGroup(pstrValue);
 		else if( _tcscmp(pstrName, _T("selected")) == 0 ) Selected(_tcscmp(pstrValue, _T("true")) == 0);

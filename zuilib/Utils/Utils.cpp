@@ -3,7 +3,7 @@
 
 namespace Zuilib
 {
-    STRINGorID::STRINGorID(LPCTSTR lpString) : m_lpstr(lpString)
+    STRINGorID::STRINGorID(LPCWSTR lpString) : m_lpstr(lpString)
     {
     }
 
@@ -34,7 +34,7 @@ namespace Zuilib
 		y = GET_Y_LPARAM(lParam);
 	}
 
-    CDuiPoint::CDuiPoint(LPCTSTR pstrValue)
+    CDuiPoint::CDuiPoint(LPCWSTR pstrValue)
     {
         if (pstrValue == NULL || *pstrValue == _T('\0')) x = y = 0;
         LPTSTR pstr = NULL;
@@ -72,7 +72,7 @@ namespace Zuilib
 		cy = _cy;
 	}
 
-    CDuiSize::CDuiSize(LPCTSTR pstrValue)
+    CDuiSize::CDuiSize(LPCWSTR pstrValue)
     {
         if (pstrValue == NULL || *pstrValue == _T('\0')) cx = cy = 0;
         LPTSTR pstr = NULL;
@@ -108,7 +108,7 @@ namespace Zuilib
 		bottom = iBottom;
 	}
 
-    CDuiRect::CDuiRect(LPCTSTR pstrValue)
+    CDuiRect::CDuiRect(LPCWSTR pstrValue)
     {
         if (pstrValue == NULL || *pstrValue == _T('\0')) left = top = right = bottom = 0;
         LPTSTR pstr = NULL;
@@ -380,19 +380,20 @@ namespace Zuilib
 		ASSERT(iIndex>=0 && iIndex<m_nCount);
 		return m_pVoid + (iIndex * m_iElementSize);
 	}
+	//////////////////////////////////////////////////////////////////////////
 
 	CDuiString::CDuiString() : m_pstr(m_szBuffer)
 	{
 		m_szBuffer[0] = _T('\0');
 	}
 
-	CDuiString::CDuiString(const TCHAR ch) : m_pstr(m_szBuffer)
+	CDuiString::CDuiString(const WCHAR ch) : m_pstr(m_szBuffer)
 	{
 		m_szBuffer[0] = ch;
 		m_szBuffer[1] = _T('\0');
 	}
 
-	CDuiString::CDuiString(LPCTSTR lpsz, int nLen) : m_pstr(m_szBuffer)
+	CDuiString::CDuiString(LPCWSTR lpsz, int nLen) : m_pstr(m_szBuffer)
 	{      
 		ASSERT(!::IsBadStringPtr(lpsz,-1) || lpsz==NULL);
 		m_szBuffer[0] = _T('\0');
@@ -407,7 +408,8 @@ namespace Zuilib
 
 	CDuiString::~CDuiString()
 	{
-		if( m_pstr != m_szBuffer ) free(m_pstr);
+		if( m_pstr != m_szBuffer ) 
+			free(m_pstr);
 	}
 
     CDuiString CDuiString::ToString()
@@ -420,22 +422,22 @@ namespace Zuilib
 		return (int) _tcslen(m_pstr); 
 	}
 
-	CDuiString::operator LPCTSTR() const 
+	CDuiString::operator LPCWSTR() const 
 	{ 
 		return m_pstr; 
 	}
 
-	void CDuiString::Append(LPCTSTR pstr)
+	void CDuiString::Append(LPCWSTR pstr)
 	{
 		int nNewLength = GetLength() + (int) _tcslen(pstr);
 		if( nNewLength >= MAX_LOCAL_STRING_LEN ) {
 			if( m_pstr == m_szBuffer ) {
-				m_pstr = static_cast<LPTSTR>(malloc((nNewLength + 1) * sizeof(TCHAR)));
+				m_pstr = static_cast<LPWSTR>(malloc((nNewLength + 1) * sizeof(WCHAR)));
 				_tcscpy(m_pstr, m_szBuffer);
 				_tcscat(m_pstr, pstr);
 			}
 			else {
-				m_pstr = static_cast<LPTSTR>(realloc(m_pstr, (nNewLength + 1) * sizeof(TCHAR)));
+				m_pstr = static_cast<LPWSTR>(realloc(m_pstr, (nNewLength + 1) * sizeof(WCHAR)));
 				_tcscat(m_pstr, pstr);
 			}
 		}
@@ -448,9 +450,10 @@ namespace Zuilib
 		}
 	}
 
-	void CDuiString::Assign(LPCTSTR pstr, int cchMax)
+	void CDuiString::Assign(LPCWSTR pstr, int cchMax)
 	{
-		if( pstr == NULL ) pstr = _T("");
+		if(pstr == NULL) pstr = _T("");
+
 		cchMax = (cchMax < 0 ? (int) _tcslen(pstr) : cchMax);
 		if( cchMax < MAX_LOCAL_STRING_LEN ) {
 			if( m_pstr != m_szBuffer ) {
@@ -460,7 +463,7 @@ namespace Zuilib
 		}
 		else if( cchMax > GetLength() || m_pstr == m_szBuffer ) {
 			if( m_pstr == m_szBuffer ) m_pstr = NULL;
-			m_pstr = static_cast<LPTSTR>(realloc(m_pstr, (cchMax + 1) * sizeof(TCHAR)));
+			m_pstr = static_cast<LPWSTR>(realloc(m_pstr, (cchMax + 1) * sizeof(WCHAR)));
 		}
 		_tcsncpy(m_pstr, pstr, cchMax);
 		m_pstr[cchMax] = _T('\0');
@@ -478,17 +481,17 @@ namespace Zuilib
 		m_szBuffer[0] = _T('\0'); 
 	}
 
-	LPCTSTR CDuiString::GetData() const
+	LPCWSTR CDuiString::GetData() const
 	{
 		return m_pstr;
 	}
 
-	TCHAR CDuiString::GetAt(int nIndex) const
+	WCHAR CDuiString::GetAt(int nIndex) const
 	{
 		return m_pstr[nIndex];
 	}
 
-	TCHAR CDuiString::operator[] (int nIndex) const
+	WCHAR CDuiString::operator[] (int nIndex) const
 	{ 
 		return m_pstr[nIndex];
 	}   
@@ -499,7 +502,7 @@ namespace Zuilib
 		return *this;
 	}
 
-	const CDuiString& CDuiString::operator=(LPCTSTR lpStr)
+	const CDuiString& CDuiString::operator=(LPCWSTR lpStr)
 	{      
 		if ( lpStr )
 		{
@@ -513,8 +516,6 @@ namespace Zuilib
 		return *this;
 	}
 
-#ifdef _UNICODE
-
 	const CDuiString& CDuiString::operator=(LPCSTR lpStr)
 	{
 		if ( lpStr )
@@ -522,7 +523,8 @@ namespace Zuilib
 			ASSERT(!::IsBadStringPtrA(lpStr,-1));
 			int cchStr = (int) strlen(lpStr) + 1;
 			LPWSTR pwstr = (LPWSTR) _alloca(cchStr);
-			if( pwstr != NULL ) ::MultiByteToWideChar(::GetACP(), 0, lpStr, -1, pwstr, cchStr) ;
+			if( pwstr != NULL ) 
+				::MultiByteToWideChar(::GetACP(), 0, lpStr, -1, pwstr, cchStr) ;
 			Assign(pwstr);
 		}
 		else
@@ -539,50 +541,15 @@ namespace Zuilib
 			ASSERT(!::IsBadStringPtrA(lpStr,-1));
 			int cchStr = (int) strlen(lpStr) + 1;
 			LPWSTR pwstr = (LPWSTR) _alloca(cchStr);
-			if( pwstr != NULL ) ::MultiByteToWideChar(::GetACP(), 0, lpStr, -1, pwstr, cchStr) ;
+			if( pwstr != NULL ) 
+				::MultiByteToWideChar(::GetACP(), 0, lpStr, -1, pwstr, cchStr) ;
 			Append(pwstr);
 		}
 		
 		return *this;
 	}
 
-#else
-
-	const CDuiString& CDuiString::operator=(LPCWSTR lpwStr)
-	{      
-		if ( lpwStr )
-		{
-			ASSERT(!::IsBadStringPtrW(lpwStr,-1));
-			int cchStr = ((int) wcslen(lpwStr) * 2) + 1;
-			LPSTR pstr = (LPSTR) _alloca(cchStr);
-			if( pstr != NULL ) ::WideCharToMultiByte(::GetACP(), 0, lpwStr, -1, pstr, cchStr, NULL, NULL);
-			Assign(pstr);
-		}
-		else
-		{
-			Empty();
-		}
-		
-		return *this;
-	}
-
-	const CDuiString& CDuiString::operator+=(LPCWSTR lpwStr)
-	{
-		if ( lpwStr )
-		{
-			ASSERT(!::IsBadStringPtrW(lpwStr,-1));
-			int cchStr = ((int) wcslen(lpwStr) * 2) + 1;
-			LPSTR pstr = (LPSTR) _alloca(cchStr);
-			if( pstr != NULL ) ::WideCharToMultiByte(::GetACP(), 0, lpwStr, -1, pstr, cchStr, NULL, NULL);
-			Append(pstr);
-		}
-		
-		return *this;
-	}
-
-#endif // _UNICODE
-
-	const CDuiString& CDuiString::operator=(const TCHAR ch)
+	const CDuiString& CDuiString::operator=(const WCHAR ch)
 	{
 		Empty();
 		m_szBuffer[0] = ch;
@@ -597,7 +564,7 @@ namespace Zuilib
 		return sTemp;
 	}
 
-	CDuiString CDuiString::operator+(LPCTSTR lpStr) const
+	CDuiString CDuiString::operator+(LPCWSTR lpStr) const
 	{
 		if ( lpStr )
 		{
@@ -616,7 +583,7 @@ namespace Zuilib
 		return *this;
 	}
 
-	const CDuiString& CDuiString::operator+=(LPCTSTR lpStr)
+	const CDuiString& CDuiString::operator+=(LPCWSTR lpStr)
 	{      
 		if ( lpStr )
 		{
@@ -627,32 +594,43 @@ namespace Zuilib
 		return *this;
 	}
 
-	const CDuiString& CDuiString::operator+=(const TCHAR ch)
+	const CDuiString& CDuiString::operator+=(const WCHAR ch)
 	{      
-		TCHAR str[] = { ch, _T('\0') };
+		WCHAR str[] = { ch, _T('\0') };
 		Append(str);
 		return *this;
 	}
 
-	bool CDuiString::operator == (LPCTSTR str) const { return (Compare(str) == 0); };
-	bool CDuiString::operator != (LPCTSTR str) const { return (Compare(str) != 0); };
-	bool CDuiString::operator <= (LPCTSTR str) const { return (Compare(str) <= 0); };
-	bool CDuiString::operator <  (LPCTSTR str) const { return (Compare(str) <  0); };
-	bool CDuiString::operator >= (LPCTSTR str) const { return (Compare(str) >= 0); };
-	bool CDuiString::operator >  (LPCTSTR str) const { return (Compare(str) >  0); };
+	bool CDuiString::operator == (LPCWSTR str) const { return (Compare(str) == 0); };
+	bool CDuiString::operator != (LPCWSTR str) const { return (Compare(str) != 0); };
 
-	void CDuiString::SetAt(int nIndex, TCHAR ch)
+	bool CDuiString::operator == (const CDuiString& str) const
+	{
+		return (Compare(str.GetData()) == 0);
+	}
+
+	bool CDuiString::operator!=(const CDuiString& str) const
+	{
+		return (Compare(str.GetData()) != 0);
+	}
+
+	bool CDuiString::operator <= (LPCWSTR str) const { return (Compare(str) <= 0); };
+	bool CDuiString::operator <  (LPCWSTR str) const { return (Compare(str) <  0); };
+	bool CDuiString::operator >= (LPCWSTR str) const { return (Compare(str) >= 0); };
+	bool CDuiString::operator >  (LPCWSTR str) const { return (Compare(str) >  0); };
+
+	void CDuiString::SetAt(int nIndex, WCHAR ch)
 	{
 		ASSERT(nIndex>=0 && nIndex<GetLength());
 		m_pstr[nIndex] = ch;
 	}
 
-	int CDuiString::Compare(LPCTSTR lpsz) const 
+	int CDuiString::Compare(LPCWSTR lpsz) const
 	{ 
 		return _tcscmp(m_pstr, lpsz); 
 	}
 
-	int CDuiString::CompareNoCase(LPCTSTR lpsz) const 
+	int CDuiString::CompareNoCase(LPCWSTR lpsz) const
 	{ 
 		return _tcsicmp(m_pstr, lpsz); 
 	}
@@ -692,33 +670,33 @@ namespace Zuilib
 		return CDuiString(m_pstr + iPos, iLength);
 	}
 
-	int CDuiString::Find(TCHAR ch, int iPos /*= 0*/) const
+	int CDuiString::Find(WCHAR ch, int iPos /*= 0*/) const
 	{
 		ASSERT(iPos>=0 && iPos<=GetLength());
 		if( iPos != 0 && (iPos < 0 || iPos >= GetLength()) ) return -1;
-		LPCTSTR p = _tcschr(m_pstr + iPos, ch);
+		LPCWSTR p = _tcschr(m_pstr + iPos, ch);
 		if( p == NULL ) return -1;
 		return (int)(p - m_pstr);
 	}
 
-	int CDuiString::Find(LPCTSTR pstrSub, int iPos /*= 0*/) const
+	int CDuiString::Find(LPCWSTR pstrSub, int iPos /*= 0*/) const
 	{
 		ASSERT(!::IsBadStringPtr(pstrSub,-1));
 		ASSERT(iPos>=0 && iPos<=GetLength());
 		if( iPos != 0 && (iPos < 0 || iPos > GetLength()) ) return -1;
-		LPCTSTR p = _tcsstr(m_pstr + iPos, pstrSub);
+		LPCWSTR p = _tcsstr(m_pstr + iPos, pstrSub);
 		if( p == NULL ) return -1;
 		return (int)(p - m_pstr);
 	}
 
-	int CDuiString::ReverseFind(TCHAR ch) const
+	int CDuiString::ReverseFind(WCHAR ch) const
 	{
-		LPCTSTR p = _tcsrchr(m_pstr, ch);
+		LPCWSTR p = _tcsrchr(m_pstr, ch);
 		if( p == NULL ) return -1;
 		return (int)(p - m_pstr);
 	}
 
-	int CDuiString::Replace(LPCTSTR pstrFrom, LPCTSTR pstrTo)
+	int CDuiString::Replace(LPCWSTR pstrFrom, LPCWSTR pstrTo)
 	{
 		CDuiString sTemp;
 		int nCount = 0;
@@ -737,15 +715,15 @@ namespace Zuilib
 		return nCount;
 	}
 
-	int CDuiString::Format(LPCTSTR pstrFormat, ...)
+	int CDuiString::Format(LPCWSTR pstrFormat, ...)
 	{
 		LPTSTR szSprintf = NULL;
 		va_list argList;
         int nLen;
 		va_start(argList, pstrFormat);
         nLen = _vsntprintf(NULL, 0, pstrFormat, argList);
-        szSprintf = (TCHAR*)malloc((nLen + 1) * sizeof(TCHAR));
-        ZeroMemory(szSprintf, (nLen + 1) * sizeof(TCHAR));
+        szSprintf = (WCHAR*)malloc((nLen + 1) * sizeof(WCHAR));
+        ZeroMemory(szSprintf, (nLen + 1) * sizeof(WCHAR));
 		int iRet = _vsntprintf(szSprintf, nLen + 1, pstrFormat, argList);
 		va_end(argList);
 		Assign(szSprintf);
@@ -753,10 +731,10 @@ namespace Zuilib
 		return iRet;
 	}
 
-	int CDuiString::SmallFormat(LPCTSTR pstrFormat, ...)
+	int CDuiString::SmallFormat(LPCWSTR pstrFormat, ...)
 	{
 		CDuiString sFormat = pstrFormat;
-		TCHAR szBuffer[64] = { 0 };
+		WCHAR szBuffer[64] = { 0 };
 		va_list argList;
 		va_start(argList, pstrFormat);
 		int iRet = ::wvsprintf(szBuffer, sFormat, argList);
@@ -773,7 +751,7 @@ namespace Zuilib
         struct TITEM* pNext;
     };
 
-	static UINT HashKey(LPCTSTR Key)
+	static UINT HashKey(LPCWSTR Key)
 	{
 		UINT i = 0;
 		SIZE_T len = _tcslen(Key);
@@ -783,7 +761,7 @@ namespace Zuilib
 
 	static UINT HashKey(const CDuiString& Key)
 	{
-		return HashKey((LPCTSTR)Key);
+		return HashKey((LPCWSTR)Key);
 	};
 
 	CDuiStringPtrMap::CDuiStringPtrMap(int nSize) : m_nCount(0)
@@ -841,7 +819,7 @@ namespace Zuilib
 		m_nCount = 0;
 	}
 
-	LPVOID CDuiStringPtrMap::Find(LPCTSTR key, bool optimize) const
+	LPVOID CDuiStringPtrMap::Find(LPCWSTR key, bool optimize) const
 	{
 		if( m_nBuckets == 0 || GetSize() == 0 ) return NULL;
 
@@ -866,7 +844,7 @@ namespace Zuilib
 		return NULL;
 	}
 
-	bool CDuiStringPtrMap::Insert(LPCTSTR key, LPVOID pData)
+	bool CDuiStringPtrMap::Insert(LPCWSTR key, LPVOID pData)
 	{
 		if( m_nBuckets == 0 ) return false;
 		if( Find(key) ) return false;
@@ -885,7 +863,7 @@ namespace Zuilib
 		return true;
 	}
 
-	LPVOID CDuiStringPtrMap::Set(LPCTSTR key, LPVOID pData)
+	LPVOID CDuiStringPtrMap::Set(LPCWSTR key, LPVOID pData)
 	{
 		if( m_nBuckets == 0 ) return pData;
 
@@ -905,7 +883,7 @@ namespace Zuilib
 		return NULL;
 	}
 
-	bool CDuiStringPtrMap::Remove(LPCTSTR key)
+	bool CDuiStringPtrMap::Remove(LPCWSTR key)
 	{
 		if( m_nBuckets == 0 || GetSize() == 0 ) return false;
 
@@ -940,7 +918,7 @@ namespace Zuilib
 		return m_nCount;
 	}
 
-	LPCTSTR CDuiStringPtrMap::GetAt(int iIndex) const
+	LPCWSTR CDuiStringPtrMap::GetAt(int iIndex) const
 	{
 		if( m_nBuckets == 0 || GetSize() == 0 ) return false;
 
@@ -957,7 +935,7 @@ namespace Zuilib
 		return NULL;
 	}
 
-	LPCTSTR CDuiStringPtrMap::operator[] (int nIndex) const
+	LPCWSTR CDuiStringPtrMap::operator[] (int nIndex) const
 	{
 		return GetAt(nIndex);
 	}

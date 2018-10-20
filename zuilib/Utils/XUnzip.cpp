@@ -221,7 +221,7 @@ typedef struct
 typedef struct
 {
 	int index;                 // index of this file within the zip
-	TCHAR name[MAX_PATH];      // filename within the zip
+	WCHAR name[MAX_PATH];      // filename within the zip
 	DWORD attr;                // attributes, as in GetFileAttributes.
 	FILETIME atime, ctime, mtime;// access, create, modify filetimes
 	long comp_size;            // sizes of item, compressed and uncompressed. These
@@ -2749,7 +2749,7 @@ static int GetAnsiFileName(LPCWSTR name, char * buf, int nBufSize)
 
 static int GetUnicodeFileName(const char * name, LPWSTR buf, int nBufSize)
 {
-	memset(buf, 0, nBufSize * sizeof(TCHAR));
+	memset(buf, 0, nBufSize * sizeof(WCHAR));
 
 	int n = MultiByteToWideChar(CP_ACP,		// code page
 		0,			// character-type options
@@ -2824,7 +2824,7 @@ LUFILE *lufopen(void *z, unsigned int len, DWORD flags, ZRESULT *err)
 		}
 		else
 		{
-			h = CreateFile((const TCHAR *)z, GENERIC_READ, FILE_SHARE_READ,
+			h = CreateFile((const WCHAR *)z, GENERIC_READ, FILE_SHARE_READ,
 				NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
 
 			if (h == INVALID_HANDLE_VALUE)
@@ -3465,7 +3465,7 @@ int unzGoToNextFile(unzFile file)
 //  return value :
 //  UNZ_OK if the file is found. It becomes the current file.
 //  UNZ_END_OF_LIST_OF_FILE if the file is not found
-int unzLocateFile(unzFile file, const TCHAR *szFileName, int iCaseSensitivity)
+int unzLocateFile(unzFile file, const WCHAR *szFileName, int iCaseSensitivity)
 {
 	unz_s* s;
 	int err;
@@ -3481,11 +3481,7 @@ int unzLocateFile(unzFile file, const TCHAR *szFileName, int iCaseSensitivity)
 
 	char szFileNameA[MAX_PATH];
 
-#ifdef _UNICODE
 	GetAnsiFileName(szFileName, szFileNameA, MAX_PATH - 1);
-#else
-	strcpy(szFileNameA, szFileName);
-#endif
 
 	// support Windows subdirectory by:daviyang35
 	int iLen = strlen(szFileNameA);
@@ -3974,11 +3970,11 @@ public:
 	TUnzip() : uf(0), currentfile(-1), czei(-1) {}
 
 	unzFile uf; int currentfile; ZIPENTRY cze; int czei;
-	TCHAR rootdir[MAX_PATH];
+	WCHAR rootdir[MAX_PATH];
 
 	ZRESULT Open(void *z, unsigned int len, DWORD flags);
 	ZRESULT Get(int index, ZIPENTRY *ze);
-	ZRESULT Find(const TCHAR *name, bool ic, int *index, ZIPENTRY *ze);
+	ZRESULT Find(const WCHAR *name, bool ic, int *index, ZIPENTRY *ze);
 	ZRESULT Unzip(int index, void *dst, unsigned int len, DWORD flags);
 	ZRESULT Close();
 };
@@ -4105,7 +4101,7 @@ ZRESULT TUnzip::Get(int index, ZIPENTRY *ze)
 	return ZR_OK;
 }
 
-ZRESULT TUnzip::Find(const TCHAR *name, bool ic, int *index, ZIPENTRY *ze)
+ZRESULT TUnzip::Find(const WCHAR *name, bool ic, int *index, ZIPENTRY *ze)
 {
 	int res = unzLocateFile(uf, name, ic ? CASE_INSENSITIVE : CASE_SENSITIVE);
 	if (res != UNZ_OK)
@@ -4132,27 +4128,27 @@ ZRESULT TUnzip::Find(const TCHAR *name, bool ic, int *index, ZIPENTRY *ze)
 	return ZR_OK;
 }
 
-void EnsureDirectory(const TCHAR *rootdir, const TCHAR *dir)
+void EnsureDirectory(const WCHAR *rootdir, const WCHAR *dir)
 {
 	if (dir == NULL || dir[0] == _T('\0'))
 		return;
-	const TCHAR *lastslash = dir, *c = lastslash;
+	const WCHAR *lastslash = dir, *c = lastslash;
 	while (*c != _T('\0'))
 	{
 		if (*c == _T('/') || *c == _T('\\'))
 			lastslash = c;
 		c++;
 	}
-	const TCHAR *name = lastslash;
+	const WCHAR *name = lastslash;
 	if (lastslash != dir)
 	{
-		TCHAR tmp[MAX_PATH];
+		WCHAR tmp[MAX_PATH];
 		_tcsncpy(tmp, dir, lastslash - dir);
 		tmp[lastslash - dir] = _T('\0');
 		EnsureDirectory(rootdir, tmp);
 		name++;
 	}
-	TCHAR cd[MAX_PATH];
+	WCHAR cd[MAX_PATH];
 	_tcscpy(cd, rootdir);
 	//_tcscat(cd,name);
 	_tcscat(cd, dir);	//+++1.2
@@ -4208,13 +4204,10 @@ ZRESULT TUnzip::Unzip(int index, void *dst, unsigned int len, DWORD flags)
 	{
 		if (flags == ZIP_HANDLE)
 			return ZR_OK; // don't do anything
-#ifdef _UNICODE
-		TCHAR uname[MAX_PATH];
+
+		WCHAR uname[MAX_PATH];
 		GetUnicodeFileName(ze.name, uname, MAX_PATH - 1);
 		EnsureDirectory(rootdir, uname);
-#else
-		EnsureDirectory(rootdir, ze.name);
-#endif
 		return ZR_OK;
 	}
 
@@ -4224,8 +4217,8 @@ ZRESULT TUnzip::Unzip(int index, void *dst, unsigned int len, DWORD flags)
 		h = dst;
 	else
 	{
-		const TCHAR *name = (const TCHAR *)dst;
-		const TCHAR *c = name;
+		const WCHAR *name = (const WCHAR *)dst;
+		const WCHAR *c = name;
 		while (*c)
 		{
 			if (*c == _T('/') || *c == _T('\\'))
@@ -4234,17 +4227,17 @@ ZRESULT TUnzip::Unzip(int index, void *dst, unsigned int len, DWORD flags)
 		}
 		// if it's a relative filename, ensure directories. We do this as a service  
 		// to the caller so they can just unzip straight unto ze.name.
-		if (name != (const TCHAR *)dst)
+		if (name != (const WCHAR *)dst)
 		{
-			TCHAR dir[MAX_PATH];
-			_tcscpy(dir, (const TCHAR*)dst);
-			dir[name - (const TCHAR*)dst - 1] = _T('\0');
+			WCHAR dir[MAX_PATH];
+			_tcscpy(dir, (const WCHAR*)dst);
+			dir[name - (const WCHAR*)dst - 1] = _T('\0');
 			bool isabsolute = (dir[0] == _T('/') || dir[0] == _T('\\') || dir[1] == _T(':'));
 			isabsolute |= (_tcsstr(dir, _T("../")) != 0) | (_tcsstr(dir, _T("..\\")) != 0);
 			if (!isabsolute)
 				EnsureDirectory(rootdir, dir);
 		}
-		h = ::CreateFile((const TCHAR*)dst, GENERIC_WRITE, 0, NULL, CREATE_ALWAYS,
+		h = ::CreateFile((const WCHAR*)dst, GENERIC_WRITE, 0, NULL, CREATE_ALWAYS,
 			ze.attr, NULL);
 	}
 
@@ -4400,16 +4393,12 @@ ZRESULT GetZipItemW(HZIP hz, int index, ZIPENTRYW *zew)
 		zew->mtime = ze.mtime;
 		zew->comp_size = ze.comp_size;
 		zew->unc_size = ze.unc_size;
-#ifdef _UNICODE
 		GetUnicodeFileName(ze.name, zew->name, MAX_PATH - 1);
-#else
-		strcpy(zew->name, ze.name);
-#endif
 	}
 	return lasterrorU;
 }
 
-ZRESULT FindZipItemA(HZIP hz, const TCHAR *name, bool ic, int *index, ZIPENTRY *ze)
+ZRESULT FindZipItemA(HZIP hz, const WCHAR *name, bool ic, int *index, ZIPENTRY *ze)
 {
 	if (hz == 0)
 	{
@@ -4427,7 +4416,7 @@ ZRESULT FindZipItemA(HZIP hz, const TCHAR *name, bool ic, int *index, ZIPENTRY *
 	return lasterrorU;
 }
 
-ZRESULT FindZipItemW(HZIP hz, const TCHAR *name, bool ic, int *index, ZIPENTRYW *zew)
+ZRESULT FindZipItemW(HZIP hz, const WCHAR *name, bool ic, int *index, ZIPENTRYW *zew)
 {
 	if (hz == 0)
 	{
@@ -4452,11 +4441,7 @@ ZRESULT FindZipItemW(HZIP hz, const TCHAR *name, bool ic, int *index, ZIPENTRYW 
 		zew->mtime = ze.mtime;
 		zew->comp_size = ze.comp_size;
 		zew->unc_size = ze.unc_size;
-#ifdef _UNICODE
 		GetUnicodeFileName(ze.name, zew->name, MAX_PATH - 1);
-#else
-		strcpy(zew->name, ze.name);
-#endif
 	}
 
 	return lasterrorU;

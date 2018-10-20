@@ -55,12 +55,12 @@ namespace Zuilib
 
 	}
 
-	LPCTSTR CTreeNodeUI::GetClass() const
+	LPCWSTR CTreeNodeUI::GetClass() const
 	{
 		return DUI_CTR_TREENODE;
 	}
 
-	LPVOID CTreeNodeUI::GetInterface( LPCTSTR pstrName )
+	LPVOID CTreeNodeUI::GetInterface( LPCWSTR pstrName )
 	{
 		if( _tcscmp(pstrName, DUI_CTR_TREENODE) == 0 ) return static_cast<CTreeNodeUI*>(this);
 		return CListContainerElementUI::GetInterface(pstrName);
@@ -219,7 +219,7 @@ namespace Zuilib
 		return m_bIsVisable;
 	}
 
-	void CTreeNodeUI::SetItemText( LPCTSTR pstrValue )
+	void CTreeNodeUI::SetItemText( LPCWSTR pstrValue )
 	{
 		pItemButton->SetText(pstrValue);
 	}
@@ -313,7 +313,7 @@ namespace Zuilib
 		return pTreeView;
 	}
 
-	void CTreeNodeUI::SetAttribute( LPCTSTR pstrName, LPCTSTR pstrValue )
+	void CTreeNodeUI::SetAttribute( LPCWSTR pstrName, LPCWSTR pstrValue )
 	{
 		if(_tcscmp(pstrName, _T("text")) == 0 )
 			pItemButton->SetText(pstrValue);
@@ -496,12 +496,12 @@ namespace Zuilib
 		
 	}
 
-	LPCTSTR CTreeViewUI::GetClass() const
+	LPCWSTR CTreeViewUI::GetClass() const
 	{
 		return DUI_CTR_TREEVIEW;
 	}
 
-	LPVOID CTreeViewUI::GetInterface( LPCTSTR pstrName )
+	LPVOID CTreeViewUI::GetInterface( LPCWSTR pstrName )
 	{
 		if( _tcscmp(pstrName, DUI_CTR_TREEVIEW) == 0 ) return static_cast<CTreeViewUI*>(this);
 		return CListUI::GetInterface(pstrName);
@@ -843,7 +843,7 @@ namespace Zuilib
 		}
 	}
 
-	void CTreeViewUI::SetAttribute( LPCTSTR pstrName, LPCTSTR pstrValue )
+	void CTreeViewUI::SetAttribute( LPCWSTR pstrName, LPCWSTR pstrValue )
 	{
 		if(_tcscmp(pstrName,_T("visiblefolderbtn")) == 0)
 			SetVisibleFolderBtn(_tcscmp(pstrValue,_T("true")) == 0);

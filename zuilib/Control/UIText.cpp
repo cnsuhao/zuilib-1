@@ -15,12 +15,12 @@ namespace Zuilib
 	{
 	}
 
-	LPCTSTR CTextUI::GetClass() const
+	LPCWSTR CTextUI::GetClass() const
 	{
 		return DUI_CTR_TEXT;
 	}
 
-	LPVOID CTextUI::GetInterface(LPCTSTR pstrName)
+	LPVOID CTextUI::GetInterface(LPCWSTR pstrName)
 	{
 		if( _tcscmp(pstrName, DUI_CTR_TEXT) == 0 ) return static_cast<CTextUI*>(this);
 		return CLabelUI::GetInterface(pstrName);

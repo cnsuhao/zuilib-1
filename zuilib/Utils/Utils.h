@@ -7,10 +7,10 @@ namespace Zuilib {
 	class ZUILIB_API STRINGorID
 	{
 	public:
-		STRINGorID(LPCTSTR lpString);
+		STRINGorID(LPCWSTR lpString);
 		STRINGorID(unsigned int nID);
 
-		LPCTSTR m_lpstr;
+		LPCWSTR m_lpstr;
 	};
 
     class CDuiString;
@@ -21,7 +21,7 @@ namespace Zuilib {
 		CDuiPoint(const POINT& src);
 		CDuiPoint(long x, long y);
 		CDuiPoint(LPARAM lParam);
-        CDuiPoint(LPCTSTR pstrValue);
+        CDuiPoint(LPCWSTR pstrValue);
         CDuiString ToString();
 	};
 
@@ -32,7 +32,7 @@ namespace Zuilib {
 		CDuiSize(const SIZE& src);
 		CDuiSize(const RECT rc);
 		CDuiSize(long cx, long cy);
-        CDuiSize(LPCTSTR pstrValue);
+        CDuiSize(LPCWSTR pstrValue);
         CDuiString ToString();
 	};
 
@@ -42,7 +42,7 @@ namespace Zuilib {
 		CDuiRect();
 		CDuiRect(const RECT& src);
 		CDuiRect(long iLeft, long iTop, long iRight, long iBottom);
-        CDuiRect(LPCTSTR pstrValue);
+        CDuiRect(LPCWSTR pstrValue);
         CDuiString ToString();
 
 		int GetWidth() const;
@@ -64,50 +64,49 @@ namespace Zuilib {
         enum { MAX_LOCAL_STRING_LEN = 63 };
 
         CDuiString();
-        CDuiString(const TCHAR ch);
+        CDuiString(const WCHAR ch);
         CDuiString(const CDuiString& src);
-        CDuiString(LPCTSTR lpsz, int nLen = -1);
+        CDuiString(LPCWSTR lpsz, int nLen = -1);
         ~CDuiString();
         CDuiString ToString();
 
         void Empty();
         int GetLength() const;
         bool IsEmpty() const;
-        TCHAR GetAt(int nIndex) const;
-        void Append(LPCTSTR pstr);
-        void Assign(LPCTSTR pstr, int nLength = -1);
-        LPCTSTR GetData() const;
+        WCHAR GetAt(int nIndex) const;
+        void Append(LPCWSTR pstr);
+        void Assign(LPCWSTR pstr, int nLength = -1);
+		LPCWSTR GetData() const;
 
-        void SetAt(int nIndex, TCHAR ch);
-        operator LPCTSTR() const;
+        void SetAt(int nIndex, WCHAR ch);
+        operator LPCWSTR() const;
 
-        TCHAR operator[] (int nIndex) const;
+        WCHAR operator[] (int nIndex) const;
         const CDuiString& operator=(const CDuiString& src);
-        const CDuiString& operator=(const TCHAR ch);
-        const CDuiString& operator=(LPCTSTR pstr);
+        const CDuiString& operator=(const WCHAR ch);
 
-#ifdef _UNICODE
+        const CDuiString& operator=(LPCWSTR pstr);
+
         const CDuiString& operator=(LPCSTR lpStr);
         const CDuiString& operator+=(LPCSTR lpStr);
-#else
-        const CDuiString& operator=(LPCWSTR lpwStr);
-        const CDuiString& operator+=(LPCWSTR lpwStr);
-#endif
+
         CDuiString operator+(const CDuiString& src) const;
-        CDuiString operator+(LPCTSTR pstr) const;
+        CDuiString operator+(LPCWSTR pstr) const;
         const CDuiString& operator+=(const CDuiString& src);
-        const CDuiString& operator+=(LPCTSTR pstr);
-        const CDuiString& operator+=(const TCHAR ch);
+        const CDuiString& operator+=(LPCWSTR pstr);
+        const CDuiString& operator+=(const WCHAR ch);
 
-        bool operator == (LPCTSTR str) const;
-        bool operator != (LPCTSTR str) const;
-        bool operator <= (LPCTSTR str) const;
-        bool operator <  (LPCTSTR str) const;
-        bool operator >= (LPCTSTR str) const;
-        bool operator >  (LPCTSTR str) const;
+		bool operator == (const CDuiString& str) const;
+		bool operator == (LPCWSTR str) const;
+		bool operator != (const CDuiString& str) const;
+		bool operator != (LPCWSTR str) const;
+		bool operator <= (LPCWSTR str) const;
+		bool operator <  (LPCWSTR str) const;
+		bool operator >= (LPCWSTR str) const;
+		bool operator >  (LPCWSTR str) const;
 
-        int Compare(LPCTSTR pstr) const;
-        int CompareNoCase(LPCTSTR pstr) const;
+        int Compare(LPCWSTR pstr) const;
+        int CompareNoCase(LPCWSTR pstr) const;
 
         void MakeUpper();
         void MakeLower();
@@ -116,17 +115,17 @@ namespace Zuilib {
         CDuiString Mid(int iPos, int nLength = -1) const;
         CDuiString Right(int nLength) const;
 
-        int Find(TCHAR ch, int iPos = 0) const;
-        int Find(LPCTSTR pstr, int iPos = 0) const;
-        int ReverseFind(TCHAR ch) const;
-        int Replace(LPCTSTR pstrFrom, LPCTSTR pstrTo);
+        int Find(WCHAR ch, int iPos = 0) const;
+        int Find(LPCWSTR pstr, int iPos = 0) const;
+        int ReverseFind(WCHAR ch) const;
+        int Replace(LPCWSTR pstrFrom, LPCWSTR pstrTo);
 
-        int __cdecl Format(LPCTSTR pstrFormat, ...);
-        int __cdecl SmallFormat(LPCTSTR pstrFormat, ...);
+        int __cdecl Format(LPCWSTR pstrFormat, ...);
+        int __cdecl SmallFormat(LPCWSTR pstrFormat, ...);
 
     protected:
-        LPTSTR m_pstr;
-        TCHAR m_szBuffer[MAX_LOCAL_STRING_LEN + 1];
+        LPWSTR m_pstr;
+        WCHAR m_szBuffer[MAX_LOCAL_STRING_LEN + 1];
     };
 
 	class ZUILIB_API CDuiPtrArray
@@ -187,14 +186,14 @@ namespace Zuilib {
 		~CDuiStringPtrMap();
 
 		void Resize(int nSize = 83);
-		LPVOID Find(LPCTSTR key, bool optimize = true) const;
-		bool Insert(LPCTSTR key, LPVOID pData);
-		LPVOID Set(LPCTSTR key, LPVOID pData);
-		bool Remove(LPCTSTR key);
+		LPVOID Find(LPCWSTR key, bool optimize = true) const;
+		bool Insert(LPCWSTR key, LPVOID pData);
+		LPVOID Set(LPCWSTR key, LPVOID pData);
+		bool Remove(LPCWSTR key);
 		void RemoveAll();
 		int GetSize() const;
-		LPCTSTR GetAt(int iIndex) const;
-		LPCTSTR operator[] (int nIndex) const;
+		LPCWSTR GetAt(int iIndex) const;
+		LPCWSTR operator[] (int nIndex) const;
 
 	protected:
 		TITEM** m_aT;

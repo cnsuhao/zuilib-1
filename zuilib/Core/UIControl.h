@@ -18,9 +18,9 @@ protected:
 
 public:
     virtual CDuiString GetName() const;
-    virtual void SetName(LPCTSTR pstrName);
-    virtual LPCTSTR GetClass() const;
-    virtual LPVOID GetInterface(LPCTSTR pstrName);
+    virtual void SetName(LPCWSTR pstrName);
+    virtual LPCWSTR GetClass() const;
+    virtual LPVOID GetInterface(LPCWSTR pstrName);
     virtual UINT GetControlFlags() const;
 	virtual HWND GetNativeWindow() const;
 
@@ -33,7 +33,7 @@ public:
 
     // 文本相关
     virtual CDuiString GetText() const;
-    virtual void SetText(LPCTSTR pstrText);
+    virtual void SetText(LPCWSTR pstrText);
 
     // 图形相关
     DWORD GetBkColor() const;
@@ -42,8 +42,8 @@ public:
     void SetBkColor2(DWORD dwBackColor);
     DWORD GetBkColor3() const;
     void SetBkColor3(DWORD dwBackColor);
-    LPCTSTR GetBkImage();
-    void SetBkImage(LPCTSTR pStrImage);
+    LPCWSTR GetBkImage();
+    void SetBkImage(LPCWSTR pStrImage);
 	DWORD GetFocusBorderColor() const;
 	void SetFocusBorderColor(DWORD dwBorderColor);
     bool IsColorHSL() const;
@@ -93,13 +93,13 @@ public:
 
     // 鼠标提示
     virtual CDuiString GetToolTip() const;
-    virtual void SetToolTip(LPCTSTR pstrText);
+    virtual void SetToolTip(LPCWSTR pstrText);
 	virtual void SetToolTipWidth(int nWidth);
 	virtual int	 GetToolTipWidth(void);	// 多行ToolTip单行最长宽度
 
     // 快捷键
-    virtual TCHAR GetShortcut() const;
-    virtual void SetShortcut(TCHAR ch);
+    virtual WCHAR GetShortcut() const;
+    virtual void SetShortcut(WCHAR ch);
 
     // 菜单
     virtual bool IsContextMenuUsed() const;
@@ -107,7 +107,7 @@ public:
 
     // 用户属性
     virtual const CDuiString& GetUserData();	// 辅助函数，供用户使用
-    virtual void SetUserData(LPCTSTR pstrText); // 辅助函数，供用户使用
+    virtual void SetUserData(LPCWSTR pstrText); // 辅助函数，供用户使用
     virtual UINT_PTR GetTag() const;			// 辅助函数，供用户使用
     virtual void SetTag(UINT_PTR pTag);			// 辅助函数，供用户使用
 
@@ -127,9 +127,9 @@ public:
     virtual void SetFloat(bool bFloat = true);
 
 	// 自定义(未处理的)属性
-	void AddCustomAttribute(LPCTSTR pstrName, LPCTSTR pstrAttr);
-	LPCTSTR GetCustomAttribute(LPCTSTR pstrName) const;
-	bool RemoveCustomAttribute(LPCTSTR pstrName);
+	void AddCustomAttribute(LPCWSTR pstrName, LPCWSTR pstrAttr);
+	LPCWSTR GetCustomAttribute(LPCWSTR pstrName) const;
+	bool RemoveCustomAttribute(LPCWSTR pstrName);
 	void RemoveAllCustomAttribute();
 
     virtual CControlUI* FindControl(FINDCONTROLPROC Proc, LPVOID pData, UINT uFlags);
@@ -146,10 +146,10 @@ public:
     virtual void Event(TEventUI& event);
     virtual void DoEvent(TEventUI& event);
 
-    virtual CDuiString GetAttribute(LPCTSTR pstrName);
-    virtual void SetAttribute(LPCTSTR pstrName, LPCTSTR pstrValue);
+    virtual CDuiString GetAttribute(LPCWSTR pstrName);
+    virtual void SetAttribute(LPCWSTR pstrName, LPCWSTR pstrValue);
 	virtual CDuiString GetAttributeList(bool bIgnoreDefault = true);
-    virtual void SetAttributeList(LPCTSTR pstrList);
+    virtual void SetAttributeList(LPCWSTR pstrList);
 
     virtual SIZE EstimateSize(SIZE szAvailable);
 
@@ -164,7 +164,7 @@ public:
     virtual void DoPostPaint(HDC hDC, const RECT& rcPaint);
 
 	//虚拟窗口参数
-	void SetVirtualWnd(LPCTSTR pstrValue);
+	void SetVirtualWnd(LPCWSTR pstrValue);
 	CDuiString GetVirtualWnd() const;
 
 public:
@@ -203,7 +203,7 @@ protected:
 
     CDuiString m_sText;
     CDuiString m_sToolTip;
-    TCHAR m_chShortcut;
+    WCHAR m_chShortcut;
     CDuiString m_sUserData;
     UINT_PTR m_pTag;
 

@@ -27,8 +27,8 @@ public:
     CActiveXUI();
     virtual ~CActiveXUI();
 
-    LPCTSTR GetClass() const;
-	LPVOID GetInterface(LPCTSTR pstrName);
+    LPCWSTR GetClass() const;
+	LPVOID GetInterface(LPCWSTR pstrName);
 	UINT GetControlFlags() const;
 	HWND GetNativeWindow() const;
 
@@ -36,11 +36,11 @@ public:
     void SetDelayCreate(bool bDelayCreate = true);
 
     bool CreateControl(const CLSID clsid);
-    bool CreateControl(LPCTSTR pstrCLSID);
+    bool CreateControl(LPCWSTR pstrCLSID);
     HRESULT GetControl(const IID iid, LPVOID* ppRet);
 	CLSID GetClisd() const;
     CDuiString GetModuleName() const;
-    void SetModuleName(LPCTSTR pstrText);
+    void SetModuleName(LPCWSTR pstrText);
 
     void SetVisible(bool bVisible = true);
     void SetInternVisible(bool bVisible = true);
@@ -48,7 +48,7 @@ public:
 	void Move(SIZE szOffset, bool bNeedInvalidate = true);
     bool DoPaint(HDC hDC, const RECT& rcPaint, CControlUI* pStopControl);
 
-    void SetAttribute(LPCTSTR pstrName, LPCTSTR pstrValue);
+    void SetAttribute(LPCWSTR pstrName, LPCWSTR pstrValue);
 
     LRESULT MessageHandler(UINT uMsg, WPARAM wParam, LPARAM lParam, bool& bHandled);
 

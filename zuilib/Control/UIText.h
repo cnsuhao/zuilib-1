@@ -11,9 +11,9 @@ namespace Zuilib
 		CTextUI();
 		~CTextUI();
 
-		LPCTSTR GetClass() const;
+		LPCWSTR GetClass() const;
 		UINT GetControlFlags() const;
-		LPVOID GetInterface(LPCTSTR pstrName);
+		LPVOID GetInterface(LPCWSTR pstrName);
 
 		CDuiString* GetLinkContent(int iIndex);
 

@@ -10,8 +10,8 @@ namespace Zuilib
 	public:
 		CTabLayoutUI();
 
-		LPCTSTR GetClass() const;
-		LPVOID GetInterface(LPCTSTR pstrName);
+		LPCWSTR GetClass() const;
+		LPVOID GetInterface(LPCWSTR pstrName);
 
 		bool Add(CControlUI* pControl);
 		bool AddAt(CControlUI* pControl, int iIndex);
@@ -23,7 +23,7 @@ namespace Zuilib
 
 		void SetPos(RECT rc, bool bNeedInvalidate = true);
 
-		void SetAttribute(LPCTSTR pstrName, LPCTSTR pstrValue);
+		void SetAttribute(LPCWSTR pstrName, LPCWSTR pstrValue);
 
 	protected:
 		int m_iCurSel;

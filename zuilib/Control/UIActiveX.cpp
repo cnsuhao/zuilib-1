@@ -9,7 +9,7 @@ public:
 	CActiveXWnd() : m_iLayeredTick(0), m_bDrawCaret(false) {}
     HWND Init(CActiveXCtrl* pOwner, HWND hWndParent);
 
-    LPCTSTR GetWindowClassName() const;
+    LPCWSTR GetWindowClassName() const;
     void OnFinalMessage(HWND hWnd);
 
     LRESULT HandleMessage(UINT uMsg, WPARAM wParam, LPARAM lParam);
@@ -771,7 +771,7 @@ HWND CActiveXWnd::Init(CActiveXCtrl* pOwner, HWND hWndParent)
     return m_hWnd;
 }
 
-LPCTSTR CActiveXWnd::GetWindowClassName() const
+LPCWSTR CActiveXWnd::GetWindowClassName() const
 {
     return _T("ActiveXWnd");
 }
@@ -927,12 +927,12 @@ CActiveXUI::~CActiveXUI()
 	::CoUninitialize();
 }
 
-LPCTSTR CActiveXUI::GetClass() const
+LPCWSTR CActiveXUI::GetClass() const
 {
     return DUI_CTR_ACTIVEX;
 }
 
-LPVOID CActiveXUI::GetInterface(LPCTSTR pstrName)
+LPVOID CActiveXUI::GetInterface(LPCWSTR pstrName)
 {
 	if( _tcscmp(pstrName, DUI_CTR_ACTIVEX) == 0 ) return static_cast<CActiveXUI*>(this);
 	return CControlUI::GetInterface(pstrName);
@@ -1024,7 +1024,7 @@ bool CActiveXUI::DoPaint(HDC hDC, const RECT& rcPaint, CControlUI* pStopControl)
     return true;
 }
 
-void CActiveXUI::SetAttribute(LPCTSTR pstrName, LPCTSTR pstrValue)
+void CActiveXUI::SetAttribute(LPCWSTR pstrName, LPCWSTR pstrValue)
 {
     if( _tcscmp(pstrName, _T("clsid")) == 0 ) CreateControl(pstrValue);
     else if( _tcscmp(pstrName, _T("modulename")) == 0 ) SetModuleName(pstrValue);
@@ -1093,17 +1093,18 @@ void CActiveXUI::SetDelayCreate(bool bDelayCreate)
     m_bDelayCreate = bDelayCreate;
 }
 
-bool CActiveXUI::CreateControl(LPCTSTR pstrCLSID)
+bool CActiveXUI::CreateControl(LPCWSTR pstrCLSID)
 {
     CLSID clsid = { 0 };
     OLECHAR szCLSID[100] = { 0 };
-#ifndef _UNICODE
-    ::MultiByteToWideChar(::GetACP(), 0, pstrCLSID, -1, szCLSID, lengthof(szCLSID) - 1);
-#else
-    _tcsncpy(szCLSID, pstrCLSID, lengthof(szCLSID) - 1);
-#endif
-    if( pstrCLSID[0] == _T('{') ) ::CLSIDFromString(szCLSID, &clsid);
-    else ::CLSIDFromProgID(szCLSID, &clsid);
+
+	_tcsncpy(szCLSID, pstrCLSID, lengthof(szCLSID) - 1);
+
+    if( pstrCLSID[0] == _T('{') ) 
+		::CLSIDFromString(szCLSID, &clsid);
+    else 
+		::CLSIDFromProgID(szCLSID, &clsid);
+
     return CreateControl(clsid);
 }
 
@@ -1151,7 +1152,7 @@ bool CActiveXUI::DoCreateControl()
 
     HRESULT Hr = -1;
     if( !m_sModuleName.IsEmpty() ) {
-        HMODULE hModule = ::LoadLibrary((LPCTSTR)m_sModuleName);
+        HMODULE hModule = ::LoadLibrary((LPCWSTR)m_sModuleName);
         if( hModule != NULL ) {
             IClassFactory* aClassFactory = NULL;
             DllGetClassObjectFunc aDllGetClassObjectFunc = (DllGetClassObjectFunc)::GetProcAddress(hModule, "DllGetClassObject");
@@ -1228,7 +1229,7 @@ CDuiString CActiveXUI::GetModuleName() const
     return m_sModuleName;
 }
 
-void CActiveXUI::SetModuleName(LPCTSTR pstrText)
+void CActiveXUI::SetModuleName(LPCWSTR pstrText)
 {
     m_sModuleName = pstrText;
 }

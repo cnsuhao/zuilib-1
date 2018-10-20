@@ -8,7 +8,7 @@ namespace Zuilib {
 class IDialogBuilderCallback
 {
 public:
-    virtual CControlUI* CreateControl(LPCTSTR pstrClass) = 0;
+    virtual CControlUI* CreateControl(LPCWSTR pstrClass) = 0;
 };
 
 
@@ -16,7 +16,7 @@ class ZUILIB_API CDialogBuilder
 {
 public:
     CDialogBuilder();
-    CControlUI* Create(STRINGorID xml, LPCTSTR type = NULL, IDialogBuilderCallback* pCallback = NULL,
+    CControlUI* Create(STRINGorID xml, LPCWSTR type = NULL, IDialogBuilderCallback* pCallback = NULL,
         CPaintManagerUI* pManager = NULL, CControlUI* pParent = NULL);
     CControlUI* Create(IDialogBuilderCallback* pCallback = NULL, 
 		CPaintManagerUI* pManager = NULL, CControlUI* pParent = NULL);
@@ -30,7 +30,7 @@ private:
 
     CMarkup m_xml;
     IDialogBuilderCallback* m_pCallback;
-    LPCTSTR m_pstrtype;
+    LPCWSTR m_pstrtype;
 };
 
 } // namespace ZuiLib

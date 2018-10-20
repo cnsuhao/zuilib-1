@@ -17,11 +17,7 @@ namespace Zuilib
 	{
 		CDuiString strFlashCLSID=_T("{D27CDB6E-AE6D-11CF-96B8-444553540000}");
 		OLECHAR szCLSID[100] = { 0 };
-#ifndef _UNICODE
-		::MultiByteToWideChar(::GetACP(), 0, strFlashCLSID, -1, szCLSID, lengthof(szCLSID) - 1);
-#else
 		_tcsncpy(szCLSID, strFlashCLSID, lengthof(szCLSID) - 1);
-#endif
 		::CLSIDFromString(szCLSID, &m_clsid);
 	}
 
@@ -35,12 +31,12 @@ namespace Zuilib
 		ReleaseControl();
 	}
 
-	LPCTSTR CFlashUI::GetClass() const
+	LPCWSTR CFlashUI::GetClass() const
 	{
 		return DUI_CTR_FLASH;
 	}
 
-	LPVOID CFlashUI::GetInterface( LPCTSTR pstrName )
+	LPVOID CFlashUI::GetInterface( LPCWSTR pstrName )
 	{
 		if( _tcscmp(pstrName, DUI_CTR_FLASH) == 0 ) return static_cast<CFlashUI*>(this);
 		return CActiveXUI::GetInterface(pstrName);
@@ -264,7 +260,7 @@ namespace Zuilib
 		return hr; 
 	}
 
-	void CFlashUI::SetAttribute( LPCTSTR pstrName, LPCTSTR pstrValue )
+	void CFlashUI::SetAttribute( LPCWSTR pstrName, LPCWSTR pstrValue )
 	{
 		if (_tcscmp(pstrName, _T("homepage")) == 0)
 		{

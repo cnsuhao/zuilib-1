@@ -10,8 +10,8 @@ namespace Zuilib
 	public:
 		CProgressUI();
 
-		LPCTSTR GetClass() const;
-		LPVOID GetInterface(LPCTSTR pstrName);
+		LPCWSTR GetClass() const;
+		LPVOID GetInterface(LPCWSTR pstrName);
 
 		bool IsHorizontal();
 		void SetHorizontal(bool bHorizontal = true);
@@ -21,10 +21,10 @@ namespace Zuilib
 		void SetMaxValue(int nMax);
 		int GetValue() const;
 		void SetValue(int nValue);
-		LPCTSTR GetForeImage() const;
-		void SetForeImage(LPCTSTR pStrImage);
+		LPCWSTR GetForeImage() const;
+		void SetForeImage(LPCWSTR pStrImage);
 
-		void SetAttribute(LPCTSTR pstrName, LPCTSTR pstrValue);
+		void SetAttribute(LPCWSTR pstrName, LPCWSTR pstrValue);
 		void PaintStatusImage(HDC hDC);
 
 	protected:

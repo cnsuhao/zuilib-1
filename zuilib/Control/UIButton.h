@@ -10,31 +10,31 @@ namespace Zuilib
 	public:
 		CButtonUI();
 
-		LPCTSTR GetClass() const;
-		LPVOID GetInterface(LPCTSTR pstrName);
+		LPCWSTR GetClass() const;
+		LPVOID GetInterface(LPCWSTR pstrName);
 		UINT GetControlFlags() const;
 
 		bool Activate();
 		void SetEnabled(bool bEnable = true);
 		void DoEvent(TEventUI& event);
 
-		LPCTSTR GetNormalImage();
-		void SetNormalImage(LPCTSTR pStrImage);
-		LPCTSTR GetHotImage();
-		void SetHotImage(LPCTSTR pStrImage);
-		LPCTSTR GetPushedImage();
-		void SetPushedImage(LPCTSTR pStrImage);
-		LPCTSTR GetFocusedImage();
-		void SetFocusedImage(LPCTSTR pStrImage);
-		LPCTSTR GetDisabledImage();
-		void SetDisabledImage(LPCTSTR pStrImage);
-		LPCTSTR GetForeImage();
-		void SetForeImage(LPCTSTR pStrImage);
-		LPCTSTR GetHotForeImage();
-		void SetHotForeImage(LPCTSTR pStrImage);
+		LPCWSTR GetNormalImage();
+		void SetNormalImage(LPCWSTR pStrImage);
+		LPCWSTR GetHotImage();
+		void SetHotImage(LPCWSTR pStrImage);
+		LPCWSTR GetPushedImage();
+		void SetPushedImage(LPCWSTR pStrImage);
+		LPCWSTR GetFocusedImage();
+		void SetFocusedImage(LPCWSTR pStrImage);
+		LPCWSTR GetDisabledImage();
+		void SetDisabledImage(LPCWSTR pStrImage);
+		LPCWSTR GetForeImage();
+		void SetForeImage(LPCWSTR pStrImage);
+		LPCWSTR GetHotForeImage();
+		void SetHotForeImage(LPCWSTR pStrImage);
 
 		// 对应按钮的5个状态图
-		void SetFiveStatusImage(LPCTSTR pStrImage);
+		void SetFiveStatusImage(LPCWSTR pStrImage);
 		void SetFadeAlphaDelta(BYTE uDelta);
 		BYTE GetFadeAlphaDelta();
 
@@ -47,7 +47,7 @@ namespace Zuilib
 		void SetFocusedTextColor(DWORD dwColor);
 		DWORD GetFocusedTextColor() const;
 		SIZE EstimateSize(SIZE szAvailable);
-		void SetAttribute(LPCTSTR pstrName, LPCTSTR pstrValue);
+		void SetAttribute(LPCWSTR pstrName, LPCWSTR pstrValue);
 
 		void PaintText(HDC hDC);
 		void PaintStatusImage(HDC hDC);

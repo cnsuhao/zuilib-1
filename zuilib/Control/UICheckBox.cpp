@@ -3,12 +3,12 @@
 
 namespace Zuilib
 {
-	LPCTSTR CCheckBoxUI::GetClass() const
+	LPCWSTR CCheckBoxUI::GetClass() const
 	{
 		return DUI_CTR_CHECKBOX;
 	}
 
-	LPVOID CCheckBoxUI::GetInterface(LPCTSTR pstrName)
+	LPVOID CCheckBoxUI::GetInterface(LPCWSTR pstrName)
 	{
 		if( _tcscmp(pstrName, DUI_CTR_CHECKBOX) == 0 ) 
 			return static_cast<CCheckBoxUI*>(this);

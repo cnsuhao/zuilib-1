@@ -24,12 +24,12 @@ namespace Zuilib
 		if( m_pHorizontalScrollBar ) m_pHorizontalScrollBar->Delete();
 	}
 
-	LPCTSTR CContainerUI::GetClass() const
+	LPCWSTR CContainerUI::GetClass() const
 	{
 		return DUI_CTR_CONTAINER;
 	}
 
-	LPVOID CContainerUI::GetInterface(LPCTSTR pstrName)
+	LPVOID CContainerUI::GetInterface(LPCWSTR pstrName)
 	{
 		if( _tcscmp(pstrName, DUI_CTR_ICONTAINER) == 0 ) return static_cast<IContainerUI*>(this);
 		else if( _tcscmp(pstrName, DUI_CTR_CONTAINER) == 0 ) return static_cast<CContainerUI*>(this);
@@ -531,7 +531,7 @@ namespace Zuilib
 			m_pVerticalScrollBar->SetOwner(this);
 			m_pVerticalScrollBar->SetManager(m_pManager, NULL, false);
 			if ( m_pManager ) {
-				LPCTSTR pDefaultAttributes = m_pManager->GetDefaultAttributeList(_T("VScrollBar"));
+				LPCWSTR pDefaultAttributes = m_pManager->GetDefaultAttributeList(_T("VScrollBar"));
 				if( pDefaultAttributes ) {
 					m_pVerticalScrollBar->SetAttributeList(pDefaultAttributes);
 				}
@@ -549,7 +549,7 @@ namespace Zuilib
 			m_pHorizontalScrollBar->SetOwner(this);
 			m_pHorizontalScrollBar->SetManager(m_pManager, NULL, false);
 			if ( m_pManager ) {
-				LPCTSTR pDefaultAttributes = m_pManager->GetDefaultAttributeList(_T("HScrollBar"));
+				LPCWSTR pDefaultAttributes = m_pManager->GetDefaultAttributeList(_T("HScrollBar"));
 				if( pDefaultAttributes ) {
 					m_pHorizontalScrollBar->SetAttributeList(pDefaultAttributes);
 				}
@@ -667,7 +667,7 @@ namespace Zuilib
 		}
 	}
 
-	void CContainerUI::SetAttribute(LPCTSTR pstrName, LPCTSTR pstrValue)
+	void CContainerUI::SetAttribute(LPCWSTR pstrName, LPCWSTR pstrValue)
 	{
 		if( _tcscmp(pstrName, _T("inset")) == 0 ) {
 			RECT rcInset = { 0 };
@@ -1049,7 +1049,7 @@ namespace Zuilib
 		}
 	}
 
-	bool CContainerUI::SetSubControlText( LPCTSTR pstrSubControlName,LPCTSTR pstrText )
+	bool CContainerUI::SetSubControlText( LPCWSTR pstrSubControlName,LPCWSTR pstrText )
 	{
 		CControlUI* pSubControl=NULL;
 		pSubControl=this->FindSubControl(pstrSubControlName);
@@ -1062,7 +1062,7 @@ namespace Zuilib
 			return FALSE;
 	}
 
-	bool CContainerUI::SetSubControlFixedHeight( LPCTSTR pstrSubControlName,int cy )
+	bool CContainerUI::SetSubControlFixedHeight( LPCWSTR pstrSubControlName,int cy )
 	{
 		CControlUI* pSubControl=NULL;
 		pSubControl=this->FindSubControl(pstrSubControlName);
@@ -1075,7 +1075,7 @@ namespace Zuilib
 			return FALSE;
 	}
 
-	bool CContainerUI::SetSubControlFixedWdith( LPCTSTR pstrSubControlName,int cx )
+	bool CContainerUI::SetSubControlFixedWdith( LPCWSTR pstrSubControlName,int cx )
 	{
 		CControlUI* pSubControl=NULL;
 		pSubControl=this->FindSubControl(pstrSubControlName);
@@ -1088,7 +1088,7 @@ namespace Zuilib
 			return FALSE;
 	}
 
-	bool CContainerUI::SetSubControlUserData( LPCTSTR pstrSubControlName,LPCTSTR pstrText )
+	bool CContainerUI::SetSubControlUserData( LPCWSTR pstrSubControlName,LPCWSTR pstrText )
 	{
 		CControlUI* pSubControl=NULL;
 		pSubControl=this->FindSubControl(pstrSubControlName);
@@ -1101,7 +1101,7 @@ namespace Zuilib
 			return FALSE;
 	}
 
-	CDuiString CContainerUI::GetSubControlText( LPCTSTR pstrSubControlName )
+	CDuiString CContainerUI::GetSubControlText( LPCWSTR pstrSubControlName )
 	{
 		CControlUI* pSubControl=NULL;
 		pSubControl=this->FindSubControl(pstrSubControlName);
@@ -1111,7 +1111,7 @@ namespace Zuilib
 			return pSubControl->GetText();
 	}
 
-	int CContainerUI::GetSubControlFixedHeight( LPCTSTR pstrSubControlName )
+	int CContainerUI::GetSubControlFixedHeight( LPCWSTR pstrSubControlName )
 	{
 		CControlUI* pSubControl=NULL;
 		pSubControl=this->FindSubControl(pstrSubControlName);
@@ -1121,7 +1121,7 @@ namespace Zuilib
 			return pSubControl->GetFixedHeight();
 	}
 
-	int CContainerUI::GetSubControlFixedWdith( LPCTSTR pstrSubControlName )
+	int CContainerUI::GetSubControlFixedWdith( LPCWSTR pstrSubControlName )
 	{
 		CControlUI* pSubControl=NULL;
 		pSubControl=this->FindSubControl(pstrSubControlName);
@@ -1131,7 +1131,7 @@ namespace Zuilib
 			return pSubControl->GetFixedWidth();
 	}
 
-	const CDuiString CContainerUI::GetSubControlUserData( LPCTSTR pstrSubControlName )
+	const CDuiString CContainerUI::GetSubControlUserData( LPCWSTR pstrSubControlName )
 	{
 		CControlUI* pSubControl=NULL;
 		pSubControl=this->FindSubControl(pstrSubControlName);
@@ -1141,7 +1141,7 @@ namespace Zuilib
 			return pSubControl->GetUserData();
 	}
 
-	CControlUI* CContainerUI::FindSubControl( LPCTSTR pstrSubControlName )
+	CControlUI* CContainerUI::FindSubControl( LPCWSTR pstrSubControlName )
 	{
 		CControlUI* pSubControl=NULL;
 		pSubControl=static_cast<CControlUI*>(GetManager()->FindSubControlByName(this,pstrSubControlName));

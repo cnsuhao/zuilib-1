@@ -90,7 +90,7 @@ public:
 	void Create(HWND hParentWnd);
 
 	// 使用图片只需要调用这个方法(rcHoleOffset作用是修复圆角显示空白的bug)
-	bool SetImage(LPCTSTR image, RECT rcCorner, RECT rcHoleOffset);
+	bool SetImage(LPCWSTR image, RECT rcCorner, RECT rcHoleOffset);
 
 	// 使用颜色可以使用如下几个方法
 	bool SetSize(int NewSize = 0);

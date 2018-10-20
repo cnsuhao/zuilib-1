@@ -134,7 +134,7 @@ class CComboWnd : public CWindowWnd
 {
 public:
     void Init(CComboUI* pOwner);
-    LPCTSTR GetWindowClassName() const;
+    LPCWSTR GetWindowClassName() const;
     void OnFinalMessage(HWND hWnd);
 
     LRESULT HandleMessage(UINT uMsg, WPARAM wParam, LPARAM lParam);
@@ -204,7 +204,7 @@ void CComboWnd::Init(CComboUI* pOwner)
     //::SendMessage(hWndParent, WM_NCACTIVATE, TRUE, 0L);
 }
 
-LPCTSTR CComboWnd::GetWindowClassName() const
+LPCWSTR CComboWnd::GetWindowClassName() const
 {
     return _T("ComboWnd");
 }
@@ -227,7 +227,7 @@ LRESULT CComboWnd::HandleMessage(UINT uMsg, WPARAM wParam, LPARAM lParam)
         // the items back to the righfull owner/manager when the window closes.
         m_pLayout = new CComboBodyUI(m_pOwner);
         m_pLayout->SetManager(&m_pm, NULL, true);
-        LPCTSTR pDefaultAttributes = m_pOwner->GetManager()->GetDefaultAttributeList(_T("VerticalLayout"));
+        LPCWSTR pDefaultAttributes = m_pOwner->GetManager()->GetDefaultAttributeList(_T("VerticalLayout"));
         if( pDefaultAttributes ) {
             m_pLayout->SetAttributeList(pDefaultAttributes);
         }
@@ -284,7 +284,7 @@ LRESULT CComboWnd::HandleMessage(UINT uMsg, WPARAM wParam, LPARAM lParam)
         default:
             TEventUI event;
             event.Type = UIEVENT_KEYDOWN;
-            event.chKey = (TCHAR)wParam;
+            event.chKey = (WCHAR)wParam;
             m_pOwner->DoEvent(event);
             EnsureVisible(m_pOwner->GetCurSel());
             return 0;
@@ -386,12 +386,12 @@ CComboUI::CComboUI() : m_pWindow(NULL), m_iCurSel(-1), m_uButtonState(0)
     ::ZeroMemory(&m_ListInfo.rcColumn, sizeof(m_ListInfo.rcColumn));
 }
 
-LPCTSTR CComboUI::GetClass() const
+LPCWSTR CComboUI::GetClass() const
 {
     return DUI_CTR_COMBO;
 }
 
-LPVOID CComboUI::GetInterface(LPCTSTR pstrName)
+LPVOID CComboUI::GetInterface(LPCWSTR pstrName)
 {
     if( _tcscmp(pstrName, DUI_CTR_ILISTOWNER) == 0 ) return static_cast<IListOwnerUI*>(this);
 	if( _tcscmp(pstrName, DUI_CTR_COMBO) == 0 ) return static_cast<CComboUI*>(this);
@@ -740,7 +740,7 @@ CDuiString CComboUI::GetDropBoxAttributeList()
     return m_sDropBoxAttributes;
 }
 
-void CComboUI::SetDropBoxAttributeList(LPCTSTR pstrList)
+void CComboUI::SetDropBoxAttributeList(LPCWSTR pstrList)
 {
     m_sDropBoxAttributes = pstrList;
 }
@@ -777,12 +777,12 @@ void CComboUI::SetTextPadding(RECT rc)
     Invalidate();
 }
 
-LPCTSTR CComboUI::GetNormalImage() const
+LPCWSTR CComboUI::GetNormalImage() const
 {
     return m_diNormal.sDrawString;
 }
 
-void CComboUI::SetNormalImage(LPCTSTR pStrImage)
+void CComboUI::SetNormalImage(LPCWSTR pStrImage)
 {
 	if( m_diNormal.sDrawString == pStrImage && m_diNormal.pImageInfo != NULL ) return;
 	m_diNormal.Clear();
@@ -790,12 +790,12 @@ void CComboUI::SetNormalImage(LPCTSTR pStrImage)
 	Invalidate();
 }
 
-LPCTSTR CComboUI::GetHotImage() const
+LPCWSTR CComboUI::GetHotImage() const
 {
     return m_diHot.sDrawString;
 }
 
-void CComboUI::SetHotImage(LPCTSTR pStrImage)
+void CComboUI::SetHotImage(LPCWSTR pStrImage)
 {
 	if( m_diHot.sDrawString == pStrImage && m_diHot.pImageInfo != NULL ) return;
 	m_diHot.Clear();
@@ -803,12 +803,12 @@ void CComboUI::SetHotImage(LPCTSTR pStrImage)
 	Invalidate();
 }
 
-LPCTSTR CComboUI::GetPushedImage() const
+LPCWSTR CComboUI::GetPushedImage() const
 {
     return m_diPushed.sDrawString;
 }
 
-void CComboUI::SetPushedImage(LPCTSTR pStrImage)
+void CComboUI::SetPushedImage(LPCWSTR pStrImage)
 {
 	if( m_diPushed.sDrawString == pStrImage && m_diPushed.pImageInfo != NULL ) return;
 	m_diPushed.Clear();
@@ -816,12 +816,12 @@ void CComboUI::SetPushedImage(LPCTSTR pStrImage)
 	Invalidate();
 }
 
-LPCTSTR CComboUI::GetFocusedImage() const
+LPCWSTR CComboUI::GetFocusedImage() const
 {
 	return m_diFocused.sDrawString;
 }
 
-void CComboUI::SetFocusedImage(LPCTSTR pStrImage)
+void CComboUI::SetFocusedImage(LPCWSTR pStrImage)
 {
 	if( m_diFocused.sDrawString == pStrImage && m_diFocused.pImageInfo != NULL ) return;
 	m_diFocused.Clear();
@@ -829,12 +829,12 @@ void CComboUI::SetFocusedImage(LPCTSTR pStrImage)
 	Invalidate();
 }
 
-LPCTSTR CComboUI::GetDisabledImage() const
+LPCWSTR CComboUI::GetDisabledImage() const
 {
 	return m_diDisabled.sDrawString;
 }
 
-void CComboUI::SetDisabledImage(LPCTSTR pStrImage)
+void CComboUI::SetDisabledImage(LPCWSTR pStrImage)
 {
 	if( m_diDisabled.sDrawString == pStrImage && m_diDisabled.pImageInfo != NULL ) return;
 	m_diDisabled.Clear();
@@ -902,7 +902,7 @@ void CComboUI::SetItemBkColor(DWORD dwBkColor)
     m_ListInfo.dwBkColor = dwBkColor;
 }
 
-void CComboUI::SetItemBkImage(LPCTSTR pStrImage)
+void CComboUI::SetItemBkImage(LPCWSTR pStrImage)
 {
 	if( m_ListInfo.diBk.sDrawString == pStrImage && m_ListInfo.diBk.pImageInfo != NULL ) return;
 	m_ListInfo.diBk.Clear();
@@ -919,7 +919,7 @@ DWORD CComboUI::GetItemBkColor() const
 	return m_ListInfo.dwBkColor;
 }
 
-LPCTSTR CComboUI::GetItemBkImage() const
+LPCWSTR CComboUI::GetItemBkImage() const
 {
 	return m_ListInfo.diBk.sDrawString;
 }
@@ -944,7 +944,7 @@ void CComboUI::SetSelectedItemBkColor(DWORD dwBkColor)
     m_ListInfo.dwSelectedBkColor = dwBkColor;
 }
 
-void CComboUI::SetSelectedItemImage(LPCTSTR pStrImage)
+void CComboUI::SetSelectedItemImage(LPCWSTR pStrImage)
 {
 	if( m_ListInfo.diSelected.sDrawString == pStrImage && m_ListInfo.diSelected.pImageInfo != NULL ) return;
 	m_ListInfo.diSelected.Clear();
@@ -961,7 +961,7 @@ DWORD CComboUI::GetSelectedItemBkColor() const
 	return m_ListInfo.dwSelectedBkColor;
 }
 
-LPCTSTR CComboUI::GetSelectedItemImage() const
+LPCWSTR CComboUI::GetSelectedItemImage() const
 {
 	return m_ListInfo.diSelected.sDrawString;
 }
@@ -976,7 +976,7 @@ void CComboUI::SetHotItemBkColor(DWORD dwBkColor)
     m_ListInfo.dwHotBkColor = dwBkColor;
 }
 
-void CComboUI::SetHotItemImage(LPCTSTR pStrImage)
+void CComboUI::SetHotItemImage(LPCWSTR pStrImage)
 {
 	if( m_ListInfo.diHot.sDrawString == pStrImage && m_ListInfo.diHot.pImageInfo != NULL ) return;
 	m_ListInfo.diHot.Clear();
@@ -992,7 +992,7 @@ DWORD CComboUI::GetHotItemBkColor() const
 	return m_ListInfo.dwHotBkColor;
 }
 
-LPCTSTR CComboUI::GetHotItemImage() const
+LPCWSTR CComboUI::GetHotItemImage() const
 {
 	return m_ListInfo.diHot.sDrawString;
 }
@@ -1007,7 +1007,7 @@ void CComboUI::SetDisabledItemBkColor(DWORD dwBkColor)
     m_ListInfo.dwDisabledBkColor = dwBkColor;
 }
 
-void CComboUI::SetDisabledItemImage(LPCTSTR pStrImage)
+void CComboUI::SetDisabledItemImage(LPCWSTR pStrImage)
 {
 	if( m_ListInfo.diDisabled.sDrawString == pStrImage && m_ListInfo.diDisabled.pImageInfo != NULL ) return;
 	m_ListInfo.diDisabled.Clear();
@@ -1024,7 +1024,7 @@ DWORD CComboUI::GetDisabledItemBkColor() const
 	return m_ListInfo.dwDisabledBkColor;
 }
 
-LPCTSTR CComboUI::GetDisabledItemImage() const
+LPCWSTR CComboUI::GetDisabledItemImage() const
 {
 	return m_ListInfo.diDisabled.sDrawString;
 }
@@ -1096,7 +1096,7 @@ void CComboUI::Move(SIZE szOffset, bool bNeedInvalidate)
 	CControlUI::Move(szOffset, bNeedInvalidate);
 }
 
-void CComboUI::SetAttribute(LPCTSTR pstrName, LPCTSTR pstrValue)
+void CComboUI::SetAttribute(LPCWSTR pstrName, LPCWSTR pstrValue)
 {
     if( _tcscmp(pstrName, _T("textpadding")) == 0 ) {
         RECT rcTextPadding = { 0 };

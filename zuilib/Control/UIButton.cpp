@@ -15,14 +15,15 @@ namespace Zuilib
 		m_uTextStyle = DT_SINGLELINE | DT_VCENTER | DT_CENTER;
 	}
 
-	LPCTSTR CButtonUI::GetClass() const
+	LPCWSTR CButtonUI::GetClass() const
 	{
 		return DUI_CTR_BUTTON;
 	}
 
-	LPVOID CButtonUI::GetInterface(LPCTSTR pstrName)
+	LPVOID CButtonUI::GetInterface(LPCWSTR pstrName)
 	{
-		if( _tcscmp(pstrName, DUI_CTR_BUTTON) == 0 ) return static_cast<CButtonUI*>(this);
+		if( _tcscmp(pstrName, DUI_CTR_BUTTON) == 0 ) 
+			return static_cast<CButtonUI*>(this);
 		return CLabelUI::GetInterface(pstrName);
 	}
 
@@ -204,12 +205,12 @@ namespace Zuilib
 		return m_dwFocusedTextColor;
 	}
 
-	LPCTSTR CButtonUI::GetNormalImage()
+	LPCWSTR CButtonUI::GetNormalImage()
 	{
 		return m_diNormal.sDrawString;
 	}
 
-	void CButtonUI::SetNormalImage(LPCTSTR pStrImage)
+	void CButtonUI::SetNormalImage(LPCWSTR pStrImage)
 	{
 		if( m_diNormal.sDrawString == pStrImage && m_diNormal.pImageInfo != NULL ) return;
 		m_diNormal.Clear();
@@ -217,12 +218,12 @@ namespace Zuilib
 		Invalidate();
 	}
 
-	LPCTSTR CButtonUI::GetHotImage()
+	LPCWSTR CButtonUI::GetHotImage()
 	{
 		return m_diHot.sDrawString;
 	}
 
-	void CButtonUI::SetHotImage(LPCTSTR pStrImage)
+	void CButtonUI::SetHotImage(LPCWSTR pStrImage)
 	{
 		if( m_diHot.sDrawString == pStrImage && m_diHot.pImageInfo != NULL ) return;
 		m_diHot.Clear();
@@ -230,12 +231,12 @@ namespace Zuilib
 		Invalidate();
 	}
 
-	LPCTSTR CButtonUI::GetPushedImage()
+	LPCWSTR CButtonUI::GetPushedImage()
 	{
 		return m_diPushed.sDrawString;
 	}
 
-	void CButtonUI::SetPushedImage(LPCTSTR pStrImage)
+	void CButtonUI::SetPushedImage(LPCWSTR pStrImage)
 	{
 		if( m_diPushed.sDrawString == pStrImage && m_diPushed.pImageInfo != NULL ) return;
 		m_diPushed.Clear();
@@ -243,12 +244,12 @@ namespace Zuilib
 		Invalidate();
 	}
 
-	LPCTSTR CButtonUI::GetFocusedImage()
+	LPCWSTR CButtonUI::GetFocusedImage()
 	{
 		return m_diFocused.sDrawString;
 	}
 
-	void CButtonUI::SetFocusedImage(LPCTSTR pStrImage)
+	void CButtonUI::SetFocusedImage(LPCWSTR pStrImage)
 	{
 		if( m_diFocused.sDrawString == pStrImage && m_diFocused.pImageInfo != NULL ) return;
 		m_diFocused.Clear();
@@ -256,12 +257,12 @@ namespace Zuilib
 		Invalidate();
 	}
 
-	LPCTSTR CButtonUI::GetDisabledImage()
+	LPCWSTR CButtonUI::GetDisabledImage()
 	{
 		return m_diDisabled.sDrawString;
 	}
 
-	void CButtonUI::SetDisabledImage(LPCTSTR pStrImage)
+	void CButtonUI::SetDisabledImage(LPCWSTR pStrImage)
 	{
 		if( m_diDisabled.sDrawString == pStrImage && m_diDisabled.pImageInfo != NULL ) return;
 		m_diDisabled.Clear();
@@ -269,12 +270,12 @@ namespace Zuilib
 		Invalidate();
 	}
 
-	LPCTSTR CButtonUI::GetForeImage()
+	LPCWSTR CButtonUI::GetForeImage()
 	{
 		return m_diFore.sDrawString;
 	}
 
-	void CButtonUI::SetForeImage( LPCTSTR pStrImage )
+	void CButtonUI::SetForeImage( LPCWSTR pStrImage )
 	{
 		if( m_diFore.sDrawString == pStrImage && m_diFore.pImageInfo != NULL ) return;
 		m_diFore.Clear();
@@ -282,12 +283,12 @@ namespace Zuilib
 		Invalidate();
 	}
 
-	LPCTSTR CButtonUI::GetHotForeImage()
+	LPCWSTR CButtonUI::GetHotForeImage()
 	{
 		return m_diHotFore.sDrawString;
 	}
 
-	void CButtonUI::SetHotForeImage( LPCTSTR pStrImage )
+	void CButtonUI::SetHotForeImage( LPCWSTR pStrImage )
 	{
 		if( m_diHotFore.sDrawString == pStrImage && m_diHotFore.pImageInfo != NULL ) return;
 		m_diHotFore.Clear();
@@ -295,7 +296,7 @@ namespace Zuilib
 		Invalidate();
 	}
 
-	void CButtonUI::SetFiveStatusImage(LPCTSTR pStrImage)
+	void CButtonUI::SetFiveStatusImage(LPCWSTR pStrImage)
 	{
 		m_diNormal.Clear();
 		m_diNormal.sDrawString = pStrImage;
@@ -365,7 +366,7 @@ namespace Zuilib
 		return CControlUI::EstimateSize(szAvailable);
 	}
 
-	void CButtonUI::SetAttribute(LPCTSTR pstrName, LPCTSTR pstrValue)
+	void CButtonUI::SetAttribute(LPCWSTR pstrName, LPCWSTR pstrValue)
 	{
 		if( _tcscmp(pstrName, _T("normalimage")) == 0 ) SetNormalImage(pstrValue);
 		else if( _tcscmp(pstrName, _T("hotimage")) == 0 ) SetHotImage(pstrValue);

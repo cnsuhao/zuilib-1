@@ -30,12 +30,12 @@ class ZUILIB_API CMarkup
 {
     friend class CMarkupNode;
 public:
-    CMarkup(LPCTSTR pstrXML = NULL);
+    CMarkup(LPCWSTR pstrXML = NULL);
     ~CMarkup();
 
-    bool Load(LPCTSTR pstrXML);
+    bool Load(LPCWSTR pstrXML);
     bool LoadFromMem(BYTE* pByte, DWORD dwSize, int encoding = XMLFILE_ENCODING_UTF8);
-    bool LoadFromFile(LPCTSTR pstrFilename, int encoding = XMLFILE_ENCODING_UTF8);
+    bool LoadFromFile(LPCWSTR pstrFilename, int encoding = XMLFILE_ENCODING_UTF8);
     void Release();
     bool IsValid() const;
 
@@ -61,8 +61,8 @@ private:
     XMLELEMENT* m_pElements;	//保存XMLELEMENT类型的节点元素信息的缓冲区，事实上可能有部分未预料的存储空间；
     ULONG m_nElements;			//实际的保存m_pElements中有效的节点元素数
     ULONG m_nReservedElements;	//预留的m_pElements缓冲区空间大小
-    TCHAR m_szErrorMsg[100];
-    TCHAR m_szErrorXML[50];
+    WCHAR m_szErrorMsg[100];
+    WCHAR m_szErrorXML[50];
     bool m_bPreserveWhitespace;
 
 private:
@@ -70,13 +70,13 @@ private:
     bool _Parse(LPTSTR& pstrText, ULONG iParent);
     XMLELEMENT* _ReserveElement();
     inline void _SkipWhitespace(LPTSTR& pstr) const;
-    inline void _SkipWhitespace(LPCTSTR& pstr) const;
+    inline void _SkipWhitespace(LPCWSTR& pstr) const;
     inline void _SkipIdentifier(LPTSTR& pstr) const;
-    inline void _SkipIdentifier(LPCTSTR& pstr) const;
+    inline void _SkipIdentifier(LPCWSTR& pstr) const;
     bool _ParseData(LPTSTR& pstrText, LPTSTR& pstrData, char cEnd);
     void _ParseMetaChar(LPTSTR& pstrText, LPTSTR& pstrDest);
     bool _ParseAttributes(LPTSTR& pstrText);
-    bool _Failed(LPCTSTR pstrError, LPCTSTR pstrLocation = NULL);
+    bool _Failed(LPCWSTR pstrError, LPCWSTR pstrLocation = NULL);
 };
 
 
@@ -94,21 +94,21 @@ public:
     CMarkupNode GetParent();
     CMarkupNode GetSibling();
     CMarkupNode GetChild();
-    CMarkupNode GetChild(LPCTSTR pstrName);
+    CMarkupNode GetChild(LPCWSTR pstrName);
 
     bool HasSiblings() const;
     bool HasChildren() const;
-    LPCTSTR GetName() const;
-    LPCTSTR GetValue() const;
+    LPCWSTR GetName() const;
+    LPCWSTR GetValue() const;
 
     bool HasAttributes();
-    bool HasAttribute(LPCTSTR pstrName);
+    bool HasAttribute(LPCWSTR pstrName);
     int GetAttributeCount();
-    LPCTSTR GetAttributeName(int iIndex);
-    LPCTSTR GetAttributeValue(int iIndex);
-    LPCTSTR GetAttributeValue(LPCTSTR pstrName);
+    LPCWSTR GetAttributeName(int iIndex);
+    LPCWSTR GetAttributeValue(int iIndex);
+    LPCWSTR GetAttributeValue(LPCWSTR pstrName);
     bool GetAttributeValue(int iIndex, LPTSTR pstrValue, SIZE_T cchMax);
-    bool GetAttributeValue(LPCTSTR pstrName, LPTSTR pstrValue, SIZE_T cchMax);
+    bool GetAttributeValue(LPCWSTR pstrName, LPTSTR pstrValue, SIZE_T cchMax);
 
 private:
     void _MapAttributes();

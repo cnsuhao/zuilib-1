@@ -29,12 +29,12 @@ CScrollBarUI::CScrollBarUI() :
 	::ZeroMemory(&m_rcButton2, sizeof(m_rcButton2));
 }
 
-LPCTSTR CScrollBarUI::GetClass() const
+LPCWSTR CScrollBarUI::GetClass() const
 {
 	return DUI_CTR_SCROLLBAR;
 }
 
-LPVOID CScrollBarUI::GetInterface(LPCTSTR pstrName)
+LPVOID CScrollBarUI::GetInterface(LPCWSTR pstrName)
 {
 	if( _tcscmp(pstrName, DUI_CTR_SCROLLBAR) == 0 ) return static_cast<CScrollBarUI*>(this);
 	return CControlUI::GetInterface(pstrName);
@@ -187,12 +187,12 @@ void CScrollBarUI::SetButton1Color(DWORD dwColor)
 	Invalidate();
 }
 
-LPCTSTR CScrollBarUI::GetButton1NormalImage()
+LPCWSTR CScrollBarUI::GetButton1NormalImage()
 {
 	return m_diButton1Normal.sDrawString;
 }
 
-void CScrollBarUI::SetButton1NormalImage(LPCTSTR pStrImage)
+void CScrollBarUI::SetButton1NormalImage(LPCWSTR pStrImage)
 {
 	if( m_diButton1Normal.sDrawString == pStrImage && m_diButton1Normal.pImageInfo != NULL ) return;
 	m_diButton1Normal.Clear();
@@ -200,12 +200,12 @@ void CScrollBarUI::SetButton1NormalImage(LPCTSTR pStrImage)
 	Invalidate();
 }
 
-LPCTSTR CScrollBarUI::GetButton1HotImage()
+LPCWSTR CScrollBarUI::GetButton1HotImage()
 {
 	return m_diButton1Hot.sDrawString;
 }
 
-void CScrollBarUI::SetButton1HotImage(LPCTSTR pStrImage)
+void CScrollBarUI::SetButton1HotImage(LPCWSTR pStrImage)
 {
 	if( m_diButton1Hot.sDrawString == pStrImage && m_diButton1Hot.pImageInfo != NULL ) return;
 	m_diButton1Hot.Clear();
@@ -213,12 +213,12 @@ void CScrollBarUI::SetButton1HotImage(LPCTSTR pStrImage)
 	Invalidate();
 }
 
-LPCTSTR CScrollBarUI::GetButton1PushedImage()
+LPCWSTR CScrollBarUI::GetButton1PushedImage()
 {
 	return m_diButton1Pushed.sDrawString;
 }
 
-void CScrollBarUI::SetButton1PushedImage(LPCTSTR pStrImage)
+void CScrollBarUI::SetButton1PushedImage(LPCWSTR pStrImage)
 {
 	if( m_diButton1Pushed.sDrawString == pStrImage && m_diButton1Pushed.pImageInfo != NULL ) return;
 	m_diButton1Pushed.Clear();
@@ -226,12 +226,12 @@ void CScrollBarUI::SetButton1PushedImage(LPCTSTR pStrImage)
 	Invalidate();
 }
 
-LPCTSTR CScrollBarUI::GetButton1DisabledImage()
+LPCWSTR CScrollBarUI::GetButton1DisabledImage()
 {
 	return m_diButton1Disabled.sDrawString;
 }
 
-void CScrollBarUI::SetButton1DisabledImage(LPCTSTR pStrImage)
+void CScrollBarUI::SetButton1DisabledImage(LPCWSTR pStrImage)
 {
 	if( m_diButton1Disabled.sDrawString == pStrImage && m_diButton1Disabled.pImageInfo != NULL ) return;
 	m_diButton1Disabled.Clear();
@@ -262,12 +262,12 @@ void CScrollBarUI::SetButton2Color(DWORD dwColor)
 	Invalidate();
 }
 
-LPCTSTR CScrollBarUI::GetButton2NormalImage()
+LPCWSTR CScrollBarUI::GetButton2NormalImage()
 {
 	return m_diButton2Normal.sDrawString;
 }
 
-void CScrollBarUI::SetButton2NormalImage(LPCTSTR pStrImage)
+void CScrollBarUI::SetButton2NormalImage(LPCWSTR pStrImage)
 {
 	if( m_diButton2Normal.sDrawString == pStrImage && m_diButton2Normal.pImageInfo != NULL ) return;
 	m_diButton2Normal.Clear();
@@ -275,12 +275,12 @@ void CScrollBarUI::SetButton2NormalImage(LPCTSTR pStrImage)
 	Invalidate();
 }
 
-LPCTSTR CScrollBarUI::GetButton2HotImage()
+LPCWSTR CScrollBarUI::GetButton2HotImage()
 {
 	return m_diButton2Hot.sDrawString;
 }
 
-void CScrollBarUI::SetButton2HotImage(LPCTSTR pStrImage)
+void CScrollBarUI::SetButton2HotImage(LPCWSTR pStrImage)
 {
 	if( m_diButton2Hot.sDrawString == pStrImage && m_diButton2Hot.pImageInfo != NULL ) return;
 	m_diButton2Hot.Clear();
@@ -288,12 +288,12 @@ void CScrollBarUI::SetButton2HotImage(LPCTSTR pStrImage)
 	Invalidate();
 }
 
-LPCTSTR CScrollBarUI::GetButton2PushedImage()
+LPCWSTR CScrollBarUI::GetButton2PushedImage()
 {
 	return m_diButton2Pushed.sDrawString;
 }
 
-void CScrollBarUI::SetButton2PushedImage(LPCTSTR pStrImage)
+void CScrollBarUI::SetButton2PushedImage(LPCWSTR pStrImage)
 {
 	if( m_diButton2Pushed.sDrawString == pStrImage && m_diButton2Pushed.pImageInfo != NULL ) return;
 	m_diButton2Pushed.Clear();
@@ -301,12 +301,12 @@ void CScrollBarUI::SetButton2PushedImage(LPCTSTR pStrImage)
 	Invalidate();
 }
 
-LPCTSTR CScrollBarUI::GetButton2DisabledImage()
+LPCWSTR CScrollBarUI::GetButton2DisabledImage()
 {
 	return m_diButton2Disabled.sDrawString;
 }
 
-void CScrollBarUI::SetButton2DisabledImage(LPCTSTR pStrImage)
+void CScrollBarUI::SetButton2DisabledImage(LPCWSTR pStrImage)
 {
 	if( m_diButton2Disabled.sDrawString == pStrImage && m_diButton2Disabled.pImageInfo != NULL ) return;
 	m_diButton2Disabled.Clear();
@@ -326,12 +326,12 @@ void CScrollBarUI::SetThumbColor(DWORD dwColor)
 	Invalidate();
 }
 
-LPCTSTR CScrollBarUI::GetThumbNormalImage()
+LPCWSTR CScrollBarUI::GetThumbNormalImage()
 {
 	return m_diThumbNormal.sDrawString;
 }
 
-void CScrollBarUI::SetThumbNormalImage(LPCTSTR pStrImage)
+void CScrollBarUI::SetThumbNormalImage(LPCWSTR pStrImage)
 {
 	if( m_diThumbNormal.sDrawString == pStrImage && m_diThumbNormal.pImageInfo != NULL ) return;
 	m_diThumbNormal.Clear();
@@ -339,12 +339,12 @@ void CScrollBarUI::SetThumbNormalImage(LPCTSTR pStrImage)
 	Invalidate();
 }
 
-LPCTSTR CScrollBarUI::GetThumbHotImage()
+LPCWSTR CScrollBarUI::GetThumbHotImage()
 {
 	return m_diThumbHot.sDrawString;
 }
 
-void CScrollBarUI::SetThumbHotImage(LPCTSTR pStrImage)
+void CScrollBarUI::SetThumbHotImage(LPCWSTR pStrImage)
 {
 	if( m_diThumbHot.sDrawString == pStrImage && m_diThumbHot.pImageInfo != NULL ) return;
 	m_diThumbHot.Clear();
@@ -352,12 +352,12 @@ void CScrollBarUI::SetThumbHotImage(LPCTSTR pStrImage)
 	Invalidate();
 }
 
-LPCTSTR CScrollBarUI::GetThumbPushedImage()
+LPCWSTR CScrollBarUI::GetThumbPushedImage()
 {
 	return m_diThumbPushed.sDrawString;
 }
 
-void CScrollBarUI::SetThumbPushedImage(LPCTSTR pStrImage)
+void CScrollBarUI::SetThumbPushedImage(LPCWSTR pStrImage)
 {
 	if( m_diThumbPushed.sDrawString == pStrImage && m_diThumbPushed.pImageInfo != NULL ) return;
 	m_diThumbPushed.Clear();
@@ -365,12 +365,12 @@ void CScrollBarUI::SetThumbPushedImage(LPCTSTR pStrImage)
 	Invalidate();
 }
 
-LPCTSTR CScrollBarUI::GetThumbDisabledImage()
+LPCWSTR CScrollBarUI::GetThumbDisabledImage()
 {
 	return m_diThumbDisabled.sDrawString;
 }
 
-void CScrollBarUI::SetThumbDisabledImage(LPCTSTR pStrImage)
+void CScrollBarUI::SetThumbDisabledImage(LPCWSTR pStrImage)
 {
 	if( m_diThumbDisabled.sDrawString == pStrImage && m_diThumbDisabled.pImageInfo != NULL ) return;
 	m_diThumbDisabled.Clear();
@@ -378,12 +378,12 @@ void CScrollBarUI::SetThumbDisabledImage(LPCTSTR pStrImage)
 	Invalidate();
 }
 
-LPCTSTR CScrollBarUI::GetRailNormalImage()
+LPCWSTR CScrollBarUI::GetRailNormalImage()
 {
 	return m_diRailNormal.sDrawString;
 }
 
-void CScrollBarUI::SetRailNormalImage(LPCTSTR pStrImage)
+void CScrollBarUI::SetRailNormalImage(LPCWSTR pStrImage)
 {
 	if( m_diRailNormal.sDrawString == pStrImage && m_diRailNormal.pImageInfo != NULL ) return;
 	m_diRailNormal.Clear();
@@ -391,12 +391,12 @@ void CScrollBarUI::SetRailNormalImage(LPCTSTR pStrImage)
 	Invalidate();
 }
 
-LPCTSTR CScrollBarUI::GetRailHotImage()
+LPCWSTR CScrollBarUI::GetRailHotImage()
 {
 	return m_diRailHot.sDrawString;
 }
 
-void CScrollBarUI::SetRailHotImage(LPCTSTR pStrImage)
+void CScrollBarUI::SetRailHotImage(LPCWSTR pStrImage)
 {
 	if( m_diRailHot.sDrawString == pStrImage && m_diRailHot.pImageInfo != NULL ) return;
 	m_diRailHot.Clear();
@@ -404,12 +404,12 @@ void CScrollBarUI::SetRailHotImage(LPCTSTR pStrImage)
 	Invalidate();
 }
 
-LPCTSTR CScrollBarUI::GetRailPushedImage()
+LPCWSTR CScrollBarUI::GetRailPushedImage()
 {
 	return m_diRailPushed.sDrawString;
 }
 
-void CScrollBarUI::SetRailPushedImage(LPCTSTR pStrImage)
+void CScrollBarUI::SetRailPushedImage(LPCWSTR pStrImage)
 {
 	if( m_diRailPushed.sDrawString == pStrImage && m_diRailPushed.pImageInfo != NULL ) return;
 	m_diRailPushed.Clear();
@@ -417,12 +417,12 @@ void CScrollBarUI::SetRailPushedImage(LPCTSTR pStrImage)
 	Invalidate();
 }
 
-LPCTSTR CScrollBarUI::GetRailDisabledImage()
+LPCWSTR CScrollBarUI::GetRailDisabledImage()
 {
 	return m_diRailDisabled.sDrawString;
 }
 
-void CScrollBarUI::SetRailDisabledImage(LPCTSTR pStrImage)
+void CScrollBarUI::SetRailDisabledImage(LPCWSTR pStrImage)
 {
 	if( m_diRailDisabled.sDrawString == pStrImage && m_diRailDisabled.pImageInfo != NULL ) return;
 	m_diRailDisabled.Clear();
@@ -430,12 +430,12 @@ void CScrollBarUI::SetRailDisabledImage(LPCTSTR pStrImage)
 	Invalidate();
 }
 
-LPCTSTR CScrollBarUI::GetBkNormalImage()
+LPCWSTR CScrollBarUI::GetBkNormalImage()
 {
 	return m_diBkNormal.sDrawString;
 }
 
-void CScrollBarUI::SetBkNormalImage(LPCTSTR pStrImage)
+void CScrollBarUI::SetBkNormalImage(LPCWSTR pStrImage)
 {
 	if( m_diBkNormal.sDrawString == pStrImage && m_diBkNormal.pImageInfo != NULL ) return;
 	m_diBkNormal.Clear();
@@ -443,12 +443,12 @@ void CScrollBarUI::SetBkNormalImage(LPCTSTR pStrImage)
 	Invalidate();
 }
 
-LPCTSTR CScrollBarUI::GetBkHotImage()
+LPCWSTR CScrollBarUI::GetBkHotImage()
 {
 	return m_diBkHot.sDrawString;
 }
 
-void CScrollBarUI::SetBkHotImage(LPCTSTR pStrImage)
+void CScrollBarUI::SetBkHotImage(LPCWSTR pStrImage)
 {
 	if( m_diBkHot.sDrawString == pStrImage && m_diBkHot.pImageInfo != NULL ) return;
 	m_diBkHot.Clear();
@@ -456,12 +456,12 @@ void CScrollBarUI::SetBkHotImage(LPCTSTR pStrImage)
 	Invalidate();
 }
 
-LPCTSTR CScrollBarUI::GetBkPushedImage()
+LPCWSTR CScrollBarUI::GetBkPushedImage()
 {
 	return m_diBkPushed.sDrawString;
 }
 
-void CScrollBarUI::SetBkPushedImage(LPCTSTR pStrImage)
+void CScrollBarUI::SetBkPushedImage(LPCWSTR pStrImage)
 {
 	if( m_diBkPushed.sDrawString == pStrImage && m_diBkPushed.pImageInfo != NULL ) return;
 	m_diBkPushed.Clear();
@@ -469,12 +469,12 @@ void CScrollBarUI::SetBkPushedImage(LPCTSTR pStrImage)
 	Invalidate();
 }
 
-LPCTSTR CScrollBarUI::GetBkDisabledImage()
+LPCWSTR CScrollBarUI::GetBkDisabledImage()
 {
 	return m_diBkDisabled.sDrawString;
 }
 
-void CScrollBarUI::SetBkDisabledImage(LPCTSTR pStrImage)
+void CScrollBarUI::SetBkDisabledImage(LPCWSTR pStrImage)
 {
 	if( m_diBkDisabled.sDrawString == pStrImage && m_diBkDisabled.pImageInfo != NULL ) return;
 	m_diBkDisabled.Clear();
@@ -875,7 +875,7 @@ void CScrollBarUI::DoEvent(TEventUI& event)
 	if( m_pOwner != NULL ) m_pOwner->DoEvent(event); else CControlUI::DoEvent(event);
 }
 
-void CScrollBarUI::SetAttribute(LPCTSTR pstrName, LPCTSTR pstrValue)
+void CScrollBarUI::SetAttribute(LPCWSTR pstrName, LPCWSTR pstrValue)
 {
 	if( _tcscmp(pstrName, _T("button1color")) == 0 ) {
 		while( *pstrValue > _T('\0') && *pstrValue <= _T(' ') ) pstrValue = ::CharNext(pstrValue);

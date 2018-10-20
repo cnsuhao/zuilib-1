@@ -13,21 +13,21 @@ namespace Zuilib
 	public:
 		CEditUI();
 
-		LPCTSTR GetClass() const;
-		LPVOID GetInterface(LPCTSTR pstrName);
+		LPCWSTR GetClass() const;
+		LPVOID GetInterface(LPCWSTR pstrName);
 		UINT GetControlFlags() const;
 		HWND GetNativeWindow() const;
 
 		void SetEnabled(bool bEnable = true);
-		void SetText(LPCTSTR pstrText);
+		void SetText(LPCWSTR pstrText);
 		void SetMaxChar(UINT uMax);
 		UINT GetMaxChar();
 		void SetReadOnly(bool bReadOnly);
 		bool IsReadOnly() const;
 		void SetPasswordMode(bool bPasswordMode);
 		bool IsPasswordMode() const;
-		void SetPasswordChar(TCHAR cPasswordChar);
-		TCHAR GetPasswordChar() const;
+		void SetPasswordChar(WCHAR cPasswordChar);
+		WCHAR GetPasswordChar() const;
 		bool IsAutoSelAll();
 		void SetAutoSelAll(bool bAutoSelAll);
 		void SetNumberOnly(bool bNumberOnly);
@@ -35,20 +35,20 @@ namespace Zuilib
 		int GetWindowStyls() const;
 		HWND GetNativeEditHWND() const;
 
-		LPCTSTR GetNormalImage();
-		void SetNormalImage(LPCTSTR pStrImage);
-		LPCTSTR GetHotImage();
-		void SetHotImage(LPCTSTR pStrImage);
-		LPCTSTR GetFocusedImage();
-		void SetFocusedImage(LPCTSTR pStrImage);
-		LPCTSTR GetDisabledImage();
-		void SetDisabledImage(LPCTSTR pStrImage);
+		LPCWSTR GetNormalImage();
+		void SetNormalImage(LPCWSTR pStrImage);
+		LPCWSTR GetHotImage();
+		void SetHotImage(LPCWSTR pStrImage);
+		LPCWSTR GetFocusedImage();
+		void SetFocusedImage(LPCWSTR pStrImage);
+		LPCWSTR GetDisabledImage();
+		void SetDisabledImage(LPCWSTR pStrImage);
 		void SetNativeEditBkColor(DWORD dwBkColor);
 		DWORD GetNativeEditBkColor() const;
 
 		void SetSel(long nStartChar, long nEndChar);
 		void SetSelAll();
-		void SetReplaceSel(LPCTSTR lpszReplace);
+		void SetReplaceSel(LPCWSTR lpszReplace);
 
 		void SetPos(RECT rc, bool bNeedInvalidate = true);
 		void Move(SIZE szOffset, bool bNeedInvalidate = true);
@@ -56,7 +56,7 @@ namespace Zuilib
 		void SetInternVisible(bool bVisible = true);
 		SIZE EstimateSize(SIZE szAvailable);
 		void DoEvent(TEventUI& event);
-		void SetAttribute(LPCTSTR pstrName, LPCTSTR pstrValue);
+		void SetAttribute(LPCWSTR pstrName, LPCWSTR pstrValue);
 
 		void PaintStatusImage(HDC hDC);
 		void PaintText(HDC hDC);
@@ -68,7 +68,7 @@ namespace Zuilib
 		bool m_bReadOnly;
 		bool m_bPasswordMode;
 		bool m_bAutoSelAll;
-		TCHAR m_cPasswordChar;
+		WCHAR m_cPasswordChar;
 		UINT m_uButtonState;
 		DWORD m_dwEditbkColor;
 		int m_iWindowStyls;

@@ -10,9 +10,9 @@ namespace Zuilib
 	public:
 		CSliderUI();
 
-		LPCTSTR GetClass() const;
+		LPCWSTR GetClass() const;
 		UINT GetControlFlags() const;
-		LPVOID GetInterface(LPCTSTR pstrName);
+		LPVOID GetInterface(LPCWSTR pstrName);
 
 		void SetEnabled(bool bEnable = true);
 
@@ -22,15 +22,15 @@ namespace Zuilib
 		RECT GetThumbRect() const;
 		bool IsImmMode() const;
 		void SetImmMode(bool bImmMode);
-		LPCTSTR GetThumbImage() const;
-		void SetThumbImage(LPCTSTR pStrImage);
-		LPCTSTR GetThumbHotImage() const;
-		void SetThumbHotImage(LPCTSTR pStrImage);
-		LPCTSTR GetThumbPushedImage() const;
-		void SetThumbPushedImage(LPCTSTR pStrImage);
+		LPCWSTR GetThumbImage() const;
+		void SetThumbImage(LPCWSTR pStrImage);
+		LPCWSTR GetThumbHotImage() const;
+		void SetThumbHotImage(LPCWSTR pStrImage);
+		LPCWSTR GetThumbPushedImage() const;
+		void SetThumbPushedImage(LPCWSTR pStrImage);
 
 		void DoEvent(TEventUI& event);
-		void SetAttribute(LPCTSTR pstrName, LPCTSTR pstrValue);
+		void SetAttribute(LPCWSTR pstrName, LPCWSTR pstrValue);
 		void PaintStatusImage(HDC hDC);
 
 	protected:
