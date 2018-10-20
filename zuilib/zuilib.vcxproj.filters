@@ -284,9 +284,6 @@
     <ClCompile Include="Utils\XUnzip.cpp">
       <Filter>源文件\Utils</Filter>
     </ClCompile>
-    <ClCompile Include="Utils\stb_image.c">
-      <Filter>源文件\Utils</Filter>
-    </ClCompile>
     <ClCompile Include="Utils\WndShadow.cpp">
       <Filter>源文件\Utils</Filter>
     </ClCompile>
