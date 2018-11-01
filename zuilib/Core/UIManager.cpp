@@ -1,4 +1,4 @@
-#include "StdAfx.h"
+ï»¿#include "StdAfx.h"
 #include <zmouse.h>
 #include <stdlib.h>
 
@@ -248,6 +248,36 @@ CDuiString CPaintManagerUI::GetCurrentPath()
     WCHAR tszModule[MAX_PATH + 1] = { 0 };
     ::GetCurrentDirectory(MAX_PATH, tszModule);
     return tszModule;
+}
+
+Zuilib::CDuiString CPaintManagerUI::GetParentDir(LPCWSTR pStrPath)
+{
+	
+	WCHAR tszModule[MAX_PATH + 1] = { 0 };
+	int i, last = -1;
+	for (i = 0; pStrPath[i] != L'\0'; i++){
+		if (pStrPath[i] == L'/' || pStrPath[i] == L'\\')
+			last = i;
+	}
+	if (last >= 0){
+		memcpy(tszModule, pStrPath, last * sizeof(WCHAR));
+		tszModule[last] = L'\0';
+	}
+	else{
+		tszModule[0] = L'\0';
+	}
+
+	WCHAR szModuleFileName[MAX_PATH] = { 0 };//Â å…¨è·¯å¾„åÂ 
+	WCHAR drive[_MAX_DRIVE] = { 0 };		 //Â ç›˜ç¬¦åç§°
+	WCHAR dir[_MAX_DIR] = { 0 };			 //Â ç›®å½•Â 
+	WCHAR fname[_MAX_FNAME] = { 0 };		 //Â è¿›ç¨‹åå­—Â 
+	WCHAR ext[_MAX_EXT] = { 0 };			 // åç¼€ï¼Œä¸€èˆ¬ä¸ºexeæˆ–è€…æ˜¯dllÂ 
+	//åˆ†å‰²è¯¥è·¯å¾„ï¼Œå¾—åˆ°ç›˜ç¬¦ï¼Œç›®å½•ï¼Œæ–‡ä»¶åï¼Œåç¼€å
+	errno_t err = _tsplitpath_s(tszModule,drive,dir,fname,ext);
+	CDuiString parentDir(drive);
+	parentDir += dir;
+
+	return parentDir;
 }
 
 HINSTANCE CPaintManagerUI::GetResourceDll()
@@ -1199,7 +1229,7 @@ bool CPaintManagerUI::MessageHandler(UINT uMsg, WPARAM wParam, LPARAM lParam, LR
                 ::SendMessage(m_hwndTooltip, TTM_TRACKACTIVATE, TRUE, (LPARAM)&m_ToolTip);
 
             }
-            // by jiangdong 2016-8-6 ĞŞ¸Ätooltip ĞüÍ£Ê±ºò ÉÁË¸bug
+            // by jiangdong 2016-8-6 ä¿®æ”¹tooltip æ‚¬åœæ—¶å€™ é—ªçƒbug
             if (m_pLastToolTip == NULL) {
                 m_pLastToolTip = pHover;
             }
@@ -1219,7 +1249,7 @@ bool CPaintManagerUI::MessageHandler(UINT uMsg, WPARAM wParam, LPARAM lParam, LR
                     ::SendMessage(m_hwndTooltip, TTM_TRACKACTIVATE, TRUE, (LPARAM)&m_ToolTip);
                 }
             }
-            //ĞŞ¸ÄÔÚCListElementUI ÓĞÌáÊ¾ ×ÓÏîÎŞÌáÊ¾ÏÂÎŞ·¨¸úËæÒÆ¶¯£¡£¨°´ÀíËµ²»Ó¦¸ÃÒÆ¶¯µÄ£©
+            //ä¿®æ”¹åœ¨CListElementUI æœ‰æç¤º å­é¡¹æ— æç¤ºä¸‹æ— æ³•è·Ÿéšç§»åŠ¨ï¼ï¼ˆæŒ‰ç†è¯´ä¸åº”è¯¥ç§»åŠ¨çš„ï¼‰
             ::SendMessage(m_hwndTooltip, TTM_TRACKPOSITION, 0, (LPARAM)(DWORD)MAKELONG(pt.x, pt.y));
     }
         return true;
@@ -1367,12 +1397,12 @@ bool CPaintManagerUI::MessageHandler(UINT uMsg, WPARAM wParam, LPARAM lParam, LR
             event.wKeyState = (WORD)wParam;
             event.dwTimestamp = ::GetTickCount();
 			// By daviyang35 at 2015-6-5 16:10:13
-			// ÔÚClickÊÂ¼şÖĞµ¯³öÁËÄ£Ì¬¶Ô»°¿ò£¬ÍË³ö½×¶Î´°¿ÚÊµÀı¿ÉÄÜÒÑ¾­É¾³ı
-			// this³ÉÔ±ÊôĞÔ¸³Öµ½«»áµ¼ÖÂheap´íÎó
-			// this³ÉÔ±º¯Êıµ÷ÓÃ½«»áµ¼ÖÂÒ°Ö¸ÕëÒì³£
-			// Ê¹ÓÃÕ»ÉÏµÄ³ÉÔ±À´µ÷ÓÃÏìÓ¦£¬ÌáÇ°Çå¿Õ³ÉÔ±
-			// µ±×èÈûµÄÄ£Ì¬´°¿Ú·µ»ØÊ±£¬»ØÕ»½×¶Î²»·ÃÎÊÈÎºÎÀàÊµÀı·½·¨»òÊôĞÔ
-			// ½«²»»á´¥·¢Òì³£
+			// åœ¨Clickäº‹ä»¶ä¸­å¼¹å‡ºäº†æ¨¡æ€å¯¹è¯æ¡†ï¼Œé€€å‡ºé˜¶æ®µçª—å£å®ä¾‹å¯èƒ½å·²ç»åˆ é™¤
+			// thisæˆå‘˜å±æ€§èµ‹å€¼å°†ä¼šå¯¼è‡´heapé”™è¯¯
+			// thisæˆå‘˜å‡½æ•°è°ƒç”¨å°†ä¼šå¯¼è‡´é‡æŒ‡é’ˆå¼‚å¸¸
+			// ä½¿ç”¨æ ˆä¸Šçš„æˆå‘˜æ¥è°ƒç”¨å“åº”ï¼Œæå‰æ¸…ç©ºæˆå‘˜
+			// å½“é˜»å¡çš„æ¨¡æ€çª—å£è¿”å›æ—¶ï¼Œå›æ ˆé˜¶æ®µä¸è®¿é—®ä»»ä½•ç±»å®ä¾‹æ–¹æ³•æˆ–å±æ€§
+			// å°†ä¸ä¼šè§¦å‘å¼‚å¸¸
 			CControlUI* pClick = m_pEventClick;
 			m_pEventClick = NULL;
             pClick->Event(event);
@@ -2751,7 +2781,7 @@ const TImageInfo* CPaintManagerUI::AddImage(LPCWSTR bitmap, LPCWSTR type, DWORD 
 
 const TImageInfo* CPaintManagerUI::AddImage(LPCWSTR bitmap, HBITMAP hBitmap, int iWidth, int iHeight, bool bAlpha, bool bShared)
 {
-	// ÒòÎŞ·¨È·¶¨Íâ²¿HBITMAP¸ñÊ½£¬²»ÄÜÊ¹ÓÃhslµ÷Õû
+	// å› æ— æ³•ç¡®å®šå¤–éƒ¨HBITMAPæ ¼å¼ï¼Œä¸èƒ½ä½¿ç”¨hslè°ƒæ•´
 	if( bitmap == NULL || bitmap[0] == _T('\0') ) return NULL;
     if( hBitmap == NULL || iWidth <= 0 || iHeight <= 0 ) return NULL;
 
@@ -3509,7 +3539,7 @@ bool CPaintManagerUI::TranslateMessage(const LPMSG pMsg)
 	if (uChildRes != 0)
 	{
 		HWND hWndParent = ::GetParent(pMsg->hwnd);
-		//code by redrain 2014.12.3,½â¾öeditºÍwebbrowser°´tabÎŞ·¨ÇĞ»»½¹µãµÄbug
+		//code by redrain 2014.12.3,è§£å†³editå’ŒwebbrowseræŒ‰tabæ— æ³•åˆ‡æ¢ç„¦ç‚¹çš„bug
 		//		for( int i = 0; i < m_aPreMessages.GetSize(); i++ ) 
 		for( int i = m_aPreMessages.GetSize() - 1; i >= 0 ; --i ) 
 		{

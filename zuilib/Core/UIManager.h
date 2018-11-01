@@ -231,6 +231,7 @@ public:
     static HINSTANCE GetInstance();
     static CDuiString GetInstancePath();
     static CDuiString GetCurrentPath();
+	static CDuiString GetParentDir(LPCWSTR pStrPath);
     static HINSTANCE GetResourceDll();
     static const CDuiString& GetResourcePath();
     static const CDuiString& GetResourceZip();
